@@ -2,5 +2,8 @@
   "extends": ["next/core-web-vitals", "plugin:mdx/recommended"],
   "rules": {
     "react/display-name": "off"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2015
   }
 }
