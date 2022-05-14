@@ -2,6 +2,21 @@ import { useState, useEffect, useRef, forwardRef } from 'react'
 import Link from 'next/link'
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
+const navPages = [
+    {
+        title: "Home",
+        href: "/"
+    },
+    {
+        title: "Projects",
+        href: "/projects"
+    },
+    {
+        title: "Blog",
+        href: "/blog"
+    }
+]
+
 const NavbarButton = forwardRef(({children, href}, ref) => {
     return (
         <Link href={href} >
@@ -21,27 +36,22 @@ const initialHighlightParams = {
 
 const Navbar = ({currentPage}) => {
 
-    const firstButtonRef = useRef();
-    const secondButtonRef = useRef();
-    const thirdButtonRef = useRef();
+    const navButtonsRef = useRef([]);
     const [highlightParams, setHighlightParams] = useState(initialHighlightParams);
+
     useEffect(() => {
-        if (currentPage == '/') {
+        let pageIndex;
+        const page = navPages.find((p, index) => {
+            if(p.href === currentPage) {
+                pageIndex = index;
+                return true
+            }
+        });
+        if (page) {
+            const currentButton = navButtonsRef.current[pageIndex];
             setHighlightParams({
-                left: firstButtonRef.current.offsetLeft,
-                width: firstButtonRef.current.clientWidth,
-            })
-        }
-        else if (currentPage == '/projects') {
-            setHighlightParams({
-                left: secondButtonRef.current.offsetLeft,
-                width: secondButtonRef.current.clientWidth,
-            })
-        }
-        else if (currentPage == '/blog') {
-            setHighlightParams({
-                left: thirdButtonRef.current.offsetLeft,
-                width: thirdButtonRef.current.clientWidth,
+                left: currentButton.offsetLeft,
+                width: currentButton.clientWidth,
             })
         }
         else {
@@ -72,9 +82,12 @@ const Navbar = ({currentPage}) => {
                         }}
                     />
                 </LazyMotion>
-                <NavbarButton ref={firstButtonRef} href="/" >Home</NavbarButton>
-                <NavbarButton ref={secondButtonRef} href="/projects" >Projects</NavbarButton>
-                <NavbarButton ref={thirdButtonRef} href="/blog" >Blog</NavbarButton>
+                {navPages.map((page, index) =>
+                    <NavbarButton key={index} ref={el => navButtonsRef.current[index] = el}
+                        href={page.href} >
+                        {page.title}
+                    </NavbarButton>)
+                }
             </div>
         </div>
     )
