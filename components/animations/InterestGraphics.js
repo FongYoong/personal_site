@@ -16,7 +16,6 @@ const InterestGraphics = ({className, show, progress=0}) => {
         const width = canvasParent.offsetWidth;
         const height = canvasParent.offsetHeight;
         p5.createCanvas(width, height, p5.WEBGL).parent(canvasParent);
-        //p5.frameRate(10);
     };
 
     const windowResized = () => {
@@ -28,9 +27,7 @@ const InterestGraphics = ({className, show, progress=0}) => {
     const draw = (p5) => {
         p5.background(0);
         if (show && progress > 0) {
-            // console.log('draw graphics')
-            // console.log(progress)
-            const width = canvasParentRef.current.offsetWidth;
+            //const width = canvasParentRef.current.offsetWidth;
             const height = canvasParentRef.current.offsetHeight;
             function drawBox(x, y, z, scale, show3D=false) {
                 p5.push();

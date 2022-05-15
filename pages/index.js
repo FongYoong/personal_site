@@ -45,6 +45,8 @@ export default function Home() {
   const [interestMathProgress, setInterestMathProgress] = useState(0);
   const [interestGraphicsProgress, setInterestGraphicsProgress] = useState(0);
   const [interestGraphics3DTitle, setInterestGraphics3DTitle] = useState(false);
+  const showInterestMath = interestMathProgress > 0 && interestGraphicsProgress <= 0.01;
+  const showInterestGraphics = interestGraphicsProgress > 0.01;
 
   useEffect(() => {
     // Setup lax
@@ -232,10 +234,10 @@ export default function Home() {
     lax.addElements(
       ".interestsMathCanvas", {
         interestsScrollY: {
-          translateX: [
-            [2000, 2500],
-            [0, '-screenWidth'],
-          ],
+          // translateX: [
+          //   [2000, 2500],
+          //   [0, '-screenWidth'],
+          // ],
           opacity: [
             [2000, 2500],
             [1, 0],
@@ -401,15 +403,13 @@ export default function Home() {
           <h2 className="interestsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
             My theoretical interests include...
           </h2>
-          <h2 className="interestsMathTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
+          <h2 className={`interestsMathTitle ${showInterestMath? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
             Most kind of math <br />
             <span className='text-center text-sm font-normal' >
               Except boring <a className='underline' href="https://en.wikipedia.org/wiki/Category_theory" target="noopener" >category theory</a>
             </span>
           </h2>
-          <h2
-            className={'interestsGraphicsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold'}
-          >
+          <h2 className={`interestsGraphicsTitle ${showInterestGraphics? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
             <span className={`${interestGraphics3DTitle ? "text-pink-500" : "text-green-500"}`}
               style={{
                 textShadow: interestGraphics3DTitle ? '2px 1px 2px #c377f2' : '0px 0px 0px'
@@ -417,16 +417,16 @@ export default function Home() {
             >
               {interestGraphics3DTitle ? "3D" : "2D"}
             </span>
-            &nbsp;Graphicss
+            &nbsp;Graphics
           </h2>
         </div>
         <div className='relative w-[100%] h-[60%]' >
-          <InterestMath className="interestsMathCanvas absolute w-full h-full"
-            show={interestMathProgress > 0 && interestGraphicsProgress <= 0.01 }
+          <InterestMath className={'interestsMathCanvas absolute w-full h-full'}
+            show={showInterestMath}
             progress={interestMathProgress}
           />
-          <InterestGraphics className="interestsGraphicsCanvas absolute w-full h-full"
-            show={interestGraphicsProgress > 0.01 }
+          <InterestGraphics className={'interestsGraphicsCanvas absolute w-full h-full'}
+            show={showInterestGraphics}
             progress={interestGraphicsProgress}
           />
         </div>

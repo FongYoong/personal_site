@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
   ssr: false,
@@ -9,12 +9,18 @@ const InterestMath = ({className, show, progress=0}) => {
     const p5InstanceRef = useRef();
     const canvasParentRef = useRef();
 
-    const xSpacing = 50 * (1 - 0.6 * progress);
-    const ySpacing = 50 * (1 - 0.6 * progress);
+    const xSpacing = 50 * (1 - 0.6 * progress); // 50
+    const ySpacing = 50 * (1 - 0.6 * progress); // 50
     const axisX = 10;
     const axisY = 10;
     const zoomThreshold = 0.4;
-    let angle = 0;
+    //let angle = 0;
+
+    useEffect(() => {
+        if (show && progress > 0 && p5InstanceRef.current) {
+            p5InstanceRef.current.redraw(1);
+        }
+    }, [show, progress])
 
     const setup = (p5, canvasParent) => {
         p5InstanceRef.current = p5;
@@ -22,7 +28,10 @@ const InterestMath = ({className, show, progress=0}) => {
         const width = canvasParent.offsetWidth;
         const height = canvasParent.offsetHeight;
         p5.createCanvas(width, height).parent(canvasParent);
-        p5.frameRate(30);
+        p5.stroke('rgb(207, 125, 255)');
+        p5.strokeWeight(1);
+        //p5.frameRate(30);
+        p5.noLoop();
     };
 
     const windowResized = () => {
@@ -34,18 +43,17 @@ const InterestMath = ({className, show, progress=0}) => {
     const draw = (p5) => {
         p5.background(0);
         if (show && progress > 0) {
-            // console.log('draw math')
-            // console.log(progress)
             const width = canvasParentRef.current.offsetWidth;
             const height = canvasParentRef.current.offsetHeight;
-            const numX = width/xSpacing;
-            const numY = height/ySpacing;
+            const numX = Math.round(width/xSpacing);
+            const numY = Math.round(height/ySpacing);
 
-            function drawArrow(baseX, baseY, vec, opacity) {
+            function drawArrow(baseX, baseY, vec) {
                 p5.push();
-                p5.stroke(`rgba(207, 125, 255, ${opacity})`);
-                p5.strokeWeight(1);
-                p5.fill(255, 255, 255, opacity * 255);
+                //p5.stroke(`rgba(207, 125, 255, ${opacity})`);
+                //p5.strokeWeight(1);
+                // p5.fill(255, 255, 255, opacity * 255);
+                p5.fill(255, 255, 255);
                 p5.translate(baseX, baseY);
                 const x = progress < zoomThreshold ? vec.x * progress / zoomThreshold : vec.x;
                 const y = progress < zoomThreshold ? vec.y * progress / zoomThreshold : vec.y;
@@ -63,14 +71,15 @@ const InterestMath = ({className, show, progress=0}) => {
                     const initialY = i * ySpacing;
                     const x = (initialX / width - 1/2) * axisX;
                     const y = (initialY / height - 1/2) * axisY;
-                    const vec = p5.createVector(4 * (Math.pow(x, 2) - Math.pow(y, 2) - 4), 2 * (2 * x * y));
-                    drawArrow(initialX, initialY, vec, 0.5 + 0.5 * Math.abs(p5.sin(angle + i * j * p5.TWO_PI / numX / numY)));
+                    const vec = p5.createVector(4 * (x * x - y * y - 4), 2 * (2 * x * y));
+                    // drawArrow(initialX, initialY, vec, 0.2 + 0.8 * Math.abs(p5.sin(angle + i * j * p5.TWO_PI / numX / numY)));
+                    drawArrow(initialX, initialY, vec);
                 }
             }
-            angle += 0.03;
-            if (angle >= p5.TWO_PI) {
-                angle = 0
-            }
+            // angle += 0.03;
+            // if (angle >= p5.TWO_PI) {
+            //     angle = 0
+            // }
         }
     };
 
