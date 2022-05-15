@@ -4,7 +4,7 @@ const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
   ssr: false,
 })
 
-const InterestMath = ({className, progress=0}) => {
+const InterestMath = ({className, show, progress=0}) => {
 
     const p5InstanceRef = useRef();
     const canvasParentRef = useRef();
@@ -22,6 +22,7 @@ const InterestMath = ({className, progress=0}) => {
         const width = canvasParent.offsetWidth;
         const height = canvasParent.offsetHeight;
         p5.createCanvas(width, height).parent(canvasParent);
+        p5.frameRate(30);
     };
 
     const windowResized = () => {
@@ -32,7 +33,9 @@ const InterestMath = ({className, progress=0}) => {
 
     const draw = (p5) => {
         p5.background(0);
-        if (progress > 0) {
+        if (show && progress > 0) {
+            // console.log('draw math')
+            // console.log(progress)
             const width = canvasParentRef.current.offsetWidth;
             const height = canvasParentRef.current.offsetHeight;
             const numX = width/xSpacing;
@@ -72,7 +75,9 @@ const InterestMath = ({className, progress=0}) => {
     };
 
     return (
-        <Sketch className={className} setup={setup} draw={draw} windowResized={windowResized} />
+        <div className={className} >
+            <Sketch className='w-full h-full' setup={setup} draw={draw} windowResized={windowResized} />
+        </div>
     )
 };
 

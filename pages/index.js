@@ -223,6 +223,9 @@ export default function Home() {
             const progress = 1 - (maxScroll - scrollY) / (maxScroll - minScroll);
             setInterestMathProgress(Math.round(progress * 100) / 100)
           }
+          else {
+            setInterestMathProgress(0)
+          }
         }
       }
     );
@@ -264,6 +267,9 @@ export default function Home() {
             }
             const progress = 1 - (maxScroll - scrollY) / (maxScroll - minScroll);
             setInterestGraphicsProgress(Math.round(progress * 100) / 100)
+          }
+          else {
+            setInterestGraphicsProgress(0)
           }
         }
       }
@@ -406,17 +412,23 @@ export default function Home() {
           >
             <span className={`${interestGraphics3DTitle ? "text-pink-500" : "text-green-500"}`}
               style={{
-                textShadow: interestGraphics3DTitle ? '2px 1px 2px #c377f2' : ''
+                textShadow: interestGraphics3DTitle ? '2px 1px 2px #c377f2' : '0px 0px 0px'
               }}
             >
               {interestGraphics3DTitle ? "3D" : "2D"}
             </span>
-            &nbsp;Graphics
+            &nbsp;Graphicss
           </h2>
         </div>
         <div className='relative w-[100%] h-[60%]' >
-          <InterestMath className="interestsMathCanvas z-2 absolute w-full h-full" progress={interestMathProgress} />
-          <InterestGraphics className="interestsGraphicsCanvas z-1 absolute w-full h-full" progress={interestGraphicsProgress} />
+          <InterestMath className="interestsMathCanvas absolute w-full h-full"
+            show={interestMathProgress > 0 && interestGraphicsProgress <= 0.01 }
+            progress={interestMathProgress}
+          />
+          <InterestGraphics className="interestsGraphicsCanvas absolute w-full h-full"
+            show={interestGraphicsProgress > 0.01 }
+            progress={interestGraphicsProgress}
+          />
         </div>
       </div>
 
