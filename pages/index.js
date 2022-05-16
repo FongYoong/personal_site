@@ -4,10 +4,12 @@ import lax from "lax.js"
 // import Page, { meta } from '../writings/blog/some_post.mdx'
 import { get_all_projects } from '../lib/mdxUtils'
 import { DownButton } from '../components/Indicators'
-import AcademicCourse from '../components/AcademicCourse'
+import AcademicCourseCard from '../components/animations/AcademicCourseCard'
 import InterestMath from '../components/animations/InterestMath'
 import InterestGraphics from '../components/animations/InterestGraphics'
+import InterestLangTitle from '../components/animations/InterestLangTitle'
 import animStyles from '../styles/anim.module.css'
+import InterestLangContent from '../components/animations/InterestLangContent'
 
 const academicCourses = [
   {
@@ -37,63 +39,6 @@ const academicCourses = [
   }
 ];
 
-const programmingLanguages = [
-  {
-    imageUrl: '/images/courses/power_systems.jpg',
-    title: 'Rust',
-    titleUrl: 'https://www.rust-lang.org/',
-    description: "Challenges me to rethink memory-safety, thread-safety, error handling, and lifetimes"
-  },
-  {
-    imageUrl: '/images/courses/power_systems.jpg',
-    title: 'C++',
-    titleUrl: 'https://docs.microsoft.com/en-us/cpp/cpp/welcome-back-to-cpp-modern-cpp',
-    description: "Modern C++ can look very different from the 'old' C++ taught in classrooms"
-  },
-  {
-    imageUrl: '/images/courses/power_systems.jpg',
-    title: 'JavaScript',
-    titleUrl: 'https://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/',
-    description: "Say what you want, it's the lingua franca of the web"
-  },
-  {
-    imageUrl: '/images/courses/ic_design.jpg',
-    title: 'TypeScript',
-    titleUrl: 'https://www.typescriptlang.org/',
-    description: 'Superset of Javascript that provides order to chaos'
-  },
-  {
-    imageUrl: '/images/courses/ic_design.jpg',
-    title: 'Python',
-    titleUrl: 'https://peps.python.org/pep-0020/',
-    description: 'My go-to tool for numerical computing and scripting'
-  },
-  {
-    imageUrl: '/images/courses/ic_design.jpg',
-    title: 'Perl',
-    titleUrl: 'https://peps.python.org/pep-0020/',
-    description: 'Wonderful for quick text processing'
-  },
-  {
-    imageUrl: '/images/courses/ic_design.jpg',
-    title: 'C#',
-    titleUrl: 'https://docs.microsoft.com/en-us/dotnet/core/introduction',
-    description: 'Awesome tooling with minimal hassle and essential to Windows development'
-  },
-  {
-    imageUrl: '/images/courses/ic_design.jpg',
-    title: 'Java',
-    titleUrl: 'https://peps.python.org/pep-0020/',
-    description: "Stable, predictable language with diverse libraries"
-  },
-  {
-    imageUrl: '/images/courses/ic_design.jpg',
-    title: 'SystemVerilog',
-    titleUrl: 'https://en.wikipedia.org/wiki/SystemVerilog',
-    description: 'Feels poorly designed (so many keywords!) but essential for RTL design and verification'
-  },
-];
-
 export default function Home() {
 
   const academicsRef = useRef();
@@ -102,8 +47,10 @@ export default function Home() {
   const [interestMathProgress, setInterestMathProgress] = useState(0);
   const [interestGraphicsProgress, setInterestGraphicsProgress] = useState(0);
   const [interestGraphics3DTitle, setInterestGraphics3DTitle] = useState(false);
+  const [interestLangProgress, setInterestLangProgress] = useState(0);
   const showInterestMath = interestMathProgress > 0 && interestGraphicsProgress <= 0.01;
-  const showInterestGraphics = interestGraphicsProgress > 0.01;
+  const showInterestGraphics = interestGraphicsProgress > 0.01 && interestLangProgress <= 0.01;
+  const showInterestLang = interestLangProgress > 0.01;
 
   useEffect(() => {
     lax.init();
@@ -181,7 +128,7 @@ export default function Home() {
           ],
           translateX: [
             [100, 500],
-            [0, "-screenWidth"],
+            [0, "-screenWidth - 10"],
           ],
         }
       },
@@ -213,7 +160,7 @@ export default function Home() {
       []
     );
     lax.addElements(
-      ".academicCourses", {
+      ".academicCourseCard", {
         academicsScrollY: {
           translateX: [
             [100, 700, 1500],
@@ -279,9 +226,11 @@ export default function Home() {
           const scrollY = driverValues.interestsScrollY[0];
           const minScroll = 500;
           const maxScroll = 2500;
-          if (scrollY > minScroll && scrollY < maxScroll) {
-            const progress = 1 - (maxScroll - scrollY) / (maxScroll - minScroll);
-            setInterestMathProgress(Math.round(progress * 100) / 100)
+          if (scrollY > minScroll) {
+            if (scrollY < maxScroll) {
+              const progress = 1 - (maxScroll - scrollY) / (maxScroll - minScroll);
+              setInterestMathProgress(Math.round(progress * 100) / 100)
+            }
           }
           else {
             setInterestMathProgress(0)
@@ -326,15 +275,17 @@ export default function Home() {
           const minScroll = 2000;
           const changeTitleScroll = 3250;
           const maxScroll = 4500;
-          if (scrollY > minScroll && scrollY < maxScroll) {
-            if (scrollY > changeTitleScroll) {
-              setInterestGraphics3DTitle(true);
+          if (scrollY > minScroll) {
+            if (scrollY < maxScroll) {
+              if (scrollY > changeTitleScroll) {
+                setInterestGraphics3DTitle(true);
+              }
+              else {
+                setInterestGraphics3DTitle(false);
+              }
+              const progress = 1 - (maxScroll - scrollY) / (maxScroll - minScroll);
+              setInterestGraphicsProgress(Math.round(progress * 100) / 100)
             }
-            else {
-              setInterestGraphics3DTitle(false);
-            }
-            const progress = 1 - (maxScroll - scrollY) / (maxScroll - minScroll);
-            setInterestGraphicsProgress(Math.round(progress * 100) / 100)
           }
           else {
             setInterestGraphicsProgress(0)
@@ -370,10 +321,40 @@ export default function Home() {
           // ],
         }
       },
+      {
+        onUpdate: (driverValues, domElement) => {
+          const scrollY = driverValues.interestsScrollY[0];
+          const minScroll = 4500;
+          const maxScroll = 6000;
+          if (scrollY > minScroll) {
+            if (scrollY < maxScroll) {
+              const progress = 1 - (maxScroll - scrollY) / (maxScroll - minScroll);
+              setInterestLangProgress(Math.round(progress * 100) / 100)
+            }
+          }
+          else {
+            setInterestLangProgress(0)
+          }
+        }
+      }
+    );
+    lax.addElements(
+      ".interestsLangContent", {
+        interestsScrollY: {
+          opacity: [
+            [4500, 5000],
+            [0, 1],
+          ],
+          // rotateX: [
+          //   [4500, 5000],
+          //   [90, 0],
+          // ],
+        }
+      },
       []
     );
     lax.addElements(
-      ".interestsLangInfo", {
+      ".interestsLangCard", {
         interestsScrollY: {
           // rotateY: [
           //   [4500, 5000],
@@ -459,7 +440,7 @@ export default function Home() {
         <DownButton className="h-[1em]"  delay={1} />
       </div> */}
       <div className='hey_there flex flex-col justify-start items-center h-screen' >
-        <h1 className="pt-[20vh] text-5xl xs:text-7xl font-bold">
+        <h1 className="pt-[20vh] text-center text-5xl xs:text-7xl font-bold">
           Hey there! <span className={animStyles.wave}>👋</span>
         </h1>
         <DownButton className="h-[4em]" delay={0} />
@@ -496,17 +477,17 @@ export default function Home() {
           With courses like:
         </h2>
         <div className='flex flex-wrap gap-8 justify-center items-center content-center' >
-          {academicCourses.map((ex, index) => {
+          {academicCourses.map((info, index) => {
             return (
-              <AcademicCourse key={index} info={ex} />
+              <AcademicCourseCard key={index} info={info} />
           )})}
         </div>
       </div>
 
       {/* Interests */}
       <div ref={interestsRef} className=' mt-[1500px]' />
-      <div className='interestsContainer fixed left-0 top-0 w-screen h-screen py-4 flex flex-wrap gap-8 justify-center items-center content-center'>
-        <div className='relative w-[100%] h-[20%]'>
+      <div className='interestsContainer fixed left-0 top-0 w-screen h-screen pt-[10vh] flex flex-col gap-8 justify-center items-center content-start'>
+        <div className='relative w-full h-[15%]'>
           <h2 className="interestsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
             My theoretical interests include...
           </h2>
@@ -526,11 +507,15 @@ export default function Home() {
             </span>
             &nbsp;Graphics
           </h2>
-          <h2 className={`interestsLangTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
+          <InterestLangTitle
+            className={`interestsLangTitle absolute bottom-0 p-2 w-full break-words text-center text-2xl xs:text-4xl font-bold`}
+            progress={interestLangProgress / 0.6}
+          />
+          {/* <h2 className={`interestsLangTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
             Programming Languages
-          </h2>
+          </h2> */}
         </div>
-        <div className='relative w-[100%] h-[60%]' >
+        <div className='relative w-full grow' >
           <InterestMath className={'interestsMathCanvas absolute w-full h-full'}
             show={showInterestMath}
             progress={interestMathProgress}
@@ -539,9 +524,11 @@ export default function Home() {
             show={showInterestGraphics}
             progress={interestGraphicsProgress}
           />
+          <InterestLangContent className='interestsLangContent absolute w-full h-full' />
           {/* <div className='interestsLangContainer absolute w-full h-full flex flex-wrap gap-8 justify-evenly items-center content-center' >
-
+          
           </div> */}
+
         </div>
       </div>
 

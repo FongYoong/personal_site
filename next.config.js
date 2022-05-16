@@ -19,4 +19,8 @@ module.exports = withMDX({
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  // images: {
+  //   dangerouslyAllowSVG: true,
+  //   contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  // },
 })

@@ -12,7 +12,7 @@ const axisY = 10;
 const zoomThreshold = 0.4;
 
 const InterestMath = ({className, show, progress=0}) => {
-    const { breakpoint } = useBreakpoint(breakpoints);
+    const { breakpoint } = useBreakpoint(breakpoints, 'mobile');
     const p5InstanceRef = useRef();
     const canvasParentRef = useRef();
     const pixelDensity = breakpoint === 'mobile' ? 0.8 : 1; // 1 for normal quality, smaller for poorer quality but better performance

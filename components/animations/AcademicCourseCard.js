@@ -3,15 +3,15 @@ import Image from 'next/image'
 import { m } from "framer-motion";
 
 
-const AcademicCourse = ({info}) => {
+const AcademicCourseCard = ({info}) => {
 
     const [show, setShow] = useState(false)
 
     return (
-        <m.div className={`academicCourses relative w-[150px] hover:bg-slate-700 rounded-md flex flex-col justify-center items-center content-center`}
+        <div className={`academicCourseCard relative w-[100px] xs:w-[150px] hover:bg-slate-700 rounded-md flex flex-col justify-center items-center content-center`}
+            onClick={() => setShow(!show)}
             //whileHover={{ borderWidth: 2, }}
             //whileTap={{ borderWidth: 2 }}
-            onClick={() => setShow(!show)}
             // initial='animate'
             // animate='animate'
             // variants={{
@@ -69,8 +69,8 @@ const AcademicCourse = ({info}) => {
                     {info.description}
                 </p>
             </m.div>
-        </m.div>
+        </div>
     )
 }
 
-export default AcademicCourse;
+export default AcademicCourseCard;
