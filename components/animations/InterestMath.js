@@ -2,18 +2,23 @@ import { useRef, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
   ssr: false,
-})
+});
+import useBreakpoint from 'use-breakpoint';
+import { breakpoints } from '../../lib/constants';
+
+const spacing = 70;  // 50
+const axisX = 10;
+const axisY = 10;
+const zoomThreshold = 0.4;
 
 const InterestMath = ({className, show, progress=0}) => {
-
+    const { breakpoint } = useBreakpoint(breakpoints);
     const p5InstanceRef = useRef();
     const canvasParentRef = useRef();
+    const pixelDensity = breakpoint === 'mobile' ? 0.8 : 1; // 1 for normal quality, smaller for poorer quality but better performance
+    const xSpacing = spacing * (1 - 0.6 * progress);
+    const ySpacing = spacing * (1 - 0.6 * progress);
 
-    const xSpacing = 50 * (1 - 0.6 * progress); // 50
-    const ySpacing = 50 * (1 - 0.6 * progress); // 50
-    const axisX = 10;
-    const axisY = 10;
-    const zoomThreshold = 0.4;
     //let angle = 0;
 
     useEffect(() => {
@@ -30,7 +35,7 @@ const InterestMath = ({className, show, progress=0}) => {
         p5.createCanvas(width, height).parent(canvasParent);
         p5.stroke('rgb(207, 125, 255)');
         p5.strokeWeight(1);
-        //p5.frameRate(30);
+        p5.pixelDensity(pixelDensity);
         p5.noLoop();
     };
 

@@ -6,8 +6,8 @@ import { get_all_projects } from '../lib/mdxUtils'
 import { DownButton } from '../components/Indicators'
 import AcademicCourse from '../components/AcademicCourse'
 import InterestMath from '../components/animations/InterestMath'
-import animStyles from '../styles/anim.module.css'
 import InterestGraphics from '../components/animations/InterestGraphics'
+import animStyles from '../styles/anim.module.css'
 
 const academicCourses = [
   {
@@ -35,7 +35,64 @@ const academicCourses = [
     title: 'Antennas',
     description: 'MATLAB and CST Studio for simulation'
   }
-]
+];
+
+const programmingLanguages = [
+  {
+    imageUrl: '/images/courses/power_systems.jpg',
+    title: 'Rust',
+    titleUrl: 'https://www.rust-lang.org/',
+    description: "Challenges me to rethink memory-safety, thread-safety, error handling, and lifetimes"
+  },
+  {
+    imageUrl: '/images/courses/power_systems.jpg',
+    title: 'C++',
+    titleUrl: 'https://docs.microsoft.com/en-us/cpp/cpp/welcome-back-to-cpp-modern-cpp',
+    description: "Modern C++ can look very different from the 'old' C++ taught in classrooms"
+  },
+  {
+    imageUrl: '/images/courses/power_systems.jpg',
+    title: 'JavaScript',
+    titleUrl: 'https://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/',
+    description: "Say what you want, it's the lingua franca of the web"
+  },
+  {
+    imageUrl: '/images/courses/ic_design.jpg',
+    title: 'TypeScript',
+    titleUrl: 'https://www.typescriptlang.org/',
+    description: 'Superset of Javascript that provides order to chaos'
+  },
+  {
+    imageUrl: '/images/courses/ic_design.jpg',
+    title: 'Python',
+    titleUrl: 'https://peps.python.org/pep-0020/',
+    description: 'My go-to tool for numerical computing and scripting'
+  },
+  {
+    imageUrl: '/images/courses/ic_design.jpg',
+    title: 'Perl',
+    titleUrl: 'https://peps.python.org/pep-0020/',
+    description: 'Wonderful for quick text processing'
+  },
+  {
+    imageUrl: '/images/courses/ic_design.jpg',
+    title: 'C#',
+    titleUrl: 'https://docs.microsoft.com/en-us/dotnet/core/introduction',
+    description: 'Awesome tooling with minimal hassle and essential to Windows development'
+  },
+  {
+    imageUrl: '/images/courses/ic_design.jpg',
+    title: 'Java',
+    titleUrl: 'https://peps.python.org/pep-0020/',
+    description: "Stable, predictable language with diverse libraries"
+  },
+  {
+    imageUrl: '/images/courses/ic_design.jpg',
+    title: 'SystemVerilog',
+    titleUrl: 'https://en.wikipedia.org/wiki/SystemVerilog',
+    description: 'Feels poorly designed (so many keywords!) but essential for RTL design and verification'
+  },
+];
 
 export default function Home() {
 
@@ -49,9 +106,7 @@ export default function Home() {
   const showInterestGraphics = interestGraphicsProgress > 0.01;
 
   useEffect(() => {
-    // Setup lax
     lax.init();
-
     lax.addDriver("scrollY", function () {
       return window.scrollY;
     });
@@ -68,7 +123,6 @@ export default function Home() {
       }
     });
 
-    // Add your elements
     lax.addElements(
       ".hey_there", {
         scrollY: {
@@ -188,6 +242,10 @@ export default function Home() {
             [100, 300, 500],
             [90, 20, 0],
           ],
+          opacity: [
+            [6000, 6500],
+            [1, 0],
+          ],
         }
       },
       []
@@ -249,8 +307,16 @@ export default function Home() {
       ".interestsGraphicsTitle", {
         interestsScrollY: {
           opacity: [
-            [2000, 2500, 3500, 4500],
+            [2000, 2500, 4200, 4500],
             [0, 1, 1, 0],
+          ],
+          skewX: [
+            [2500, 3500],
+            [0, -15],
+          ],
+          scale: [
+            [3500, 4500],
+            [1, 1.2],
           ],
         }
       },
@@ -258,8 +324,8 @@ export default function Home() {
         onUpdate: (driverValues, domElement) => {
           const scrollY = driverValues.interestsScrollY[0];
           const minScroll = 2000;
-          const changeTitleScroll = 3000;
-          const maxScroll = 4000;
+          const changeTitleScroll = 3250;
+          const maxScroll = 4500;
           if (scrollY > minScroll && scrollY < maxScroll) {
             if (scrollY > changeTitleScroll) {
               setInterestGraphics3DTitle(true);
@@ -280,17 +346,58 @@ export default function Home() {
       ".interestsGraphicsCanvas", {
         interestsScrollY: {
           opacity: [
-            [500, 2000, 2500],
-            [0, 0, 1],
+            [500, 2000, 2500, 4300, 4500],
+            [0, 0, 1, 1, 0],
           ],
-          translateX: [
-            [4000, 4500],
-            [0, '-screenWidth'],
-          ],
+          // translateX: [
+          //   [4000, 4500],
+          //   [0, '-screenWidth'],
+          // ],
         }
       }
     );
   
+    lax.addElements(
+      ".interestsLangTitle", {
+        interestsScrollY: {
+          opacity: [
+            [4500, 5000],
+            [0, 1],
+          ],
+          // skewY: [
+          //   [100, 300, 500],
+          //   [0, 0, 20],
+          // ],
+        }
+      },
+      []
+    );
+    lax.addElements(
+      ".interestsLangInfo", {
+        interestsScrollY: {
+          // rotateY: [
+          //   [4500, 5000],
+          //   [90, 0],
+          // ],
+          rotateX: [
+            ["4500 + index*100", "5000 + index*100"],
+            [90, 0],
+          ],
+        }
+      },
+      []
+    );
+    // lax.addElements(
+    //   ".interestsLangContainer", {
+    //     interestsScrollY: {
+    //       rotateY: [
+    //         [4500, 5000],
+    //         [90, 0],
+    //       ],
+    //     }
+    //   },
+    //   []
+    // );
 
     // lax.addElements(
     //   ".academicSuccess", {
@@ -403,13 +510,13 @@ export default function Home() {
           <h2 className="interestsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
             My theoretical interests include...
           </h2>
-          <h2 className={`interestsMathTitle ${showInterestMath? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
+          <h2 className={`interestsMathTitle ${showInterestMath? 'z-10':''} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
             Most kind of math <br />
             <span className='text-center text-sm font-normal' >
               Except boring <a className='underline' href="https://en.wikipedia.org/wiki/Category_theory" target="noopener" >category theory</a>
             </span>
           </h2>
-          <h2 className={`interestsGraphicsTitle ${showInterestGraphics? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
+          <h2 className={`interestsGraphicsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
             <span className={`${interestGraphics3DTitle ? "text-pink-500" : "text-green-500"}`}
               style={{
                 textShadow: interestGraphics3DTitle ? '2px 1px 2px #c377f2' : '0px 0px 0px'
@@ -418,6 +525,9 @@ export default function Home() {
               {interestGraphics3DTitle ? "3D" : "2D"}
             </span>
             &nbsp;Graphics
+          </h2>
+          <h2 className={`interestsLangTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
+            Programming Languages
           </h2>
         </div>
         <div className='relative w-[100%] h-[60%]' >
@@ -429,6 +539,9 @@ export default function Home() {
             show={showInterestGraphics}
             progress={interestGraphicsProgress}
           />
+          {/* <div className='interestsLangContainer absolute w-full h-full flex flex-wrap gap-8 justify-evenly items-center content-center' >
+
+          </div> */}
         </div>
       </div>
 
