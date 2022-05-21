@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import lax from "lax.js"
+import { m } from "framer-motion";
 // import Page, { meta } from '../writings/blog/some_post.mdx'
 import { get_all_projects } from '../lib/mdxUtils'
 import { academicCourses, notableProjects } from '../lib/constants'
@@ -14,6 +15,7 @@ import InterestLangContent from '../components/home/InterestLangContent'
 import SkillContent from '../components/home/SkillContent'
 import animStyles from '../styles/anim.module.css'
 import ProjectCard from '../components/home/ProjectsCard'
+import HobbiesMusic from '../components/home/HobbiesMusic'
 import { FaChevronCircleRight } from 'react-icons/fa'
 
 export default function Home() {
@@ -377,7 +379,7 @@ export default function Home() {
           ],
           translateY: [
             [1000, 1300],
-            [0, '-screenHeight']
+            [0, '-1.5*screenHeight']
           ]
         }
       },
@@ -423,10 +425,22 @@ export default function Home() {
       },
       []
     );
+    lax.addElements(
+      ".hobbiesMusicButton", {
+        scrollY: {
+          translateX: [
+            ["elCenterY-600+index*80", "elCenterY-300+index*80", "elOutY"],
+            ["screenWidth", 0, 0],
+          ],
+        }
+      },
+      []
+    );
   }, []);
 
   return (
-    <div className='relative w-full min-h-[3000vh] flex flex-col gap-4 justify-start items-center overflow-x-hidden' >
+    // min-h-[3000vh] 
+    <div className='relative pb-8 w-full flex flex-col gap-4 justify-start items-center content-center overflow-hidden' >
       <div className='hey_there flex flex-col justify-start items-center h-screen' >
         <h1 className="pt-[20vh] text-center text-5xl xs:text-7xl font-bold">
           Hey there! <span className={animStyles.wave}>👋</span>
@@ -529,30 +543,62 @@ export default function Home() {
       {/* Projects */}
       <div className='mt-[1500px]' />
       <h2 className="text-center text-3xl xs:text-5xl font-bold">
-          Notable Projects
+          I like side projects...
       </h2>
-      <div className={`relative w-screen flex flex-wrap gap-4 p-2 justify-center items-center content-start`}>
-              {notableProjects.map((projectInfo, index) => {
-                return (
-                  <ProjectCard key={index} info={projectInfo} />
-                )
-              })}
-              <Link href='projects' >
-                  <a target="noopener" >
-                      <button className="h-full text-lg sm:text-2xl font-normal text-black rounded-lg bg-white hover:bg-slate-300 p-[0.5em]" >
-                          <FaChevronCircleRight className='inline-block' /> More Projects
-                      </button>
-                  </a>
-              </Link>
+      <div className={`relative w-full flex flex-wrap gap-4 p-2 justify-center items-center content-start`}>
+        {notableProjects.map((projectInfo, index) => {
+          return (
+            <ProjectCard key={index} info={projectInfo} />
+          )
+        })}
       </div>
-
+      <Link href='/projects' >
+        <a className='relative' target="noopener" >
+            <button className="h-full text-lg xs:text-2xl font-normal text-black rounded-lg bg-white hover:bg-slate-300 p-[0.5em]" >
+                <FaChevronCircleRight className='inline-block' /> More Projects
+            </button>
+        </a>
+      </Link>
 
       {/* Hobbies, side interests, livestreaming, video editing, graphic design, music */}
-
-
+      <HobbiesMusic className="hobbiesMusic relative bg-slate-800 p-4 w-full" />
 
       {/* Contact/Work/Resume */}
-
+      <m.div className='relative mt-8 flex flex-col gap-8 justify-center items-center content-center'
+        initial="hide"
+        whileInView="show"
+        viewport={{ once: false }}
+        variants={{
+            hide: {
+                scale: 0
+            },
+            show: {
+              scale: 1
+            }
+        }}
+        transition={{
+            type: 'spring',
+            bounce: 0.3
+        }}
+      >
+        <h2 className="text-center text-xl xs:text-5xl font-bold">
+            Hope you enjoyed the tour 😊
+        </h2>
+        <Link href='/contact' >
+          <a className='w-[90%] xs:w-[50%] ' target="noopener" >
+            <m.button
+              className='w-full bg-violet-700 rounded-md font-bold text-lg xs:text-3xl p-[0.5em]'
+              animate={{
+                scale:1
+              }}
+              whileHover={{scale: 1.1, opacity: 0.6}}
+              whileTap={{scale: 0.9}}
+            >
+              Contact me
+            </m.button>
+          </a>
+        </Link>
+      </m.div>
 
 
       {/* <div className='skillsContainer relative w-screen flex flex-col gap-8 justify-center items-center content-start'>

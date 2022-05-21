@@ -9,26 +9,7 @@ import { MdExpandLess, MdExpandMore } from 'react-icons/md'
 const SkillTool = ({info}) => {
     const { breakpoint } = useBreakpoint(breakpoints, 'mobile');
     return (
-        <a href={info.titleUrl} target="noopener"
-                    // onClick={() => {
-            //     displaySideInfo(info.title,
-            //         <a className='hover:underline' href={info.titleUrl} target="noopener" >
-            //             <div className='flex flex-col justify-center items-center content-start' >
-            //                 <div className='flex gap-4' >
-            //                     <h2 className="text-md xs:text-lg font-bold">
-            //                         {info.title}
-            //                     </h2>
-            //                     <FiExternalLink size={15} />
-            //                 </div>
-
-            //                 <p className="text-md text-left font-normal break-words">
-            //                     {info.description}
-            //                 </p>
-            //             </div>
-            //         </a>
-            //     )
-            // }}
-        >
+        <a href={info.titleUrl} target="noopener" >
             <div className='hover:opacity-60 hover:underline rounded-md flex flex-col justify-center items-center content-center'>
                 <Image alt={info.title} className=''
                     src={info.imageUrl} objectFit='contain'
