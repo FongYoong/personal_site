@@ -1,44 +1,20 @@
 import { useRef, useEffect, useState } from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
 import lax from "lax.js"
 // import Page, { meta } from '../writings/blog/some_post.mdx'
 import { get_all_projects } from '../lib/mdxUtils'
+import { academicCourses, notableProjects } from '../lib/constants'
 import { DownButton } from '../components/Indicators'
 import AcademicCourseCard from '../components/home/AcademicCourseCard'
 import InterestMath from '../components/home/InterestMath'
 import InterestGraphics from '../components/home/InterestGraphics'
 import InterestLangTitle from '../components/home/InterestLangTitle'
-import animStyles from '../styles/anim.module.css'
 import InterestLangContent from '../components/home/InterestLangContent'
 import SkillContent from '../components/home/SkillContent'
-
-const academicCourses = [
-  {
-    imageUrl: '/images/courses/power_systems.jpg',
-    title: 'Power Systems',
-    description: 'PSSE Xplore and ETAP for simulation'
-  },
-  {
-    imageUrl: '/images/courses/ic_design.jpg',
-    title: 'IC Design',
-    description: '30nm schematic-to-layout design with Synopsys'
-  },
-  {
-    imageUrl: '/images/courses/power_electronics.jpg',
-    title: 'Power Electronics',
-    description: 'Proteus for simulation'
-  },
-  {
-    imageUrl: '/images/courses/embedded_systems.jpg',
-    title: 'Embedded Systems',
-    description: 'Systems programming in C, RTOS, ESP32'
-  },
-  {
-    imageUrl: '/images/courses/antenna.jpg',
-    title: 'Antennas',
-    description: 'MATLAB and CST Studio for simulation'
-  }
-];
+import animStyles from '../styles/anim.module.css'
+import ProjectCard from '../components/home/ProjectsCard'
+import { FaChevronCircleRight } from 'react-icons/fa'
 
 export default function Home() {
 
@@ -396,9 +372,13 @@ export default function Home() {
       ".skillsContainer", {
         skillsScrollY: {
           opacity: [
-            [-600, 0, 1300, 1500],
-            [0, 1, 1, 0],
+            [-300, 0],
+            [0, 1],
           ],
+          translateY: [
+            [1000, 1300],
+            [0, '-screenHeight']
+          ]
         }
       },
       {
@@ -424,7 +404,7 @@ export default function Home() {
       ".skillsTitle", {
         skillsScrollY: {
           translateY: [
-            [-600, 0],
+            [-300, 200],
             ["screenHeight", 0],
           ],
         }
@@ -436,85 +416,17 @@ export default function Home() {
         skillsScrollY: {
           translateX: [
             //["4500 + index*100", "5000 + index*100"],
-            ["0 + index*100", "300 + index*100"],
+            ["100 + index*100", "400 + index*100"],
             ["screenWidth * Math.pow(-1, index)", 0],
           ],
         }
       },
       []
     );
-
-    // lax.addElements(
-    //   ".interestsLangContainer", {
-    //     interestsScrollY: {
-    //       rotateY: [
-    //         [4500, 5000],
-    //         [90, 0],
-    //       ],
-    //     }
-    //   },
-    //   []
-    // );
-
-    // lax.addElements(
-    //   ".academicSuccess", {
-    //     academicsScrollY: {
-    //       translateX: [
-    //         [200, 400],
-    //         [0, 1],
-    //       ],
-    //       opacity: [
-    //         [400, 600],
-    //         [0, 0],
-    //       ],
-    //       // rotateY: [
-    //       //   [0, 200],
-    //       //   [0, 90],
-    //       // ],
-    //       // translateX: [
-    //       //   [0, 400],
-    //       //   [0, 0, 40],
-    //       // ],
-    //     }
-    //   },
-    //   []
-    // );
-    // lax.addElements(
-    //   ".skills", {
-    //     academicsScrollY: {
-    //       opacity: [
-    //         [200, 400],
-    //         [0, 0],
-    //       ],
-    //     }
-    //   },
-    //   []
-    // );
-    // lax.addElements(
-    //   ".projects_overview_intro", {
-    //     scrollY: {
-    //       scale: [
-    //         ["elInY-300", "elCenterY", "elOutY"],
-    //         [0, 1, 1],
-    //       ],
-    //     }
-    //   },
-    //   []
-    // );
   }, []);
 
   return (
-    // <div className='relative h-[120vh]' >
-    <div className='relative w-full min-h-[2000vh] flex flex-col gap-4 justify-start items-center overflow-x-hidden' >
-      {/* <div className='absolute top-0 left-0 flex flex-col justify-start items-center w-screen h-screen' >
-        <h1 className="pt-[20vh] text-5xl xs:text-7xl font-bold spinMe ">
-          Hey there! <span className={animStyles.wave}>👋</span>
-        </h1>
-        <DownButton className="h-[4em]" delay={0} />
-        <DownButton className="h-[3em]"  delay={0.3} />
-        <DownButton className="h-[2em]"  delay={0.7} />
-        <DownButton className="h-[1em]"  delay={1} />
-      </div> */}
+    <div className='relative w-full min-h-[3000vh] flex flex-col gap-4 justify-start items-center overflow-x-hidden' >
       <div className='hey_there flex flex-col justify-start items-center h-screen' >
         <h1 className="pt-[20vh] text-center text-5xl xs:text-7xl font-bold">
           Hey there! <span className={animStyles.wave}>👋</span>
@@ -602,7 +514,7 @@ export default function Home() {
       </div>
 
       {/* Skills */}
-      <div ref={skillsRef} className='mt-[6700px]' />
+      <div ref={skillsRef} className='mt-[6300px]' />
       <div className={`skillsContainer ${showSkills? '':'pointer-events-none'} fixed left-0 top-0 w-screen h-screen pt-[10vh] flex flex-col gap-8 justify-center items-center content-start`}>
         <div className='relative w-full h-[10%]'>
           <h2 className="skillsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
@@ -613,6 +525,35 @@ export default function Home() {
           <SkillContent show={true} className='absolute w-full h-full' />
         </div>
       </div>
+      
+      {/* Projects */}
+      <div className='mt-[1500px]' />
+      <h2 className="text-center text-3xl xs:text-5xl font-bold">
+          Notable Projects
+      </h2>
+      <div className={`relative w-screen flex flex-wrap gap-4 p-2 justify-center items-center content-start`}>
+              {notableProjects.map((projectInfo, index) => {
+                return (
+                  <ProjectCard key={index} info={projectInfo} />
+                )
+              })}
+              <Link href='projects' >
+                  <a target="noopener" >
+                      <button className="h-full text-lg sm:text-2xl font-normal text-black rounded-lg bg-white hover:bg-slate-300 p-[0.5em]" >
+                          <FaChevronCircleRight className='inline-block' /> More Projects
+                      </button>
+                  </a>
+              </Link>
+      </div>
+
+
+      {/* Hobbies, side interests, livestreaming, video editing, graphic design, music */}
+
+
+
+      {/* Contact/Work/Resume */}
+
+
 
       {/* <div className='skillsContainer relative w-screen flex flex-col gap-8 justify-center items-center content-start'>
         <h2 className="text-3xl xs:text-5xl font-bold">
@@ -633,7 +574,6 @@ export default function Home() {
         </h2>
       </div> */}
 
-      {/* Hobbies, side interests, livestreaming, video editing, graphic design, music */}
 
       {/* <h1 className="text-3xl font-bold underline spinMe">
         Hey there!

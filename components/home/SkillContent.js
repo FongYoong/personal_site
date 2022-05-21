@@ -87,22 +87,6 @@ const skills = [
             },
         ]
     },
-    // {
-    //     title: 'Systems Programming',
-    //     tools: [
-    //         {
-    //             title: '',
-    //             titleUrl: 'https://www.rust-lang.org/',
-    //             imageUrl: '/images/programming_languages/rust.svg'
-    //         },
-    //     ]
-    // },
-    // {
-    //     title: 'Circuit and PCB Design',
-    //     tools: [
-
-    //     ]
-    // },
     {
         title: 'Media Editing',
         tools: [

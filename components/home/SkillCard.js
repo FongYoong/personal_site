@@ -47,10 +47,7 @@ const SkillTool = ({info}) => {
 
 const SkillCard = ({info, show, setShow}) => {
 
-    //const [displaySideInfo, hideSideInfo] = useContext(SideInfoContext);
-
     return (
-        // bg-slate-700 hover:bg-slate-500
         <m.div
             tabIndex={0}
             className="skillsCard relative cursor-pointer hover:bg-[#892CDC] p-2 rounded-md w-[90%] flex flex-col justify-center items-center content-center"
@@ -80,9 +77,9 @@ const SkillCard = ({info, show, setShow}) => {
         >
             <div className='flex gap-1 justify-center items-center content-center' >
                 {show ? <MdExpandLess /> : <MdExpandMore /> }
-                <p className={`${show?'font-bold':'font-normal'} text-lg xs:text-2xl text-center break-words`}>
+                <h1 className={`${show?'font-bold':'font-normal'} text-lg xs:text-2xl text-center break-words`}>
                     {info.title}
-                </p>
+                </h1>
             </div>
             <m.div
                 className='overflow-hidden flex flex-wrap gap-8 justify-center items-center content-center'
@@ -107,21 +104,7 @@ const SkillCard = ({info, show, setShow}) => {
                         <SkillTool key={index} info={toolInfo} />
                     )
                 }
-                {/* <p className="text-md text-center font-normal break-words">
-                    {info.tools.length}
-                </p> */}
             </m.div>
-
-            {/* <Image alt={info.title} className={`rounded-md ${info.className}`}
-                src={info.imageUrl} objectFit='contain'
-                width={breakpoint === 'mobile' ? 100 : 150} height={breakpoint === 'mobile' ? 56.25 : 85}
-            />
-            {(breakpoint !== 'mobile') &&
-                <p className={`text-lg xs:text-2xl text-center font-normal break-words`}>
-                    {info.title}
-                </p>
-            } */}
-            
         </m.div>
     )
 }

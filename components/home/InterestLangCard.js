@@ -55,9 +55,9 @@ const InterestLangCard = ({info}) => {
                 width={breakpoint === 'mobile' ? 100 : 150} height={breakpoint === 'mobile' ? 56.25 : 85}
             />
             {(breakpoint !== 'mobile') &&
-                <p className={`text-lg xs:text-2xl text-center font-normal break-words`}>
+                <h1 className={`text-lg xs:text-2xl text-center font-normal break-words`}>
                     {info.title}
-                </p>
+                </h1>
             }
             {/* <m.div className='bg-white rounded-md'
                 initial="hide"

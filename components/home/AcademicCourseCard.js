@@ -29,9 +29,9 @@ const AcademicCourseCard = ({info}) => {
             <div className='relative w-[100px] xs:w-[150px] h-[56.25px] xs:h-[85px] rounded-md overflow-hidden'>
                 <Image alt={info.title} className='academicCoursesImage' src={info.imageUrl} layout='fill' objectFit='cover' />
             </div>
-            <p className={`text-lg xs:text-2xl text-center font-normal break-words`}>
+            <h1 className={`text-lg xs:text-2xl text-center font-normal break-words`}>
                 {info.title}
-            </p>
+            </h1>
             <m.div
                 initial='hide'
                 animate={show ? 'show' : 'hide'}

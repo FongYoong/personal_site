@@ -25,7 +25,7 @@ const navPages = [
 
 const NavbarButton = forwardRef(({children, href}, ref) => {
     return (
-        <Link href={href} >
+        <Link href={href} scroll={false} >
             <a ref={ref} >
                 <button className="h-full text-lg font-normal rounded-md hover:bg-violet-700 active:bg-violet-900 p-[0.5em]" >
                     {children}
