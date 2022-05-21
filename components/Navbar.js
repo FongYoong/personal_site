@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef, forwardRef } from 'react'
 import Link from 'next/link'
 import { LazyMotion, domAnimation, m } from "framer-motion";
+import { AiFillHome } from 'react-icons/ai'
 
 const navPages = [
     {
         title: "Home",
-        href: "/"
+        href: "/",
+        icon: <AiFillHome className='h-full' />
     },
     {
         title: "Projects",
@@ -14,14 +16,18 @@ const navPages = [
     {
         title: "Blog",
         href: "/blog"
-    }
+    },
+    {
+        title: "Contact",
+        href: "/contact"
+    },
 ]
 
 const NavbarButton = forwardRef(({children, href}, ref) => {
     return (
         <Link href={href} >
             <a ref={ref} >
-                <button className="text-lg font-normal rounded-md hover:bg-violet-700 active:bg-violet-900 p-[0.5em]" >
+                <button className="h-full text-lg font-normal rounded-md hover:bg-violet-700 active:bg-violet-900 p-[0.5em]" >
                     {children}
                 </button>
             </a>
@@ -85,7 +91,7 @@ const Navbar = ({currentPage}) => {
                 {navPages.map((page, index) =>
                     <NavbarButton key={index} ref={el => navButtonsRef.current[index] = el}
                         href={page.href} >
-                        {page.title}
+                        {page.icon ? page.icon : page.title}
                     </NavbarButton>)
                 }
             </div>

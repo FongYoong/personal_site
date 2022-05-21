@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    --scrollbarWidth: 10px;
+    --scrollbarBg: rgb(0, 0, 0, 0.6);
+    --thumbBg: #dfdfdf;
+    --thumbBgHover: #b1b1b1;
+}
+
+body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBg) var(--scrollbarBg);
+}
+
+::-webkit-scrollbar {
+    width: var(--scrollbarWidth);
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: var(--scrollbarBg);
+    /* border-radius: 10px; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBg);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--thumbBgHover); 
+}

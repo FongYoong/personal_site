@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { SideInfoContext } from '../SideInfo';
 import Image from 'next/image'
 import { m } from "framer-motion";

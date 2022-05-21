@@ -3,8 +3,8 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { LazyMotion, AnimatePresence, domAnimation, m } from "framer-motion";
 import Navbar from "../components/Navbar";
-import '../styles/globals.css'
 import { SideInfo, SideInfoContext } from '../components/SideInfo';
+import '../styles/globals.css'
 
 export const animation = {
   name: "Fade",

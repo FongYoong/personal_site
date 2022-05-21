@@ -4,12 +4,13 @@ import lax from "lax.js"
 // import Page, { meta } from '../writings/blog/some_post.mdx'
 import { get_all_projects } from '../lib/mdxUtils'
 import { DownButton } from '../components/Indicators'
-import AcademicCourseCard from '../components/animations/AcademicCourseCard'
-import InterestMath from '../components/animations/InterestMath'
-import InterestGraphics from '../components/animations/InterestGraphics'
-import InterestLangTitle from '../components/animations/InterestLangTitle'
+import AcademicCourseCard from '../components/home/AcademicCourseCard'
+import InterestMath from '../components/home/InterestMath'
+import InterestGraphics from '../components/home/InterestGraphics'
+import InterestLangTitle from '../components/home/InterestLangTitle'
 import animStyles from '../styles/anim.module.css'
-import InterestLangContent from '../components/animations/InterestLangContent'
+import InterestLangContent from '../components/home/InterestLangContent'
+import SkillContent from '../components/home/SkillContent'
 
 const academicCourses = [
   {
@@ -43,14 +44,22 @@ export default function Home() {
 
   const academicsRef = useRef();
   const interestsRef = useRef();
+  const skillsRef = useRef();
 
   const [interestMathProgress, setInterestMathProgress] = useState(0);
   const [interestGraphicsProgress, setInterestGraphicsProgress] = useState(0);
-  const [interestGraphics3DTitle, setInterestGraphics3DTitle] = useState(false);
+  const [showInterestGraphics3DTitle, setShowInterestGraphics3DTitle] = useState(false);
   const [interestLangProgress, setInterestLangProgress] = useState(0);
-  const showInterestMath = interestMathProgress > 0 && interestGraphicsProgress <= 0.01;
-  const showInterestGraphics = interestGraphicsProgress > 0.01 && interestLangProgress <= 0.01;
-  const showInterestLang = interestLangProgress > 0.01;
+
+  const [showAcademics, setShowAcademics] = useState(false);
+  const [showInterestMath, setShowInterestMath] = useState(false);
+  const [showInterestGraphics, setShowInterestGraphics] = useState(false);
+  const [showInterestLang, setShowInterestLang] = useState(false);
+  const [showSkills, setShowSkills] = useState(false);
+
+  // const showInterestMath = interestMathProgress > 0 && interestGraphicsProgress <= 0.01;
+  // const showInterestGraphics = interestGraphicsProgress > 0.01 && interestLangProgress <= 0.01;
+  // const showInterestLang = interestLangProgress > 0.01;
 
   useEffect(() => {
     lax.init();
@@ -66,6 +75,12 @@ export default function Home() {
     lax.addDriver("interestsScrollY", function () {
       if(interestsRef.current) {
         const rect = interestsRef.current.getBoundingClientRect();
+        return -rect.top;
+      }
+    });
+    lax.addDriver("skillsScrollY", function () {
+      if(skillsRef.current) {
+        const rect = skillsRef.current.getBoundingClientRect();
         return -rect.top;
       }
     });
@@ -143,7 +158,24 @@ export default function Home() {
           ],
         }
       },
-      []
+      {
+        onUpdate: (driverValues, domElement) => {
+          const scrollY = driverValues.academicsScrollY[0];
+          const minScroll = 500;
+          const maxScroll = 1500;
+          if (scrollY > minScroll) {
+            if (scrollY < maxScroll) {
+              setShowAcademics(true);
+            }
+            else {
+              setShowAcademics(false);
+            }
+          }
+          else {
+            setShowAcademics(false);
+          }
+        }
+      }
     );
     lax.addElements(
       ".academicCoursesTitle", {
@@ -204,10 +236,6 @@ export default function Home() {
             [500, 1000],
             [1, 0],
           ],
-          // skewY: [
-          //   [100, 300, 500],
-          //   [0, 0, 20],
-          // ],
         }
       },
       []
@@ -228,12 +256,17 @@ export default function Home() {
           const maxScroll = 2500;
           if (scrollY > minScroll) {
             if (scrollY < maxScroll) {
+              setShowInterestMath(true);
               const progress = 1 - (maxScroll - scrollY) / (maxScroll - minScroll);
               setInterestMathProgress(Math.round(progress * 100) / 100)
             }
+            else {
+              setShowInterestMath(false);
+            }
           }
           else {
-            setInterestMathProgress(0)
+            setInterestMathProgress(0);
+            setShowInterestMath(false);
           }
         }
       }
@@ -241,10 +274,6 @@ export default function Home() {
     lax.addElements(
       ".interestsMathCanvas", {
         interestsScrollY: {
-          // translateX: [
-          //   [2000, 2500],
-          //   [0, '-screenWidth'],
-          // ],
           opacity: [
             [2000, 2500],
             [1, 0],
@@ -277,18 +306,23 @@ export default function Home() {
           const maxScroll = 4500;
           if (scrollY > minScroll) {
             if (scrollY < maxScroll) {
+              setShowInterestGraphics(true);
               if (scrollY > changeTitleScroll) {
-                setInterestGraphics3DTitle(true);
+                setShowInterestGraphics3DTitle(true);
               }
               else {
-                setInterestGraphics3DTitle(false);
+                setShowInterestGraphics3DTitle(false);
               }
               const progress = 1 - (maxScroll - scrollY) / (maxScroll - minScroll);
               setInterestGraphicsProgress(Math.round(progress * 100) / 100)
             }
+            else {
+              setShowInterestGraphics(false);
+            }
           }
           else {
             setInterestGraphicsProgress(0)
+            setShowInterestGraphics(false);
           }
         }
       }
@@ -300,10 +334,6 @@ export default function Home() {
             [500, 2000, 2500, 4300, 4500],
             [0, 0, 1, 1, 0],
           ],
-          // translateX: [
-          //   [4000, 4500],
-          //   [0, '-screenWidth'],
-          // ],
         }
       }
     );
@@ -315,10 +345,6 @@ export default function Home() {
             [4500, 5000],
             [0, 1],
           ],
-          // skewY: [
-          //   [100, 300, 500],
-          //   [0, 0, 20],
-          // ],
         }
       },
       {
@@ -328,12 +354,17 @@ export default function Home() {
           const maxScroll = 6000;
           if (scrollY > minScroll) {
             if (scrollY < maxScroll) {
+              setShowInterestLang(true);
               const progress = 1 - (maxScroll - scrollY) / (maxScroll - minScroll);
               setInterestLangProgress(Math.round(progress * 100) / 100)
             }
+            else {
+              setShowInterestLang(false);
+            }
           }
           else {
-            setInterestLangProgress(0)
+            setInterestLangProgress(0);
+            setShowInterestLang(false);
           }
         }
       }
@@ -345,10 +376,6 @@ export default function Home() {
             [4500, 5000],
             [0, 1],
           ],
-          // rotateX: [
-          //   [4500, 5000],
-          //   [90, 0],
-          // ],
         }
       },
       []
@@ -356,10 +383,6 @@ export default function Home() {
     lax.addElements(
       ".interestsLangCard", {
         interestsScrollY: {
-          // rotateY: [
-          //   [4500, 5000],
-          //   [90, 0],
-          // ],
           rotateX: [
             ["4500 + index*100", "5000 + index*100"],
             [90, 0],
@@ -368,6 +391,59 @@ export default function Home() {
       },
       []
     );
+    
+    lax.addElements(
+      ".skillsContainer", {
+        skillsScrollY: {
+          opacity: [
+            [-600, 0, 1300, 1500],
+            [0, 1, 1, 0],
+          ],
+        }
+      },
+      {
+        onUpdate: (driverValues, domElement) => {
+          const scrollY = driverValues.skillsScrollY[0];
+          const minScroll = 0;
+          const maxScroll = 1500;
+          if (scrollY > minScroll) {
+            if (scrollY < maxScroll) {
+              setShowSkills(true);
+            }
+            else {
+              setShowSkills(false);
+            }
+          }
+          else {
+            setShowSkills(false);
+          }
+        }
+      }
+    );
+    lax.addElements(
+      ".skillsTitle", {
+        skillsScrollY: {
+          translateY: [
+            [-600, 0],
+            ["screenHeight", 0],
+          ],
+        }
+      },
+      []
+    );
+    lax.addElements(
+      ".skillsCard", {
+        skillsScrollY: {
+          translateX: [
+            //["4500 + index*100", "5000 + index*100"],
+            ["0 + index*100", "300 + index*100"],
+            ["screenWidth * Math.pow(-1, index)", 0],
+          ],
+        }
+      },
+      []
+    );
+
     // lax.addElements(
     //   ".interestsLangContainer", {
     //     interestsScrollY: {
@@ -461,7 +537,7 @@ export default function Home() {
 
       {/* Academics */}
       <div ref={academicsRef} className='' />
-      <div className='academicsUni z-10 fixed left-0 top-0 w-screen h-screen p-4 flex flex-col gap-4 justify-center items-center'>
+      <div className='academicsUni fixed left-0 top-0 w-screen h-screen p-4 flex flex-col gap-4 justify-center items-center'>
         <Image alt='UTAR image' className='rounded-md' src='/images/utar_campus.jpg' width='300' height='170' />
         <p className="text-2xl text-center font-normal">
           I&apos;m a 4th year&nbsp;
@@ -472,7 +548,7 @@ export default function Home() {
         </p>
       </div>
 
-      <div className='academicCoursesContainer fixed left-0 top-0 w-screen h-screen p-4 flex flex-wrap gap-8 justify-center items-center content-center xs:content-center'>
+      <div className={`academicCoursesContainer ${showAcademics?'':'pointer-events-none'} fixed left-0 top-0 w-screen h-screen p-4 flex flex-wrap gap-8 justify-center items-center content-center`}>
         <h2 className="academicCoursesTitle text-3xl xs:text-5xl font-bold">
           With courses like:
         </h2>
@@ -485,25 +561,25 @@ export default function Home() {
       </div>
 
       {/* Interests */}
-      <div ref={interestsRef} className=' mt-[1500px]' />
+      <div ref={interestsRef} className='mt-[1500px]' />
       <div className='interestsContainer fixed left-0 top-0 w-screen h-screen pt-[10vh] flex flex-col gap-8 justify-center items-center content-start'>
         <div className='relative w-full h-[15%]'>
           <h2 className="interestsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
             My theoretical interests include...
           </h2>
-          <h2 className={`interestsMathTitle ${showInterestMath? 'z-10':''} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
+          <h2 className={`interestsMathTitle ${showInterestMath? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
             Most kind of math <br />
             <span className='text-center text-sm font-normal' >
               Except boring <a className='underline' href="https://en.wikipedia.org/wiki/Category_theory" target="noopener" >category theory</a>
             </span>
           </h2>
-          <h2 className={`interestsGraphicsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
-            <span className={`${interestGraphics3DTitle ? "text-pink-500" : "text-green-500"}`}
+          <h2 className={`interestsGraphicsTitle ${showInterestGraphics? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
+            <span className={`${showInterestGraphics3DTitle ? "text-pink-500" : "text-green-500"}`}
               style={{
-                textShadow: interestGraphics3DTitle ? '2px 1px 2px #c377f2' : '0px 0px 0px'
+                textShadow: showInterestGraphics3DTitle ? '2px 1px 2px #c377f2' : '0px 0px 0px'
               }}
             >
-              {interestGraphics3DTitle ? "3D" : "2D"}
+              {showInterestGraphics3DTitle ? "3D" : "2D"}
             </span>
             &nbsp;Graphics
           </h2>
@@ -511,42 +587,44 @@ export default function Home() {
             className={`interestsLangTitle absolute bottom-0 p-2 w-full break-words text-center text-2xl xs:text-4xl font-bold`}
             progress={interestLangProgress / 0.6}
           />
-          {/* <h2 className={`interestsLangTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
-            Programming Languages
-          </h2> */}
         </div>
         <div className='relative w-full grow' >
-          <InterestMath className={'interestsMathCanvas absolute w-full h-full'}
+          <InterestMath className='interestsMathCanvas absolute w-full h-full'
             show={showInterestMath}
             progress={interestMathProgress}
           />
-          <InterestGraphics className={'interestsGraphicsCanvas absolute w-full h-full'}
+          <InterestGraphics className='interestsGraphicsCanvas absolute w-full h-full'
             show={showInterestGraphics}
             progress={interestGraphicsProgress}
           />
-          <InterestLangContent className='interestsLangContent absolute w-full h-full' />
-          {/* <div className='interestsLangContainer absolute w-full h-full flex flex-wrap gap-8 justify-evenly items-center content-center' >
-          
-          </div> */}
-
+          <InterestLangContent show={showInterestLang} className='interestsLangContent absolute w-full h-full' />
         </div>
       </div>
 
+      {/* Skills */}
+      <div ref={skillsRef} className='mt-[6700px]' />
+      <div className={`skillsContainer ${showSkills? '':'pointer-events-none'} fixed left-0 top-0 w-screen h-screen pt-[10vh] flex flex-col gap-8 justify-center items-center content-start`}>
+        <div className='relative w-full h-[10%]'>
+          <h2 className="skillsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
+            My skills include...
+          </h2>
+        </div>
+        <div className='relative w-full grow' >
+          <SkillContent show={true} className='absolute w-full h-full' />
+        </div>
+      </div>
 
-      {/* For experiences, create a layout of images with popovers, or show modal when clicked.
-          Include images of crucial subjects, design tools etc
-          Can add mathematical symbols, cool visuals and animations like sine waves etc, some mathematical pattern
-      */}
-
-
-      {/* Skills and interests */}
-      {/* <div className='skills pointer-events-none fixed left-0 top-0 w-screen h-screen p-4 flex flex-col justify-center items-center'>
-        <p className="text-4xl text-center font-normal">
-          <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-violet-300 to-pink-400" >
-            Key Skills
-          </span>
-        </p>
+      {/* <div className='skillsContainer relative w-screen flex flex-col gap-8 justify-center items-center content-start'>
+        <h2 className="text-3xl xs:text-5xl font-bold">
+          My skills include:
+        </h2>
       </div> */}
+      {/* <div className='skillsTitle'>
+        <h2 className="text-5xl font-bold">
+          My skills include:
+        </h2>
+      </div> */}
+
 
       {/* Projects */}
       {/* <div className='projects_overview_intro pt-[10vh] flex flex-col justify-center items-center'>
@@ -555,9 +633,7 @@ export default function Home() {
         </h2>
       </div> */}
 
-
       {/* Hobbies, side interests, livestreaming, video editing, graphic design, music */}
-
 
       {/* <h1 className="text-3xl font-bold underline spinMe">
         Hey there!

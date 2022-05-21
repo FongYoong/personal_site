@@ -45,7 +45,7 @@ const InterestGraphics = ({className, show, progress=0}) => {
                 p5.box(scale * height/7);
                 p5.pop();
             }
-            const scale = 0.4 + 0.6 * progress;
+             const scale = 0.4 + 0.6 * progress;
             if (progress > threshold3D) {
                 const offset = height/5 * (progress - threshold3D) / (1 - threshold3D);
                 drawBox(0, 0, 0, scale, true);

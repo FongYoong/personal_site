@@ -64,7 +64,7 @@ const programmingLanguages = [
     },
 ];
 
-const InterestLangContent = ({className}) => {
+const InterestLangContent = ({className, show}) => {
 
     // const containerRef = useRef();
     // const [overflow, setOverflow] = useState(false);
@@ -78,7 +78,7 @@ const InterestLangContent = ({className}) => {
     // }, [containerRef]);
 
     return (
-        <div className={`flex flex-wrap gap-8 justify-center items-center content-start ${className}`} >
+        <div className={`${show?'':'pointer-events-none'} flex flex-wrap gap-8 justify-center items-center content-start ${className}`} >
             {programmingLanguages.map((info, index) => {
                 return (
                     <InterestLangCard key={index} info={info} />
