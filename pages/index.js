@@ -4,7 +4,7 @@ import Image from 'next/image'
 import lax from "lax.js"
 import { m } from "framer-motion";
 // import Page, { meta } from '../writings/blog/some_post.mdx'
-import { get_all_projects } from '../lib/mdxUtils'
+import PageHeader from '../components/page/PageHeader'
 import { academicCourses, notableProjects } from '../lib/constants'
 import { DownButton } from '../components/Indicators'
 import AcademicCourseCard from '../components/home/AcademicCourseCard'
@@ -429,7 +429,7 @@ export default function Home() {
       ".hobbiesMusicButton", {
         scrollY: {
           translateX: [
-            ["elCenterY-600+index*80", "elCenterY-300+index*80", "elOutY"],
+            ["elCenterY-600+index*80", "elCenterY-400+index*80", "elOutY"],
             ["screenWidth", 0, 0],
           ],
         }
@@ -439,227 +439,182 @@ export default function Home() {
   }, []);
 
   return (
-    // min-h-[3000vh] 
-    <div className='relative pb-8 w-full flex flex-col gap-4 justify-start items-center content-center overflow-hidden' >
-      <div className='hey_there flex flex-col justify-start items-center h-screen' >
-        <h1 className="pt-[20vh] text-center text-5xl xs:text-7xl font-bold">
-          Hey there! <span className={animStyles.wave}>👋</span>
-        </h1>
-        <DownButton className="h-[4em]" delay={0} />
-        <DownButton className="h-[3em]"  delay={0.3} />
-        <DownButton className="h-[2em]"  delay={0.7} />
-        <DownButton className="h-[1em]"  delay={1} />
-      </div>
-      <div className='stumbled'>
-        <h2 className="text-5xl font-bold">
-        Looks like you&apos;ve stumbled upon my top-secret site <span className={animStyles.shake} >😲</span>
-        </h2>
-      </div>
-      <div className='overview_intro pt-[25vh]'>
-        <h2 className="text-5xl font-bold">
-          But since you&apos;re here anyway...
-        </h2>
-      </div>
+    // min-h-[3000vh]
+    <>
+      <PageHeader title="Home" />
+      <div className='relative pb-8 w-full flex flex-col gap-4 justify-start items-center content-center overflow-hidden' >
+        <div className='hey_there flex flex-col justify-start items-center h-screen' >
+          <h1 className="text-center text-5xl xs:text-7xl font-bold">
+            Hey there! <span className={animStyles.wave}>👋</span>
+          </h1>
+          <DownButton className="h-[4em]" delay={0} />
+          <DownButton className="h-[3em]"  delay={0.3} />
+          <DownButton className="h-[2em]"  delay={0.7} />
+          <DownButton className="h-[1em]"  delay={1} />
+        </div>
+        <div className='stumbled px-4'>
+          <h2 className="text-5xl font-bold">
+          Looks like you&apos;ve stumbled upon my top-secret site <span className={animStyles.shake} >😲</span>
+          </h2>
+        </div>
+        <div className='overview_intro pt-[25vh] px-4'>
+          <h2 className="text-5xl font-bold">
+            But since you&apos;re here anyway...
+          </h2>
+        </div>
 
-      {/* Academics */}
-      <div ref={academicsRef} className='' />
-      <div className='academicsUni fixed left-0 top-0 w-screen h-screen p-4 flex flex-col gap-4 justify-center items-center'>
-        <Image alt='UTAR image' className='rounded-md' src='/images/utar_campus.jpg' width='300' height='170' />
-        <p className="text-2xl text-center font-normal">
-          I&apos;m a 4th year&nbsp;
-          <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-violet-300 to-pink-400" >
-            Electrical & Electronics
-          </span>
-          &nbsp;undergraduate student at <a className='underline' href="https://study.utar.edu.my/utar-at-a-glance.php" target="noopener" >UTAR</a> (2019-2023)
-        </p>
-      </div>
+        {/* Academics */}
+        <div ref={academicsRef} className='' />
+        <div className='academicsUni fixed left-0 top-0 w-screen h-screen p-4 flex flex-col gap-4 justify-center items-center'>
+          <Image alt='UTAR image' className='rounded-md' src='/images/utar_campus.jpg' width='300' height='170' />
+          <p className="text-2xl text-center font-normal">
+            I&apos;m a 4th year&nbsp;
+            <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-violet-300 to-pink-400" >
+              Electrical & Electronics
+            </span>
+            &nbsp;undergraduate student at <a className='underline' href="https://study.utar.edu.my/utar-at-a-glance.php" target="noopener" >UTAR</a> (2019-2023)
+          </p>
+        </div>
 
-      <div className={`academicCoursesContainer ${showAcademics?'':'pointer-events-none'} fixed left-0 top-0 w-screen h-screen p-4 flex flex-wrap gap-8 justify-center items-center content-center`}>
-        <h2 className="academicCoursesTitle text-3xl xs:text-5xl font-bold">
-          With courses like:
+        <div className={`academicCoursesContainer ${showAcademics?'':'pointer-events-none'} fixed left-0 top-0 w-screen h-screen p-4 flex flex-wrap gap-8 justify-center items-center content-center`}>
+          <h2 className="academicCoursesTitle text-3xl xs:text-5xl font-bold">
+            With courses like:
+          </h2>
+          <div className='flex flex-wrap gap-8 justify-center items-center content-center' >
+            {academicCourses.map((info, index) => {
+              return (
+                <AcademicCourseCard key={index} info={info} />
+            )})}
+          </div>
+        </div>
+
+        {/* Interests */}
+        <div ref={interestsRef} className='mt-[1500px]' />
+        <div className='interestsContainer fixed left-0 top-0 w-screen h-screen pt-[10vh] flex flex-col gap-8 justify-center items-center content-start'>
+          <div className='relative w-full h-[15%]'>
+            <h2 className="interestsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
+              My theoretical interests include...
+            </h2>
+            <h2 className={`interestsMathTitle ${showInterestMath? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
+              Most kind of math <br />
+              <span className='text-center text-sm font-normal' >
+                Except boring <a className='underline' href="https://en.wikipedia.org/wiki/Category_theory" target="noopener" >category theory</a>
+              </span>
+            </h2>
+            <h2 className={`interestsGraphicsTitle ${showInterestGraphics? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
+              <span className={`${showInterestGraphics3DTitle ? "text-pink-500" : "text-green-500"}`}
+                style={{
+                  textShadow: showInterestGraphics3DTitle ? '2px 1px 2px #c377f2' : '0px 0px 0px'
+                }}
+              >
+                {showInterestGraphics3DTitle ? "3D" : "2D"}
+              </span>
+              &nbsp;Graphics
+            </h2>
+            <InterestLangTitle
+              className={`interestsLangTitle absolute bottom-0 p-2 w-full break-words text-center text-2xl xs:text-4xl font-bold`}
+              progress={interestLangProgress / 0.6}
+            />
+          </div>
+          <div className='relative w-full grow' >
+            <InterestMath className='interestsMathCanvas absolute w-full h-full'
+              show={showInterestMath}
+              progress={interestMathProgress}
+            />
+            <InterestGraphics className='interestsGraphicsCanvas absolute w-full h-full'
+              show={showInterestGraphics}
+              progress={interestGraphicsProgress}
+            />
+            <InterestLangContent show={showInterestLang} className='interestsLangContent absolute w-full h-full' />
+          </div>
+        </div>
+
+        {/* Skills */}
+        <div ref={skillsRef} className='mt-[6300px]' />
+        <div className={`skillsContainer ${showSkills? '':'pointer-events-none'} fixed left-0 top-0 w-screen h-screen pt-[10vh] flex flex-col gap-8 justify-center items-center content-start`}>
+          <div className='relative w-full h-[10%]'>
+            <h2 className="skillsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
+              My skills include...
+            </h2>
+          </div>
+          <div className='relative w-full grow' >
+            <SkillContent show={true} className='absolute w-full h-full' />
+          </div>
+        </div>
+        
+        {/* Projects */}
+        <div className='mt-[1500px]' />
+        <h2 className="text-center text-3xl xs:text-5xl font-bold">
+            I like side projects...
         </h2>
-        <div className='flex flex-wrap gap-8 justify-center items-center content-center' >
-          {academicCourses.map((info, index) => {
+        <div className={`relative w-full flex flex-wrap gap-4 p-2 justify-center items-center content-start`}>
+          {notableProjects.map((projectInfo, index) => {
             return (
-              <AcademicCourseCard key={index} info={info} />
-          )})}
+              <ProjectCard key={index} info={projectInfo} />
+            )
+          })}
         </div>
-      </div>
-
-      {/* Interests */}
-      <div ref={interestsRef} className='mt-[1500px]' />
-      <div className='interestsContainer fixed left-0 top-0 w-screen h-screen pt-[10vh] flex flex-col gap-8 justify-center items-center content-start'>
-        <div className='relative w-full h-[15%]'>
-          <h2 className="interestsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
-            My theoretical interests include...
-          </h2>
-          <h2 className={`interestsMathTitle ${showInterestMath? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
-            Most kind of math <br />
-            <span className='text-center text-sm font-normal' >
-              Except boring <a className='underline' href="https://en.wikipedia.org/wiki/Category_theory" target="noopener" >category theory</a>
-            </span>
-          </h2>
-          <h2 className={`interestsGraphicsTitle ${showInterestGraphics? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
-            <span className={`${showInterestGraphics3DTitle ? "text-pink-500" : "text-green-500"}`}
-              style={{
-                textShadow: showInterestGraphics3DTitle ? '2px 1px 2px #c377f2' : '0px 0px 0px'
-              }}
-            >
-              {showInterestGraphics3DTitle ? "3D" : "2D"}
-            </span>
-            &nbsp;Graphics
-          </h2>
-          <InterestLangTitle
-            className={`interestsLangTitle absolute bottom-0 p-2 w-full break-words text-center text-2xl xs:text-4xl font-bold`}
-            progress={interestLangProgress / 0.6}
-          />
-        </div>
-        <div className='relative w-full grow' >
-          <InterestMath className='interestsMathCanvas absolute w-full h-full'
-            show={showInterestMath}
-            progress={interestMathProgress}
-          />
-          <InterestGraphics className='interestsGraphicsCanvas absolute w-full h-full'
-            show={showInterestGraphics}
-            progress={interestGraphicsProgress}
-          />
-          <InterestLangContent show={showInterestLang} className='interestsLangContent absolute w-full h-full' />
-        </div>
-      </div>
-
-      {/* Skills */}
-      <div ref={skillsRef} className='mt-[6300px]' />
-      <div className={`skillsContainer ${showSkills? '':'pointer-events-none'} fixed left-0 top-0 w-screen h-screen pt-[10vh] flex flex-col gap-8 justify-center items-center content-start`}>
-        <div className='relative w-full h-[10%]'>
-          <h2 className="skillsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
-            My skills include...
-          </h2>
-        </div>
-        <div className='relative w-full grow' >
-          <SkillContent show={true} className='absolute w-full h-full' />
-        </div>
-      </div>
-      
-      {/* Projects */}
-      <div className='mt-[1500px]' />
-      <h2 className="text-center text-3xl xs:text-5xl font-bold">
-          I like side projects...
-      </h2>
-      <div className={`relative w-full flex flex-wrap gap-4 p-2 justify-center items-center content-start`}>
-        {notableProjects.map((projectInfo, index) => {
-          return (
-            <ProjectCard key={index} info={projectInfo} />
-          )
-        })}
-      </div>
-      <Link href='/projects' >
-        <a className='relative' target="noopener" >
-            <button className="h-full text-lg xs:text-2xl font-normal text-black rounded-lg bg-white hover:bg-slate-300 p-[0.5em]" >
-                <FaChevronCircleRight className='inline-block' /> More Projects
-            </button>
-        </a>
-      </Link>
-
-      {/* Hobbies, side interests, livestreaming, video editing, graphic design, music */}
-      <HobbiesMusic className="hobbiesMusic relative bg-slate-800 p-4 w-full" />
-
-      {/* Contact/Work/Resume */}
-      <m.div className='relative mt-8 flex flex-col gap-8 justify-center items-center content-center'
-        initial="hide"
-        whileInView="show"
-        viewport={{ once: false }}
-        variants={{
-            hide: {
-                scale: 0
-            },
-            show: {
-              scale: 1
-            }
-        }}
-        transition={{
-            type: 'spring',
-            bounce: 0.3
-        }}
-      >
-        <h2 className="text-center text-xl xs:text-5xl font-bold">
-            Hope you enjoyed the tour 😊
-        </h2>
-        <Link href='/contact' >
-          <a className='w-[90%] xs:w-[50%] ' target="noopener" >
-            <m.button
-              className='w-full bg-violet-700 rounded-md font-bold text-lg xs:text-3xl p-[0.5em]'
-              animate={{
-                scale:1
-              }}
-              whileHover={{scale: 1.1, opacity: 0.6}}
-              whileTap={{scale: 0.9}}
-            >
-              Contact me
-            </m.button>
+        <Link href='/projects' >
+          <a className='relative' target="noopener" >
+              <m.button className="h-full text-lg xs:text-2xl font-normal text-black rounded-md bg-white hover:bg-slate-300 p-[0.5em]"
+                animate={{
+                  scale:1
+                }}
+                whileHover={{scale: 1.1, opacity: 0.6}}
+                whileTap={{scale: 0.9}}
+              >
+                  <FaChevronCircleRight className='inline-block' /> More Projects
+              </m.button>
           </a>
         </Link>
-      </m.div>
 
+        {/* Hobbies, side interests, livestreaming, video editing, graphic design, music */}
+        <HobbiesMusic className="hobbiesMusic relative p-4 w-full" />
 
-      {/* <div className='skillsContainer relative w-screen flex flex-col gap-8 justify-center items-center content-start'>
-        <h2 className="text-3xl xs:text-5xl font-bold">
-          My skills include:
-        </h2>
-      </div> */}
-      {/* <div className='skillsTitle'>
-        <h2 className="text-5xl font-bold">
-          My skills include:
-        </h2>
-      </div> */}
+        {/* Contact/Work/Resume */}
+        <m.div className='relative mt-8 flex flex-col gap-8 justify-center items-center content-center'
+          initial="hide"
+          whileInView="show"
+          viewport={{ once: false }}
+          variants={{
+              hide: {
+                  scale: 0
+              },
+              show: {
+                scale: 1
+              }
+          }}
+          transition={{
+              type: 'spring',
+              bounce: 0.3
+          }}
+        >
+          <h2 className="text-center text-xl xs:text-5xl font-bold">
+              Hope you enjoyed the tour 😊
+          </h2>
+          <Link href='/contact' >
+            <a className='w-[90%] xs:w-[50%] ' target="noopener" >
+              <m.button
+                className='w-full bg-violet-700 rounded-md font-bold text-lg xs:text-3xl p-[0.5em]'
+                animate={{
+                  scale:1
+                }}
+                whileHover={{scale: 1.1, opacity: 0.6}}
+                whileTap={{scale: 0.9}}
+              >
+                Contact me
+              </m.button>
+            </a>
+          </Link>
+        </m.div>
 
-
-      {/* Projects */}
-      {/* <div className='projects_overview_intro pt-[10vh] flex flex-col justify-center items-center'>
-        <h2 className="text-5xl xs:text-7xl font-bold">
-          Check out some of my projects:
-        </h2>
-      </div> */}
-
-
-      {/* <h1 className="text-3xl font-bold underline spinMe">
-        Hey there!
-      </h1>
-      <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-violet-400 to-pink-600">
-          Hello, world!
-      </h1> */}
-    </div>
+        {/* <h1 className="text-3xl font-bold underline spinMe">
+          Hey there!
+        </h1>
+        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-violet-400 to-pink-600">
+            Hello, world!
+        </h1> */}
+      </div>
+    </>
   )
 }
-
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts
-  const allProjects = await get_all_projects();
-
-  console.log(allProjects)
-
-  return {
-    props: {
-      
-    }
-  };
-
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  // return {
-  //   props: {
-  //     posts,
-  //   },
-  // }
-}
-
-  {/* <Scroll.Container scrollAxis="y" className='h-screen' >
-    <Scroll.Section className="h-full flex flex-wrap justify-center content-center" keyframes={keyframes.heading} >
-      <h1>Page One</h1>
-    </Scroll.Section>
-    <Scroll.Section className="h-full flex flex-wrap justify-center content-center" keyframes={keyframes.heading} >
-      <h1>Page Two</h1>
-    </Scroll.Section>
-    <Scroll.Section className="h-full flex flex-wrap justify-center content-center" keyframes={keyframes.heading}>
-      <h1>Page Three</h1>
-    </Scroll.Section>
-  </Scroll.Container> */}
