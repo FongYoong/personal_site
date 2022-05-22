@@ -3,19 +3,26 @@ import Link from 'next/link'
 import Image from 'next/image'
 import lax from "lax.js"
 import { m } from "framer-motion";
-// import Page, { meta } from '../writings/blog/some_post.mdx'
 import PageHeader from '../components/page/PageHeader'
 import { academicCourses, notableProjects } from '../lib/constants'
 import { DownButton } from '../components/Indicators'
 import AcademicCourseCard from '../components/home/AcademicCourseCard'
+// const InterestMath = dynamic(
+//   () => import('../components/home/InterestMath'),
+//   { loading: () => <Loader className='w-full' /> }
+// )
 import InterestMath from '../components/home/InterestMath'
+// const InterestGraphics = dynamic(
+//   () => import('../components/home/InterestGraphics'),
+//   { loading: () => <Loader className='w-full' /> }
+// )
 import InterestGraphics from '../components/home/InterestGraphics'
 import InterestLangTitle from '../components/home/InterestLangTitle'
 import InterestLangContent from '../components/home/InterestLangContent'
 import SkillContent from '../components/home/SkillContent'
-import animStyles from '../styles/anim.module.css'
 import ProjectCard from '../components/home/ProjectsCard'
 import HobbiesMusic from '../components/home/HobbiesMusic'
+import animStyles from '../styles/anim.module.css'
 import { FaChevronCircleRight } from 'react-icons/fa'
 
 export default function Home() {
@@ -23,6 +30,8 @@ export default function Home() {
   const academicsRef = useRef();
   const interestsRef = useRef();
   const skillsRef = useRef();
+
+  //const [loadP5, setLoadP5] = useState(false);
 
   const [interestMathProgress, setInterestMathProgress] = useState(0);
   const [interestGraphicsProgress, setInterestGraphicsProgress] = useState(0);

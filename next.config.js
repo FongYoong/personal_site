@@ -3,6 +3,9 @@
 // }
 
 // module.exports = nextConfig
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: false,
+})
 
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
@@ -12,7 +15,7 @@ const withMDX = require('@next/mdx')({
     rehypePlugins: [],
   },
 })
-module.exports = withMDX({
+module.exports = withBundleAnalyzer(withMDX({
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   eslint: {
     // Warning: This allows production builds to successfully complete even if
@@ -23,4 +26,4 @@ module.exports = withMDX({
   //   dangerouslyAllowSVG: true,
   //   contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   // },
-})
+}))

@@ -97,7 +97,7 @@ function MyApp({ Component, pageProps }) {
     <LazyMotion features={domAnimation}>
       <SideInfoContext.Provider value={[displaySideInfo, hideSideInfo]}>
         <m.div className='z-10 fixed left-0 top-0 w-screen h-screen bg-teal-400 flex flex-col gap-8 justify-center items-center content-center'
-          initial="show"
+          initial="hide"
           animate={loadingState}
           variants={{
             hide: {
