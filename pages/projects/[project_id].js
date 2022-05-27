@@ -53,9 +53,10 @@ export default function ProjectWriteUp({project_id, meta, data}) {
       const fragment = router.asPath.split("#")[1]
       if (fragment) {
         const scrollElement = document.querySelector(`#${fragment}`);
-        scrollElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+        console.log(scrollElement)
+        scrollElement.scrollIntoView(true, {behavior: "smooth", block: "start", inline: "nearest"});
       }
-      //element.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+      //element.scrollIntoView({behavior: "smooth", block: "nearest", inline: "nearest"});
     }, [router])
     console.log('changeout')
 
@@ -66,7 +67,8 @@ export default function ProjectWriteUp({project_id, meta, data}) {
         titleTop={<TitleTop />}
         titleBottom={<TitleBottom meta={meta} />}
       >
-        <div className="w-[80%] md:w-[50%] p-2 flex flex-col justify-center items-start content-center" >
+        {/* flex flex-col justify-center items-start content-center */}
+        <div className="w-[80%] md:w-[50%] p-2 " >
           <MDXRemote components={components} {...data} />
         </div>
       </Page>
