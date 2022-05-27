@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { get_all_projects, get_project } from '../../lib/mdxUtils'
+import { get_all_projects, get_project, get_table_of_contents } from '../../lib/mdxUtils'
 import { ClientLink, Link } from '../../components/elements/Link'
 import Button from '../../components/elements/Button'
 import Divider from '../../components/elements/Divider'
@@ -10,6 +10,7 @@ import Page from "../../components/page/Page"
 import { BiTime } from 'react-icons/bi'
 import { AiFillGithub } from 'react-icons/ai'
 import { GiGamepad } from 'react-icons/gi'
+import TableOfContents from '../../components/page/TableOfContents'
 
 const TitleTop = () => {
   return (
@@ -23,7 +24,7 @@ const TitleTop = () => {
 
 const TitleBottom = ({meta}) => {
   return (
-    <div className='flex flex-wrap gap-2 justify-center items-center content-center'>
+    <div className='flex flex-wrap gap-8 justify-center items-center content-center'>
       <div className='flex gap-2 justify-center items-center content-center'>
         <BiTime />
         <p>{meta.date}</p>
@@ -45,20 +46,25 @@ const TitleBottom = ({meta}) => {
   )
 }
 
-export default function ProjectWriteUp({project_id, meta, data}) {
-
+export default function ProjectWriteUp({project_id, meta, data, tableOfContents}) {
     const router = useRouter();
+    console.log(data.compiledSource)
 
     useEffect(() => {
       const fragment = router.asPath.split("#")[1]
       if (fragment) {
-        const scrollElement = document.querySelector(`#${fragment}`);
-        console.log(scrollElement)
-        scrollElement.scrollIntoView(true, {behavior: "smooth", block: "start", inline: "nearest"});
+        try {
+          const scrollElement = document.querySelector(`#${fragment}`);
+          if (scrollElement) {
+            scrollElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+          }
+        }
+        catch (error) {
+
+        }
       }
       //element.scrollIntoView({behavior: "smooth", block: "nearest", inline: "nearest"});
     }, [router])
-    console.log('changeout')
 
 
     return (
@@ -67,8 +73,8 @@ export default function ProjectWriteUp({project_id, meta, data}) {
         titleTop={<TitleTop />}
         titleBottom={<TitleBottom meta={meta} />}
       >
-        {/* flex flex-col justify-center items-start content-center */}
-        <div className="w-[80%] md:w-[50%] p-2 " >
+        <div className="flex flex-col w-[80%] lg:w-[50%] p-2 " >
+          <TableOfContents headers={tableOfContents} />
           <MDXRemote components={components} {...data} />
         </div>
       </Page>
@@ -92,11 +98,13 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}) {
   const mdxData = await get_project(params.project_id);
+  const toc = get_table_of_contents(mdxData.compiledSource);
   return {
     props: {
       project_id: params.project_id,
       meta: mdxData.frontmatter,
-      data: mdxData
+      data: mdxData,
+      tableOfContents: toc,
     }
 };
 

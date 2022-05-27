@@ -2,12 +2,12 @@ import NextImage from 'next/image'
 import slugify from 'slugify'
 import { Link } from './elements/Link'
 
-const normalTextStyle = "text-xl xs:text-xl font-normal leading-relaxed";
+const normalTextStyle = "font-normal leading-relaxed text-xl";
 
 export const Heading1 = ({children}) => {
     const id = slugify(children)
     return (
-        <a href={`#${id}`} className="my-4 hover:underline" >
+        <a href={`#${id}`} className="mt-8 mb-4 hover:underline" >
             <h1 id={id} className="text-xl xs:text-3xl font-extrabold">
                 {children}
             </h1>
@@ -58,7 +58,7 @@ export const Image = ({src, alt}) => {
 export const Video = ({src, type="video/mp4"}) => {
     return (
         <div className='my-8 mx-2 overflow-hidden self-center rounded-xl w-[100%]' >
-            <video className='object-cover' autoPlay loop muted playsInline>
+            <video className='object-cover' controls muted playsInline>
                 <source src={src} type={type} />
             </video>
         </div>
@@ -68,7 +68,7 @@ export const Video = ({src, type="video/mp4"}) => {
 
 export const Anchor = ({href, children}) => {
     return (
-        <Link href={href} className={`underline ${normalTextStyle} text-purple-300 hover:font-bold`} >
+        <Link href={href} className={`underline ${normalTextStyle} text-yellow-300 hover:font-bold`} >
             {children}
         </Link>
     )

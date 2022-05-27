@@ -583,12 +583,12 @@ export default function Home() {
               Hope you enjoyed the tour 😊
           </h2>
           <ClientLink href='/contact' className="w-[90%] xs:w-auto">
-            <Button className='w-full font-bold text-lg xs:text-3xl text-white bg-pink-700' >
+            <Button className='w-full font-bold text-lg xs:text-3xl text-white bg-violet-700' >
               <AiOutlineComment className='inline-block' /> Contact Me
             </Button>
           </ClientLink>
           {/* <Link href="/documents/resume.pdf" className="w-[100%] xs:w-auto" >
-            <Button className='w-full font-bold text-lg xs:text-3xl text-white bg-violet-700' >
+            <Button className='w-full font-bold text-lg xs:text-3xl text-white bg-pink-700' >
                 <CgFileDocument className='inline-block' /> View My Resume
             </Button>
           </Link> */}

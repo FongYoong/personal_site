@@ -9,19 +9,26 @@ demo_link: https://cloud-reservation-nextjs.vercel.app/
 
 # What is it?
 
-After hearing lots of buzz around [Next.js](https://nextjs.org/), I decided to give it a try by building, yes, another irrelevant e-commerce website.
+With all the buzz around [Next.js](https://nextjs.org/), I decided to give it a try by building, yes, another irrelevant e-commerce website
+which accomodates both products (measured by quantity) and services (measured by hourly rate).
 The landing page is basically filler promotional material to emphasise the website's brand.
-
 <Video src="/projects/cloud_reservation/landing_page.mp4" />
 
-Upon entering the marketplace page, you'll be greeted with listings of products and services filled with comical images and descriptions.
+Upon entering the marketplace page, users are greeted with listings of products and services filled with comical images and descriptions from my friends.
+For each product, there's a summary coupled with reviews given by past customers. Orders can only be created by registered users.
+<Video src="/projects/cloud_reservation/marketplace.mp4" />
 
-* Users can create
-* A mostly-static [Next.js](https://nextjs.org/) site which enables users to buy and sell products/services in a democratic manner. The system is primitive in the sense that 'payments' are made at the click of a button lol. Users are also able to chat with one another privately.
-* [*Firebase*](https://firebase.google.com/) is the backend for authentication and user data.
-* [Cloudinary](https://cloudinary.com/) is used to store any uploaded images or videos.
+Ordering a product/service is as straightforward as it gets, but the scheduling calendar can be unintuitive.
+<Video src="/projects/cloud_reservation/add_order.mp4" />
+
+Both consumers and sellers can view their past or pending orders. Simple charts and tables summarize sales data for sellers.
+<Video src="/projects/cloud_reservation/orders.mp4" />
+
+Not only do users have their own profile page, they can easily chat with one another to negotiate business.
+<Video src="/projects/cloud_reservation/chats.mp4" />
 
 # Database Considerations
+* [*Firebase*](https://firebase.google.com/) is the backend for authentication and user data.
 Products, services
 Chat
 Feels harder in Firebase. Relational data
@@ -29,6 +36,7 @@ However, authorization provided out of the box
 
 
 # Asset Storage
+* [Cloudinary](https://cloudinary.com/) is used to store any uploaded images or videos.
 Cloudinary, CDN with fast upload and download speeds
 secure with private key
 
@@ -42,6 +50,7 @@ To breathe interactivity in relevant elements
 
 
 # Conclusions
+How's Next.js etc
 <Image src="https://i.imgur.com/ACSstAG.png" alt="something" />
 
 This is a list in markdown:
