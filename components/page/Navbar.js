@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, forwardRef } from 'react'
-import Link from 'next/link'
 import { m } from "framer-motion";
 import useBreakpoint from 'use-breakpoint';
 import { breakpoints } from '../../lib/constants';
+import { ClientLink } from '../elements/Link';
 import { AiFillHome } from 'react-icons/ai'
 import { CgClose } from 'react-icons/cg'
 import { HiMenu } from 'react-icons/hi'
@@ -17,10 +17,10 @@ const navPages = [
         title: "Projects",
         href: "/projects"
     },
-    {
-        title: "Blog",
-        href: "/blog"
-    },
+    // {
+    //     title: "Blog",
+    //     href: "/blog"
+    // },
     {
         title: "Contact",
         href: "/contact"
@@ -29,13 +29,11 @@ const navPages = [
 
 const NavbarButton = forwardRef(({children, href, aClassName, className, onClick, selected=false}, ref) => {
     return (
-        <Link href={href} scroll={false} >
-            <a className={aClassName} ref={ref} onClick={onClick} >
-                <button className={`text-lg rounded-md ${selected?'bg-violet-600 font-bold underline':'font-normal'} hover:bg-violet-700 active:bg-violet-900 p-[0.5em] ${className}`} >
-                    {children}
-                </button>
-            </a>
-        </Link>
+        <ClientLink href={href} className={aClassName} ref={ref} onClick={onClick} scroll={true} >
+            <button className={`text-lg rounded-md ${selected?'bg-violet-600 font-bold underline':'font-normal'} hover:bg-violet-700 active:bg-violet-900 p-[0.5em] ${className}`} >
+                {children}
+            </button>
+        </ClientLink>
     )
 })
 

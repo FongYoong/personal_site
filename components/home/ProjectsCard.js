@@ -1,5 +1,7 @@
-import Link from 'next/link'
 import { m } from "framer-motion";
+import Button from '../elements/Button';
+import Divider from '../elements/Divider';
+import { Link, ClientLink } from '../elements/Link';
 import { AiFillGithub } from 'react-icons/ai'
 import { GiGamepad } from 'react-icons/gi'
 import { MdOutlineSummarize } from 'react-icons/md'
@@ -43,32 +45,27 @@ const ProjectCard = ({info}) => {
                 </div>
 
             </div>
-            {/* <p className={`font-bold text-sm xs:text-md text-black text-start`}>
-                {info.year}
-            </p> */}
-            <div className='bg-black opacity-20 h-[2px] w-full px-2' />
+            <Divider className='bg-black' />
             <p className={`font-bold text-sm xs:text-lg text-start`}>
                 {info.description}
             </p>
             <div className='w-full flex flex-wrap gap-2 justify-end items-center content-center' >
-                <a className='hover:opacity-60 border-black border-2 rounded-full' href={info.githubUrl} target="noopener" >
+                <Link href={info.githubUrl} className="hover:opacity-60 border-black border-2 rounded-full" >
                     <AiFillGithub size='2em' />
-                </a>
+                </Link>
                 {info.demoUrl &&
-                    <a href={info.demoUrl} target="noopener" >
-                        <button className="h-full text-sm xs:text-md font-normal text-white rounded-lg bg-black hover:bg-slate-700 p-[0.5em]" >
+                    <Link href={info.demoUrl} >
+                        <Button className="text-sm xs:text-md text-white bg-black" >
                             <GiGamepad className='inline-block' /> Demo
-                        </button>
-                    </a>
+                        </Button>
+                    </Link>
                 }
 
-                <Link href={info.url} >
-                    <a target="noopener" >
-                        <button className="h-full text-sm xs:text-md font-normal text-white rounded-lg bg-black hover:bg-slate-700 p-[0.5em]" >
-                            <MdOutlineSummarize className='inline-block' /> Write-up
-                        </button>
-                    </a>
-                </Link>
+                <ClientLink href={info.url} newTab >
+                    <Button className="text-sm xs:text-md text-white bg-black" >
+                        <MdOutlineSummarize className='inline-block' /> Write-up
+                    </Button>
+                </ClientLink>
             </div>
             
 

@@ -1,8 +1,8 @@
 import { forwardRef } from "react";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-import { NewtonsCradle } from '@uiball/loaders'
+// import { NewtonsCradle } from '@uiball/loaders'
 
-export const DownButton = forwardRef(({className, duration=2, delay=0}, ref) => {
+export const DownArrow = forwardRef(({className, duration=2, delay=0}, ref) => {
 
     return (
         <LazyMotion features={domAnimation}>
@@ -25,16 +25,16 @@ export const DownButton = forwardRef(({className, duration=2, delay=0}, ref) => 
     )
 })
 
-export const Loader = ({className='', color='white', size=40, speed=1.4}) => {
+// export const Loader = ({className='', color='white', size=40, speed=1.4}) => {
     
-    return (
-        <div className={className} >
-            <NewtonsCradle 
-                size={size}
-                speed={speed} 
-                color={color} 
-            />
-        </div>
+//     return (
+//         <div className={className} >
+//             <NewtonsCradle 
+//                 size={size}
+//                 speed={speed} 
+//                 color={color} 
+//             />
+//         </div>
 
-    )
-}
+//     )
+// }

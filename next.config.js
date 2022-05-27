@@ -22,6 +22,9 @@ module.exports = withBundleAnalyzer(withMDX({
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ['i.imgur.com']
+  },
   // images: {
   //   dangerouslyAllowSVG: true,
   //   contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

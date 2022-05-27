@@ -1,8 +1,4 @@
 import { useState } from 'react'
-// import dynamic from 'next/dynamic'
-// const InterestLangCard = dynamic(() => import('./InterestLangCard').then((mod) => mod.default), {
-//     ssr: false,
-// });
 import { m, AnimatePresence } from "framer-motion";
 import { Ring } from '@uiball/loaders'
 import { AiFillYoutube } from 'react-icons/ai'

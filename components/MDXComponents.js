@@ -1,8 +1,17 @@
+import NextImage from 'next/image'
+import slugify from 'slugify'
+import { Link } from './elements/Link'
+
+const normalTextStyle = "text-xl xs:text-xl font-normal leading-relaxed";
+
 export const Heading1 = ({children}) => {
+    const id = slugify(children)
     return (
-        <h1 className="">
-            {children}
-        </h1>
+        <a href={`#${id}`} className="my-4 hover:underline" >
+            <h1 id={id} className="text-xl xs:text-3xl font-extrabold">
+                {children}
+            </h1>
+        </a>
     )
 }
 
@@ -16,9 +25,52 @@ export const Heading2 = ({children}) => {
 
 export const Paragraph = ({children}) => {
     return (
-        <p className="">
+        <p className={normalTextStyle}>
             {children}
         </p>
+    )
+}
+
+export const UnorderedList = ({children}) => {
+    return (
+        <ul className={`list-disc list-inside ${normalTextStyle}`}>
+            {children}
+        </ul>
+    )
+}
+
+export const OrderedList = ({children}) => {
+    return (
+        <ol className={`list-decimal list-inside ${normalTextStyle}`}>
+            {children}
+        </ol>
+    )
+}
+
+export const Image = ({src, alt}) => {
+    return (
+        <div className='relative overflow-hidden rounded-lg w-[100%] h-[30vh] xs:h-[50vh]' >
+            <NextImage alt={alt} className='p-4 self-center' src={src} layout="fill" objectFit="cover" />
+        </div>
+    )
+}
+
+export const Video = ({src, type="video/mp4"}) => {
+    return (
+        <div className='my-8 mx-2 overflow-hidden self-center rounded-xl w-[100%]' >
+            <video className='object-cover' autoPlay loop muted playsInline>
+                <source src={src} type={type} />
+            </video>
+        </div>
+
+    )
+}
+
+export const Anchor = ({href, children}) => {
+    return (
+        <Link href={href} className={`underline ${normalTextStyle} text-purple-300 hover:font-bold`} >
+            {children}
+        </Link>
     )
 }
 
@@ -27,6 +79,11 @@ export const components = {
     h1: Heading1,
     h2: Heading2,
     p: Paragraph,
+    ul: UnorderedList,
+    ol: OrderedList,
+    Image,
+    Video,
+    a: Anchor,
     // pre: Pre,
     // code: InlineCode,
 }

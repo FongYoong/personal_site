@@ -1,16 +1,16 @@
-import { useState, useContext } from 'react'
-import { SideInfoContext } from '../SideInfo';
 import Image from 'next/image'
 import { m } from "framer-motion";
 import useBreakpoint from 'use-breakpoint';
 import { breakpoints } from '../../lib/constants';
+import Button from '../elements/Button';
+import { Link } from '../elements/Link';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md'
 
 const SkillTool = ({info}) => {
     const { breakpoint } = useBreakpoint(breakpoints, 'mobile');
     return (
-        <a href={info.titleUrl} target="noopener" >
-            <div className='hover:opacity-60 hover:underline rounded-md flex flex-col justify-center items-center content-center'>
+        <Link href={info.titleUrl} >
+            <Button padding={false} className="hover:underline text-sm xs:text-md flex flex-col justify-center items-center content-center" >
                 <Image alt={info.title} className=''
                     src={info.imageUrl} objectFit='contain'
                     width={breakpoint === 'mobile' ? 50 : 100} height={breakpoint === 'mobile' ? 50 : 100}
@@ -21,8 +21,20 @@ const SkillTool = ({info}) => {
                 <p className={`text-sm xs:text-md text-center font-normal break-words`}>
                     {info.title}
                 </p>
-            </div>
-        </a>
+            </Button>
+            {/* <div className='hover:opacity-60 hover:underline rounded-md flex flex-col justify-center items-center content-center'>
+                <Image alt={info.title} className=''
+                    src={info.imageUrl} objectFit='contain'
+                    width={breakpoint === 'mobile' ? 50 : 100} height={breakpoint === 'mobile' ? 50 : 100}
+                    onClick={(e) => { 
+                        e.stopPropagation()
+                    }}
+                />
+                <p className={`text-sm xs:text-md text-center font-normal break-words`}>
+                    {info.title}
+                </p>
+            </div> */}
+        </Link>
     )
 }
 

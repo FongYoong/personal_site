@@ -8,7 +8,7 @@ const AcademicCourseCard = ({info}) => {
     const [show, setShow] = useState(false)
 
     return (
-        <div className={`academicCourseCard relative w-[100px] xs:w-[150px] hover:bg-slate-700 rounded-md flex flex-col justify-center items-center content-center`}
+        <div className={`academicCourseCard cursor-pointer relative w-[100px] xs:w-[150px] hover:bg-slate-700 rounded-md flex flex-col justify-center items-center content-center`}
             onClick={() => setShow(!show)}
             //whileHover={{ borderWidth: 2, }}
             //whileTap={{ borderWidth: 2 }}

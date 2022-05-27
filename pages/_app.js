@@ -133,25 +133,23 @@ function MyApp({ Component, pageProps }) {
             {sideInfo.content}
           </SideInfo>
           <Navbar currentPage={router.pathname} />
-          <AnimatePresence exitBeforeEnter>
-            <m.div
-              className=''
-              key={router.route.concat(animation.name)}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              variants={animation.variants}
-              transition={animation.transition}
-            >
-              <div className="min-h-screen flex flex-col justify-center items-center content-center" >
-                <main className='grow' >
-                  <NavbarSpace />
-                      <Component {...pageProps} />
-                </main>
-                <PageFooter />
-              </div>
-            </m.div>
-          </AnimatePresence>
+          <div className="min-h-screen flex flex-col justify-center items-center content-center" >
+            <NavbarSpace />
+            <AnimatePresence exitBeforeEnter>
+              <m.main
+                className='grow w-full flex flex-col justify-start items-center content-center'
+                key={router.route.concat(animation.name)}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={animation.variants}
+                transition={animation.transition}
+              >
+                <Component {...pageProps} />
+              </m.main>
+            </AnimatePresence>
+            <PageFooter />
+          </div>
         </div>
       </SideInfoContext.Provider>
     </LazyMotion>

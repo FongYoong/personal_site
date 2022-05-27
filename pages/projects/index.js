@@ -1,26 +1,26 @@
-import Page from "../../components/page/Page"
 import { get_all_projects } from '../../lib/mdxUtils'
+import Page from "../../components/page/Page"
+import ProjectsCard from "../../components/projects/ProjectsCard"
 
-export default function Projects() {
+export default function Projects({projects}) {
 
   return (
-    <>
-        <Page title="Projects">
-
-        </Page>
-    </>
+    <Page title="Projects">
+      <div className="flex flex-wrap gap-2 justify-center items-center content-center" >
+        {projects.map((info) => (
+          <ProjectsCard key={info.project_id} info={info} />
+        ))}
+      </div>
+    </Page>
   )
 }
 
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts
-  const allProjects = await get_all_projects();
-
-  console.log(allProjects)
+  const projects = await get_all_projects();
 
   return {
     props: {
-      
+      projects
     }
   };
 

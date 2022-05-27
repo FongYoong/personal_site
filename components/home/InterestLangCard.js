@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { m } from "framer-motion";
 import useBreakpoint from 'use-breakpoint';
 import { breakpoints } from '../../lib/constants';
+import { Link } from '../elements/Link';
 import { FiExternalLink } from 'react-icons/fi'
 
 const InterestLangCard = ({info}) => {
@@ -13,8 +14,7 @@ const InterestLangCard = ({info}) => {
     //const [show, setShow] = useState(false);
 
     return (
-        <m.div
-            tabIndex={0}
+        <m.button
             className="interestsLangCard relative rounded-md flex flex-col justify-center items-center content-center"
             animate={{
                 boxShadow: '0px 0px 0px 1px rgba(255,255,255,0)'
@@ -33,7 +33,7 @@ const InterestLangCard = ({info}) => {
             }}
             onClick={() => {
                 displaySideInfo(info.title,
-                    <a className='hover:underline' href={info.titleUrl} target="noopener" >
+                    <Link href={info.titleUrl} className="hover:underline" >
                         <div className='flex flex-col justify-center items-center content-start' >
                             <div className='flex gap-4' >
                                 <h2 className="text-md xs:text-lg font-bold">
@@ -46,7 +46,7 @@ const InterestLangCard = ({info}) => {
                                 {info.description}
                             </p>
                         </div>
-                    </a>
+                    </Link>
                 )
             }}
         >
@@ -85,7 +85,7 @@ const InterestLangCard = ({info}) => {
              Hey man
             </m.div> */}
             
-        </m.div>
+        </m.button>
     )
 }
 

@@ -1,21 +1,14 @@
 import { useRef, useEffect, useState } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
 import lax from "lax.js"
 import { m } from "framer-motion";
+import { Link, ClientLink } from '../components/elements/Link';
 import PageHeader from '../components/page/PageHeader'
 import { academicCourses, notableProjects } from '../lib/constants'
-import { DownButton } from '../components/Indicators'
+import { DownArrow } from '../components/Indicators'
+import Button from '../components/elements/Button'
 import AcademicCourseCard from '../components/home/AcademicCourseCard'
-// const InterestMath = dynamic(
-//   () => import('../components/home/InterestMath'),
-//   { loading: () => <Loader className='w-full' /> }
-// )
 import InterestMath from '../components/home/InterestMath'
-// const InterestGraphics = dynamic(
-//   () => import('../components/home/InterestGraphics'),
-//   { loading: () => <Loader className='w-full' /> }
-// )
 import InterestGraphics from '../components/home/InterestGraphics'
 import InterestLangTitle from '../components/home/InterestLangTitle'
 import InterestLangContent from '../components/home/InterestLangContent'
@@ -24,14 +17,14 @@ import ProjectCard from '../components/home/ProjectsCard'
 import HobbiesMusic from '../components/home/HobbiesMusic'
 import animStyles from '../styles/anim.module.css'
 import { FaChevronCircleRight } from 'react-icons/fa'
+import { AiOutlineComment } from 'react-icons/ai'
+import { CgFileDocument } from 'react-icons/cg'
 
 export default function Home() {
 
   const academicsRef = useRef();
   const interestsRef = useRef();
   const skillsRef = useRef();
-
-  //const [loadP5, setLoadP5] = useState(false);
 
   const [interestMathProgress, setInterestMathProgress] = useState(0);
   const [interestGraphicsProgress, setInterestGraphicsProgress] = useState(0);
@@ -43,10 +36,6 @@ export default function Home() {
   const [showInterestGraphics, setShowInterestGraphics] = useState(false);
   const [showInterestLang, setShowInterestLang] = useState(false);
   const [showSkills, setShowSkills] = useState(false);
-
-  // const showInterestMath = interestMathProgress > 0 && interestGraphicsProgress <= 0.01;
-  // const showInterestGraphics = interestGraphicsProgress > 0.01 && interestLangProgress <= 0.01;
-  // const showInterestLang = interestLangProgress > 0.01;
 
   useEffect(() => {
     lax.init();
@@ -456,10 +445,10 @@ export default function Home() {
           <h1 className="text-center text-5xl xs:text-7xl font-bold">
             Hey there! <span className={animStyles.wave}>👋</span>
           </h1>
-          <DownButton className="h-[4em]" delay={0} />
-          <DownButton className="h-[3em]"  delay={0.3} />
-          <DownButton className="h-[2em]"  delay={0.7} />
-          <DownButton className="h-[1em]"  delay={1} />
+          <DownArrow className="h-[4em]" delay={0} />
+          <DownArrow className="h-[3em]"  delay={0.3} />
+          <DownArrow className="h-[2em]"  delay={0.7} />
+          <DownArrow className="h-[1em]"  delay={1} />
         </div>
         <div className='stumbled px-4'>
           <h2 className="text-5xl font-bold">
@@ -481,7 +470,7 @@ export default function Home() {
             <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-violet-300 to-pink-400" >
               Electrical & Electronics
             </span>
-            &nbsp;undergraduate student at <a className='underline' href="https://study.utar.edu.my/utar-at-a-glance.php" target="noopener" >UTAR</a> (2019-2023)
+            &nbsp;undergraduate student at <Link href="https://study.utar.edu.my/utar-at-a-glance.php" className='underline' >UTAR</Link> (2019-2023)
           </p>
         </div>
 
@@ -507,7 +496,7 @@ export default function Home() {
             <h2 className={`interestsMathTitle ${showInterestMath? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
               Most kind of math <br />
               <span className='text-center text-sm font-normal' >
-                Except boring <a className='underline' href="https://en.wikipedia.org/wiki/Category_theory" target="noopener" >category theory</a>
+                Except boring <Link href="https://en.wikipedia.org/wiki/Category_theory" className='underline' >category theory</Link>
               </span>
             </h2>
             <h2 className={`interestsGraphicsTitle ${showInterestGraphics? '':'pointer-events-none'} absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold`} >
@@ -521,7 +510,7 @@ export default function Home() {
               &nbsp;Graphics
             </h2>
             <InterestLangTitle
-              className={`interestsLangTitle absolute bottom-0 p-2 w-full break-words text-center text-2xl xs:text-4xl font-bold`}
+              className={`interestsLangTitle ${showInterestLang? '':'pointer-events-none'} absolute bottom-0 p-2 w-full break-words text-center text-2xl xs:text-4xl font-bold`}
               progress={interestLangProgress / 0.6}
             />
           </div>
@@ -563,19 +552,11 @@ export default function Home() {
             )
           })}
         </div>
-        <Link href='/projects' >
-          <a className='relative' target="noopener" >
-              <m.button className="h-full text-lg xs:text-2xl font-normal text-black rounded-md bg-white hover:bg-slate-300 p-[0.5em]"
-                animate={{
-                  scale:1
-                }}
-                whileHover={{scale: 1.1, opacity: 0.6}}
-                whileTap={{scale: 0.9}}
-              >
-                  <FaChevronCircleRight className='inline-block' /> More Projects
-              </m.button>
-          </a>
-        </Link>
+        <ClientLink href='/projects' className="relative" newTab >
+          <Button className='text-lg xs:text-2xl text-black bg-white' >
+            <FaChevronCircleRight className='inline-block' /> More Projects
+          </Button>
+        </ClientLink>
 
         {/* Hobbies, side interests, livestreaming, video editing, graphic design, music */}
         <HobbiesMusic className="hobbiesMusic relative p-4 w-full" />
@@ -598,23 +579,19 @@ export default function Home() {
               bounce: 0.3
           }}
         >
-          <h2 className="text-center text-xl xs:text-5xl font-bold">
+          <h2 className="text-center text-2xl xs:text-5xl font-bold">
               Hope you enjoyed the tour 😊
           </h2>
-          <Link href='/contact' >
-            <a className='w-[90%] xs:w-[50%] ' target="noopener" >
-              <m.button
-                className='w-full bg-violet-700 rounded-md font-bold text-lg xs:text-3xl p-[0.5em]'
-                animate={{
-                  scale:1
-                }}
-                whileHover={{scale: 1.1, opacity: 0.6}}
-                whileTap={{scale: 0.9}}
-              >
-                Contact me
-              </m.button>
-            </a>
-          </Link>
+          <ClientLink href='/contact' className="w-[90%] xs:w-auto">
+            <Button className='w-full font-bold text-lg xs:text-3xl text-white bg-pink-700' >
+              <AiOutlineComment className='inline-block' /> Contact Me
+            </Button>
+          </ClientLink>
+          {/* <Link href="/documents/resume.pdf" className="w-[100%] xs:w-auto" >
+            <Button className='w-full font-bold text-lg xs:text-3xl text-white bg-violet-700' >
+                <CgFileDocument className='inline-block' /> View My Resume
+            </Button>
+          </Link> */}
         </m.div>
 
         {/* <h1 className="text-3xl font-bold underline spinMe">
@@ -627,3 +604,12 @@ export default function Home() {
     </>
   )
 }
+
+// const InterestMath = dynamic(
+//   () => import('../components/home/InterestMath'),
+//   { loading: () => <Loader className='w-full' /> }
+// )
+// const InterestGraphics = dynamic(
+//   () => import('../components/home/InterestGraphics'),
+//   { loading: () => <Loader className='w-full' /> }
+// )

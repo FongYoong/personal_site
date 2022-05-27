@@ -17,10 +17,12 @@
     "framer-motion": "^6.3.3",
     "lax.js": "^2.0.3",
     "next": "12.1.6",
+    "next-mdx-remote": "^4.0.3",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-icons": "^4.3.1",
     "react-p5": "^1.3.30",
+    "slugify": "^1.6.5",
     "use-breakpoint": "^3.0.2"
   },
   "devDependencies": {

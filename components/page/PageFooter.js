@@ -1,4 +1,4 @@
-
+import { Link } from '../elements/Link';
 
 const Footer = () => {
 
@@ -7,9 +7,9 @@ const Footer = () => {
             <h1 className="text-center text-sm xs:text-md font-normal" >
                 © 2022 Fong Yoong
                 <br />
-                Source code available at <a className='underline' href="https://github.com/FongYoong/personal_site" target="noopener" >GitHub</a>
+                Source code available at <Link href="https://github.com/FongYoong/personal_site" className='underline' >GitHub</Link>
                 <br />
-                Built with <a className='underline' href="https://nextjs.org/" target="noopener" >Next.js</a> and hosted on <a className='underline' href="https://vercel.com/" target="noopener" >Vercel</a>
+                Built with <Link href="https://nextjs.org/" className='underline' >Next.js</Link> and hosted on <Link href="https://vercel.com/" className='underline' >Vercel</Link>
             </h1>
         </footer>
     )

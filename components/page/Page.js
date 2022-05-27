@@ -1,14 +1,19 @@
 import PageHeader from "../../components/page/PageHeader"
-import PageTitle from "./PageTitle";
+import Divider from "../elements/Divider";
 
-const Page = ({title, children}) => {
+const Page = ({className, showTitleBorder, title, titleTop, titleBottom, children}) => {
 
   return (
     <>
         <PageHeader title={title} />
-        <PageTitle>
-            {title}
-        </PageTitle>
+        <div className={`mb-4 p-2 flex flex-col gap-4 justify-center items-start content-center ${className} `} >
+          {titleTop}
+          <h1 className="text-center text-4xl xs:text-5xl font-bold" >
+              {title}
+          </h1>
+          {titleBottom}
+          {showTitleBorder && <Divider className="bg-white" />}
+        </div>
         {children}
     </>
   )
