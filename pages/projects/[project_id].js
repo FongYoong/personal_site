@@ -4,7 +4,7 @@ import { get_all_projects, get_project } from '../../lib/mdxUtils'
 import { ClientLink, Link } from '../../components/elements/Link'
 import Button from '../../components/elements/Button'
 import Divider from '../../components/elements/Divider'
-import { components } from '../../components/mdxComponents'
+import { components } from '../../components/MDXComponents'
 import { MDXRemote } from 'next-mdx-remote'
 import Page from "../../components/page/Page"
 import { BiTime } from 'react-icons/bi'
