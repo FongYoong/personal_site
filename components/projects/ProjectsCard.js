@@ -2,15 +2,14 @@ import { m } from "framer-motion";
 import Button from '../elements/Button';
 import Divider from '../elements/Divider';
 import { Link, ClientLink } from '../elements/Link';
-import { AiFillGithub } from 'react-icons/ai'
-import { GiGamepad } from 'react-icons/gi'
-import { MdOutlineSummarize } from 'react-icons/md'
+import { BiTime, BiCalendar } from 'react-icons/bi'
+
 
 const ProjectsCard = ({info}) => {
     return (
-        <ClientLink href={`/projects/${info.project_id}`} >
+        <ClientLink className="w-full m-4" href={`/projects/${info.project_id}`} >
             <m.div
-                className={`relative m-4 p-4 cursor-pointer rounded-lg flex flex-col gap-2 justify-center items-start content-center opacity-100 hover:opacity-80`}
+                className={`relative p-4 cursor-pointer bg-slate-700 rounded-lg w-full flex flex-col gap-2 justify-center items-start content-center opacity-100 hover:opacity-80`}
                 initial="normal"
                 style={{
                     boxShadow: '0px 0px 0px 1px rgba(255,255,255,255)'
@@ -39,9 +38,20 @@ const ProjectsCard = ({info}) => {
                     </div>
                 </div> */}
                 <h1 className={`font-bold text-lg xs:text-2xl text-center break-words`}>
-                    {info.title}
+                    {info.title} 
                 </h1>
-                <p className={`font-bold text-sm xs:text-lg text-start`}>
+                <div className='flex flex-wrap gap-2 justify-start items-center content-center'>
+                    <div className="flex gap-2 justify-center items-center content-center" >
+                        <BiCalendar />
+                        <p className="text-sm xs:text-md"> {info.date} </p>
+                    </div>
+                    <div className="flex gap-2 justify-center items-center content-center" >
+                        <BiTime />
+                        <p className="text-sm xs:text-md"> {info.readingTime} </p>
+                    </div>
+                </div>
+                <Divider className="bg-white" />
+                <p className={`font-normal text-sm xs:text-lg text-start`}>
                     {info.description}
                 </p>
                 {/* <div className='w-full flex flex-wrap gap-2 justify-end items-center content-center' >

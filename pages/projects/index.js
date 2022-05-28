@@ -6,7 +6,7 @@ export default function Projects({projects}) {
 
   return (
     <Page title="Projects">
-      <div className="flex flex-wrap gap-2 justify-center items-center content-center" >
+      <div className="w-[90%] lg:w-[50%] flex flex-col gap-2 justify-center items-center content-center" >
         {projects.map((info) => (
           <ProjectsCard key={info.project_id} info={info} />
         ))}

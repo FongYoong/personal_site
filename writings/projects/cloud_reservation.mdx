@@ -2,7 +2,6 @@
 title: Cloud Reservation
 description: An e-commerce website built with Next.js and Firebase
 date: 27 June 2021
-thumbnail: ./
 github_link: https://github.com/FongYoong/cloud-reservation-nextjs
 demo_link: https://cloud-reservation-nextjs.vercel.app/
 ---
@@ -18,7 +17,7 @@ Upon entering the marketplace page, users are greeted with listings of products 
 For each product, there's a summary coupled with reviews given by past customers. Orders can only be created by registered users.
 <Video src="/projects/cloud_reservation/marketplace.mp4" />
 
-Ordering a product/service is as straightforward as it gets, but the scheduling calendar can be unintuitive.
+Ordering a product/service is as straightforward as it gets, but the scheduling calendar can be regrettably unintuitive.
 <Video src="/projects/cloud_reservation/add_order.mp4" />
 
 Both consumers and sellers can view their past or pending orders. Simple charts and tables summarize sales data for sellers.
@@ -28,35 +27,33 @@ Not only do users have their own profile page, they can easily chat with one ano
 <Video src="/projects/cloud_reservation/chats.mp4" />
 
 # Database Considerations
-* [*Firebase*](https://firebase.google.com/) is the backend for authentication and user data.
-Products, services
-Chat
-Feels harder in Firebase. Relational data
-However, authorization provided out of the box
-
+For the sake of simplicity, [Firebase](https://firebase.google.com/) is used to store user data and authentication.
+Its biggest appeal is that authentication (via email/Google/Facebook etc.) is provided out of the box with minimal setup.
+Firebase has no fixed schema and relies on arbitrarily defined nodes. The authorization of reads or writes are defined via Firebase security rules.
+While this lack of a typed schema makes for easy prototyping, it is equally easy to push data with wrongly-named fields or data type.
+<br />
+<ParagraphIndent />It is also harder to define relationships between data compared to relational SQL-based systems.
+Firebase only provides a limited set of filter and sort configurations.
+SQL joins and custom filtering algorithms are not available and must be implemented manually. 
+In fact, custom sort/filter algorithms can only happen on the client or proxy server **after** the data is retrieved from Firebase.
+This means that the client device must bear the brunt of the sort/filter computation.
+Nevertheless, the disadvantages mentioned do not pose much of an issue as this project's scope is still manageably small.
 
 # Asset Storage
-* [Cloudinary](https://cloudinary.com/) is used to store any uploaded images or videos.
-Cloudinary, CDN with fast upload and download speeds
-secure with private key
+[Cloudinary](https://cloudinary.com/) is a [CDN](https://www.cloudflare.com/learning/cdn/what-is-a-cdn/) used to store any user-uploaded images and videos
+with quick download/upload speeds. It is chosen due to the generous [free tier](https://cloudinary.com/pricing).
 
 # UI Design
-Chakra UI
-Hover over card to play video
-
-
-# Framer Motion
-To breathe interactivity in relevant elements
-
+To avoid building and styling layout elements from scratch, [Chakra UI](https://chakra-ui.com/) was used as an opinionated baseline which
+could be easily customized. In addition, [Framer Motion](https://www.framer.com/motion/) helps to breathe interactivity into elements of interest.
+Its flexible tweening and spring-based system enables the creation of animations limited by my creativity
+(and user experience as well, nobody wants to wait for long animations to complete).
+<Video src="/projects/cloud_reservation/login.mp4" />
 
 # Conclusions
-How's Next.js etc
-<Image src="https://i.imgur.com/ACSstAG.png" alt="something" />
-
-This is a list in markdown:
-
-- One 
-- Two
-- Three
-
-Some React component:
+It has been a enlightening experience piecing the website together with React, Next.js and Firebase.
+* Next.js's ability to leverage both [SSR and CSR](https://nextjs.org/docs/basic-features/data-fetching/overview) led to a satisfying balance between performance and client-side interactivity.
+* Designing interfaces with Chakra UI felt much more pleasant than [Material UI](https://mui.com/).
+* Prototyping with Firebase was quite painless with the in-built authentication and simple JSON structure,
+but most of the headaches came from designing for authorized writes/reads and crafting relationships between entities.
+* All hail the tech companies for their generous free tiers.

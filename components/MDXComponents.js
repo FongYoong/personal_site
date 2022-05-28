@@ -2,7 +2,7 @@ import NextImage from 'next/image'
 import slugify from 'slugify'
 import { Link } from './elements/Link'
 
-const normalTextStyle = "font-normal leading-relaxed text-xl";
+const normalTextStyle = "text-justify font-normal leading-relaxed text-xl";
 
 export const Heading1 = ({children}) => {
     const id = slugify(children)
@@ -28,6 +28,14 @@ export const Paragraph = ({children}) => {
         <p className={normalTextStyle}>
             {children}
         </p>
+    )
+}
+
+export const ParagraphIndent = ({href, children}) => {
+    return (
+        <span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
     )
 }
 
@@ -79,6 +87,7 @@ export const components = {
     h1: Heading1,
     h2: Heading2,
     p: Paragraph,
+    ParagraphIndent,
     ul: UnorderedList,
     ol: OrderedList,
     Image,
@@ -87,3 +96,5 @@ export const components = {
     // pre: Pre,
     // code: InlineCode,
 }
+
+// <Image src="https://i.imgur.com/ACSstAG.png" alt="something" />

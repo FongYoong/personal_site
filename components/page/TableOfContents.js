@@ -4,7 +4,7 @@ import { ClientLink } from "../elements/Link";
 import { MdExpandLess, MdExpandMore } from 'react-icons/md'
 
 const TableOfContents = ({headers}) => {
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(false)
     return (
         <m.div
             tabIndex={0}

@@ -7,7 +7,7 @@ import Divider from '../../components/elements/Divider'
 import { components } from '../../components/MDXComponents'
 import { MDXRemote } from 'next-mdx-remote'
 import Page from "../../components/page/Page"
-import { BiTime } from 'react-icons/bi'
+import { BiTime, BiCalendar } from 'react-icons/bi'
 import { AiFillGithub } from 'react-icons/ai'
 import { GiGamepad } from 'react-icons/gi'
 import TableOfContents from '../../components/page/TableOfContents'
@@ -22,12 +22,18 @@ const TitleTop = () => {
   )
 }
 
-const TitleBottom = ({meta}) => {
+const TitleBottom = ({meta, readingTime}) => {
   return (
-    <div className='flex flex-wrap gap-8 justify-center items-center content-center'>
-      <div className='flex gap-2 justify-center items-center content-center'>
-        <BiTime />
-        <p>{meta.date}</p>
+    <div className='flex flex-wrap gap-4 justify-center items-center content-center'>
+      <div className='flex flex-col gap-2 justify-center items-start content-center'>
+        <div className='flex gap-2 justify-center items-center content-center'>
+          <BiCalendar />
+          <p>{meta.date}</p>
+        </div>
+        <div className='flex gap-2 justify-center items-center content-center'>
+          <BiTime />
+          <p>{readingTime}</p>
+        </div>
       </div>
       <Divider className='bg-white' orientation='vertical' />
       <div className='flex gap-4 justify-center items-center content-center'>
@@ -46,9 +52,8 @@ const TitleBottom = ({meta}) => {
   )
 }
 
-export default function ProjectWriteUp({project_id, meta, data, tableOfContents}) {
+export default function ProjectWriteUp({project_id, meta, data, tableOfContents, readingTime}) {
     const router = useRouter();
-    console.log(data.compiledSource)
 
     useEffect(() => {
       const fragment = router.asPath.split("#")[1]
@@ -71,7 +76,7 @@ export default function ProjectWriteUp({project_id, meta, data, tableOfContents}
       <Page showTitleBorder className="w-auto md:w-[60%]"
         title={meta.title} 
         titleTop={<TitleTop />}
-        titleBottom={<TitleBottom meta={meta} />}
+        titleBottom={<TitleBottom meta={meta} readingTime={readingTime} />}
       >
         <div className="flex flex-col w-[80%] lg:w-[50%] p-2 " >
           <TableOfContents headers={tableOfContents} />
@@ -97,7 +102,7 @@ export async function getStaticPaths() {
 };
 
 export async function getStaticProps({params}) {
-  const mdxData = await get_project(params.project_id);
+  const { mdxData, readingTime } = await get_project(params.project_id);
   const toc = get_table_of_contents(mdxData.compiledSource);
   return {
     props: {
@@ -105,6 +110,7 @@ export async function getStaticProps({params}) {
       meta: mdxData.frontmatter,
       data: mdxData,
       tableOfContents: toc,
+      readingTime
     }
 };
 
