@@ -1,12 +1,69 @@
 ---
 title: Ari Language
 description: A C-like interpreter
-date: 28 June 2021
-github_link: https://github.com/FongYoong/cloud-reservation-nextjs
-demo_link: https://cloud-reservation-nextjs.vercel.app/
+date: 29 January 2021
+github_link: https://github.com/FongYoong/ari-lang
+docs_link: https://fongyoong.github.io/ari-docs/
 ---
 
 # What is it?
+Using [Rust](https://www.rust-lang.org/), I attempted to create an interpreted language called Ari.
+Given that it's my first attempt, I resorted to a **C-like grammar** due to its simplicity and ubiquity.
 
+# Scanning
+Scanning is the process of transforming the input program into a sequential array of tokens. [Tokens](https://en.wikipedia.org/wiki/Lexical_analysis#Token) are the basic blocks of the program akin to physical atoms.
+The block below illustrates the conversion:
+```
++ ➡️ TokenType::Plus
+; ➡️ TokenType::Semicolon
+= ➡️ TokenType::Equal
+== ➡️ TokenType::EqualEqual
+123 ➡️ TokenType::Number
+"123" ➡️ TokenType::String
+someVariable ➡️ TokenType::Identifier
+```
+
+* The scanner's implementation can be found at [scanner.rs](https://github.com/FongYoong/ari-lang/blob/master/ari_parser/src/scanner.rs)
+* All the tokens are defined at [token.rs](https://github.com/FongYoong/ari-lang/blob/master/ari_parser/src/token.rs)
+
+# Parsing
+Parsing is the process of creating an [abstract syntax tree (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree) from the array of tokens.
+Ari's AST comprises of three basic blocks:
+* [Literals](https://github.com/FongYoong/ari-lang/blob/master/ari_parser/src/ast.rs#L14) are values such as [numbers](https://fongyoong.github.io/ari-docs/features/number/), [strings](https://fongyoong.github.io/ari-docs/features/string/), [arrays](https://fongyoong.github.io/ari-docs/features/array/), [null](https://fongyoong.github.io/ari-docs/features/null/) etc.
+* [Expressions](https://github.com/FongYoong/ari-lang/blob/master/ari_parser/src/ast.rs#L415) are individual operations upon literals such as [arithmetic](https://fongyoong.github.io/ari-docs/features/number/#arithmetic), [comparisons](https://fongyoong.github.io/ari-docs/features/number/#logical-comparisons), [array access](https://fongyoong.github.io/ari-docs/features/array/#access), [variable assignment](https://fongyoong.github.io/ari-docs/features/variable/#assignment), [function call](https://fongyoong.github.io/ari-docs/features/function/) etc.
+* [Statements](https://github.com/FongYoong/ari-lang/blob/master/ari_parser/src/ast.rs#L114) are groups of expressions such as [if-else, loops](https://fongyoong.github.io/ari-docs/features/control_flow/), [function definitions](https://fongyoong.github.io/ari-docs/features/function/), etc.
+<br />
+<ParagraphIndent />For simplicity, Ari uses a manually-implemented [recursive descent parser](https://en.wikipedia.org/wiki/Recursive_descent_parser).
+Although easier than other parser types, it is vulnerable to stack overflow if the input program's recursion is too deep.
+All statements and expressions are allocated on the **heap memory** using Rust's standard [Box](https://doc.rust-lang.org/std/boxed/struct.Box.html).
+
+* The AST's implementation can be found at [ast.rs](https://github.com/FongYoong/ari-lang/blob/master/ari_parser/src/ast.rs)
+* The parser's implementation can be found at [parser.rs](https://github.com/FongYoong/ari-lang/blob/master/ari_parser/src/parser.rs)
+
+# Variables and Closures
+In order to keep track of initialized variables, Ari uses Rust's standard [Hashmap](https://doc.rust-lang.org/stable/std/collections/struct.HashMap.html) to map the variables.
+Moreover, Ari also implements **block scoping** which enables variable shadowing [described in the docs.](https://fongyoong.github.io/ari-docs/features/variable/#block-scoping-and-shadowing)
+<br />
+<ParagraphIndent />Ari's functions are [first class citizens](https://en.wikipedia.org/wiki/First-class_function), meaning that they can be [stored in variables and passed around as arguments](https://fongyoong.github.io/ari-docs/features/function/#first-class-functions) to other functions.
+Similar to Javascript, Ari implements the concept of [closures](https://en.wikipedia.org/wiki/Closure_(computer_programming)) where functions keep a copy of their outer scope. [The docs provide some examples](https://fongyoong.github.io/ari-docs/features/function/#closures).
+
+* The environment's implementation can be found at [environment.rs](https://github.com/FongYoong/ari-lang/blob/master/ari_parser/src/environment.rs)
+
+# Array Operations
+Ari creates and manipulates arrays using Rust's standard [Vec](https://doc.rust-lang.org/stable/std/vec/struct.Vec.html).
+To **parallelize** array operations, [Rayon](https://github.com/rayon-rs/rayon) is used.
+Array functions like [map, filter, reduce](https://fongyoong.github.io/ari-docs/features/array/#map) are also provided.
+
+# Built-in Functions
+No language would be appealing or useful if everything must be implemented from scratch.
+Ari provides a small set of built-in functions that I think are helpful for [numbers](https://fongyoong.github.io/ari-docs/features/number/#built-in-functions), [strings](https://fongyoong.github.io/ari-docs/features/string/#built-in-functions), [arrays](https://fongyoong.github.io/ari-docs/features/array/#built-in-functions), [random numbers](https://fongyoong.github.io/ari-docs/features/builtin_functions/#random-generation), [file operations](https://fongyoong.github.io/ari-docs/features/builtin_functions/#file-operations) and [web stuff](https://fongyoong.github.io/ari-docs/features/builtin_functions/#web-stuff).
+* The standard functions are implemented at [function.rs](https://github.com/FongYoong/ari-lang/blob/master/ari_parser/src/function.rs)
+
+# Error Reporting
+Inspired by Rust, I incorporated terminal colors and helpful error messages which highlight **what** and **where** the errors are.
+<Image width={500} height={125} src="/projects/ari_language/error1.jpg" title="Undefined variable" alt="Error1" />
+<Image width={500} height={125} src="/projects/ari_language/error2.jpg" title="Invalid logarithm" alt="Error2" />
+<Image width={500} height={125} src="/projects/ari_language/error3.jpg" title="Missing semicolon" alt="Error2" />
 
 # Conclusions
+This project was a good exposure to the intricacies of language design and also an exciting opportunity to put Rust into practice. 

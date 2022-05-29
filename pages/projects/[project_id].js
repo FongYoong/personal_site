@@ -8,7 +8,7 @@ import { components } from '../../components/MDXComponents'
 import { MDXRemote } from 'next-mdx-remote'
 import Page from "../../components/page/Page"
 import { BiTime, BiCalendar } from 'react-icons/bi'
-import { AiFillGithub } from 'react-icons/ai'
+import { AiFillGithub, AiOutlineRead } from 'react-icons/ai'
 import { GiGamepad } from 'react-icons/gi'
 import TableOfContents from '../../components/page/TableOfContents'
 
@@ -24,7 +24,7 @@ const TitleTop = () => {
 
 const TitleBottom = ({meta, readingTime}) => {
   return (
-    <div className='flex flex-wrap gap-4 justify-center items-center content-center'>
+    <div className='flex flex-wrap gap-4 justify-start items-center content-center'>
       <div className='flex flex-col gap-2 justify-center items-start content-center'>
         <div className='flex gap-2 justify-center items-center content-center'>
           <BiCalendar />
@@ -44,6 +44,13 @@ const TitleBottom = ({meta, readingTime}) => {
             <Link href={meta.demo_link} >
                 <Button className="text-sm xs:text-md bg-purple-700" >
                     <GiGamepad size='2em' className='inline-block' /> Demo
+                </Button>
+            </Link>
+        }
+        {meta.docs_link &&
+            <Link href={meta.docs_link} >
+                <Button className="text-sm xs:text-md bg-purple-700" >
+                    <AiOutlineRead size='2em' className='inline-block' /> Documentation
                 </Button>
             </Link>
         }
@@ -78,7 +85,7 @@ export default function ProjectWriteUp({project_id, meta, data, tableOfContents,
         titleTop={<TitleTop />}
         titleBottom={<TitleBottom meta={meta} readingTime={readingTime} />}
       >
-        <div className="flex flex-col w-[80%] lg:w-[50%] p-2 " >
+        <div className="flex flex-col w-[80%] lg:w-[50%] p-2 justify-center items-start content-center" >
           <TableOfContents headers={tableOfContents} />
           <MDXRemote components={components} {...data} />
         </div>

@@ -2,7 +2,7 @@ import NextImage from 'next/image'
 import slugify from 'slugify'
 import { Link } from './elements/Link'
 
-const normalTextStyle = "text-justify font-normal leading-relaxed text-xl";
+const normalTextStyle = "text-left font-normal leading-relaxed text-xl";
 
 export const Heading1 = ({children}) => {
     const id = slugify(children)
@@ -55,10 +55,13 @@ export const OrderedList = ({children}) => {
     )
 }
 
-export const Image = ({src, alt}) => {
+export const Image = ({width, height, src, alt, title=""}) => {
     return (
-        <div className='relative overflow-hidden rounded-lg w-[100%] h-[30vh] xs:h-[50vh]' >
-            <NextImage alt={alt} className='p-4 self-center' src={src} layout="fill" objectFit="cover" />
+        <div className="relative my-4 self-center" >
+            <div className='rounded-md border-2 border-slate-500'  >
+                <NextImage alt={alt} src={src} width={width} height={height} layout="intrinsic" objectFit="contain" />
+            </div>
+            {title && <p className='text-center text-sm xs:text-lg font-light' > ◦ {title}</p>}
         </div>
     )
 }
@@ -82,6 +85,23 @@ export const Anchor = ({href, children}) => {
     )
 }
 
+export const Pre = ({children}) => {
+    return (
+        <pre className="relative w-full my-2 p-4 rounded-md bg-slate-700 whitespace-pre-wrap" >
+            {children}
+        </pre>
+    )
+}
+
+export const Code = ({children}) => {
+    return (
+        <code className="" >
+            {children}
+        </code>
+    )
+}
+
+
 export const components = {
     //img: ResponsiveImage,
     h1: Heading1,
@@ -93,8 +113,9 @@ export const components = {
     Image,
     Video,
     a: Anchor,
+    pre: Pre,
+    code: Code,
     // pre: Pre,
     // code: InlineCode,
 }
 
-// <Image src="https://i.imgur.com/ACSstAG.png" alt="something" />

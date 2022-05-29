@@ -22,10 +22,10 @@ const TableOfContents = ({headers}) => {
             }}
             variants={{
                 hide: {
-                    backgroundColor: "#52057B"
+                    backgroundColor: "#6922a8"
                 },
                 show: {
-                    backgroundColor: "#892CDC"
+                    backgroundColor: "#6922a8"
                 }
             }}
             transition={{
