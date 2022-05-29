@@ -1,0 +1,36 @@
+---
+title: Numerical Methods Website
+description: A React website for solving numerical problems.
+date: 27 March 2021
+github_link: https://github.com/FongYoong/numerical-methods-js
+demo_link: http://fongyoong.github.io/numerical-methods-js
+---
+
+# What is it?
+While taking an engineering course on [numerical methods](https://en.wikipedia.org/wiki/Numerical_method) back in February 2021,
+I took the initiative to create a couple of interactive solvers using [React.js](https://reactjs.org/).
+It was my first moderately complex React project. [Material UI](https://mui.com/) was used to simplify UI development.
+<Video src="/projects/numerical_methods_website/demo.mp4" />
+
+It also supports matrix-based inputs:
+<Video src="/projects/numerical_methods_website/matrices.mp4" />
+
+# Mathematical Typesetting
+
+In academic documents, [TeX](https://en.wikipedia.org/wiki/TeX) is a typesetting system often used to render mathematical formulae.
+This website uses [KaTeX](https://katex.org/) to render custom TeX on the browser.
+Based on user inputs, the website computes the numerical results of a specific algorithm and outputs them in TeX format rendered by KaTex.
+<br />
+<ParagraphIndent />[MathQuill](https://www.npmjs.com/package/react-mathquill) is another library used to enable users to type mathematical formulae.
+<Video src="/projects/numerical_methods_website/math_input.mp4" />
+
+# Visualizations
+In addition to mathematical rendering, the website also provides interactive graphs using the [Desmos](https://www.npmjs.com/package/desmos) graphing library.
+<Video src="/projects/numerical_methods_website/graph.mp4" />
+
+# Site Tour
+Using [React Joyride](https://github.com/gilbarbara/react-joyride), users can view a tour of the different components of each solver.
+<Video src="/projects/numerical_methods_website/tour.mp4" />
+
+# Conclusions
+It was a pretty fun experience implementing the numerical algorithms learnt from the subject in Javascript while crafting user-friendly interfaces with React.
