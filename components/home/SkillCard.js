@@ -14,6 +14,7 @@ const SkillTool = ({info}) => {
                 <Image alt={info.title} className=''
                     src={info.imageUrl} objectFit='contain'
                     width={breakpoint === 'mobile' ? 50 : 100} height={breakpoint === 'mobile' ? 50 : 100}
+                    placeholder="blur" blurDataURL="/images/placeholder.svg"
                     onClick={(e) => { 
                         e.stopPropagation()
                     }}

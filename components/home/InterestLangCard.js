@@ -53,6 +53,7 @@ const InterestLangCard = ({info}) => {
             <Image alt={info.title} className={`rounded-md ${info.className}`}
                 src={info.imageUrl} objectFit='contain'
                 width={breakpoint === 'mobile' ? 100 : 150} height={breakpoint === 'mobile' ? 56.25 : 85}
+                placeholder="blur" blurDataURL="/images/placeholder.svg"
             />
             {(breakpoint !== 'mobile') &&
                 <h1 className={`text-lg xs:text-2xl text-center font-normal break-words`}>

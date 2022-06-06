@@ -27,7 +27,9 @@ const AcademicCourseCard = ({info}) => {
             // }}
         >
             <div className='relative w-[100px] xs:w-[150px] h-[56.25px] xs:h-[85px] rounded-md overflow-hidden'>
-                <Image alt={info.title} className='academicCoursesImage' src={info.imageUrl} layout='fill' objectFit='cover' />
+                <Image alt={info.title} className='academicCoursesImage' src={info.imageUrl} layout='fill' objectFit='cover'
+                    placeholder="blur" blurDataURL="/images/placeholder.svg"
+                />
             </div>
             <h1 className={`text-lg xs:text-2xl text-center font-normal break-words`}>
                 {info.title}

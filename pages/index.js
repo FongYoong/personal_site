@@ -470,7 +470,9 @@ export default function Home() {
         {/* Academics */}
         <div ref={academicsRef} className='' />
         <div className='academicsUni fixed left-0 top-0 w-screen h-screen p-4 flex flex-col gap-4 justify-center items-center'>
-          <Image alt='UTAR image' className='rounded-md' src='/images/utar_campus.jpg' width='300' height='170' />
+          <Image alt='UTAR image' className='rounded-md' src='/images/utar_campus.jpg' width='300' height='170'
+            placeholder="blur" blurDataURL="/images/placeholder.svg"
+          />
           <p className="text-2xl text-center font-normal">
             I&apos;m a 4th year&nbsp;
             <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-violet-300 to-pink-400" >
