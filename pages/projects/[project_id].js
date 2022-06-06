@@ -63,18 +63,18 @@ export default function ProjectWriteUp({project_id, meta, data, tableOfContents,
     const router = useRouter();
 
     useEffect(() => {
-      const fragment = router.asPath.split("#")[1]
-      if (fragment) {
-        try {
-          const scrollElement = document.querySelector(`#${fragment}`);
-          if (scrollElement) {
-            scrollElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-          }
-        }
-        catch (error) {
+      // const fragment = router.asPath.split("#")[1]
+      // if (fragment) {
+      //   try {
+      //     const scrollElement = document.querySelector(`#${fragment}`);
+      //     if (scrollElement) {
+      //       scrollElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+      //     }
+      //   }
+      //   catch (error) {
 
-        }
-      }
+      //   }
+      // }
       //element.scrollIntoView({behavior: "smooth", block: "nearest", inline: "nearest"});
     }, [router])
 

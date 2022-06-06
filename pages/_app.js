@@ -5,6 +5,7 @@ import { Waveform } from '@uiball/loaders'
 import { Navbar, NavbarSpace } from "../components/page/Navbar";
 import PageFooter from "../components/page/PageFooter";
 import { SideInfo, SideInfoContext } from '../components/SideInfo';
+import { ImageModal, ImageModalContext } from '../components/ImageModal';
 import '../styles/globals.css'
 
 export const animation = {
@@ -36,10 +37,6 @@ const getPageTitle = (pathname) => {
   if (pathname in typicalPageTitles) {
     return typicalPageTitles[pathname]
   }
-  else if (true) {
-    return undefined
-
-  }
   return undefined
 }
 
@@ -50,10 +47,16 @@ function MyApp({ Component, pageProps }) {
   const [showWaitTitle, setShowWaitTitle] = useState(false);
   const waitTitleTimeout = useRef()
   const [loadingState, setLoadingState] = useState('hide');
+
   const [showSideInfo, setShowSideInfo] = useState(false);
   const [sideInfo, setSideInfo] = useState({
     contentId: null,
     content: null
+  });
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [imageModalInfo, setImageModalInfo] = useState({
+    imageUrl: null,
+    alt: null
   });
   
   const displaySideInfo = (contentId, content) => {
@@ -65,6 +68,16 @@ function MyApp({ Component, pageProps }) {
   };
   const hideSideInfo = () => {
     setShowSideInfo(false);
+  };
+  const displayImageModal = (imageUrl, alt) => {
+    setImageModalInfo({
+      imageUrl,
+      alt,
+    });
+    setShowImageModal(true);
+  };
+  const hideImageModal = () => {
+    setShowImageModal(false);
   };
 
   useEffect(() => {
@@ -83,6 +96,10 @@ function MyApp({ Component, pageProps }) {
     const end = () => {
       setLoadingState("hide");
     };
+    // router.beforePopState(state => {
+    //   state.options.scroll = false;
+    //   return true;
+    // });
     router.events.on("routeChangeStart", start);
     router.events.on("routeChangeComplete", end);
     router.events.on("routeChangeError", end);
@@ -96,61 +113,64 @@ function MyApp({ Component, pageProps }) {
   return (
     <LazyMotion features={domAnimation}>
       <SideInfoContext.Provider value={[displaySideInfo, hideSideInfo]}>
-        <m.div className='z-10 fixed left-0 top-0 w-screen h-screen bg-teal-400 flex flex-col gap-8 justify-center items-center content-center'
-          initial="hide"
-          animate={loadingState}
-          variants={{
-            hide: {
-              opacity: 0,
-              pointerEvents: 'none'
-            },
-            show: {
-              opacity: 1,
-              pointerEvents: 'all',
-              transition: {
-                delay: 0.5,
-              }
-            },
-          }}
-        >
-          <h1 className='text-center text-black text-5xl xs:text-7xl font-bold' >
-            {loadingTitle}
-          </h1>
-          <div>
-            <Waveform 
-              size={40}
-              lineWeight={3.5}
-              speed={1} 
-              color="black" 
-            />
+        <ImageModalContext.Provider value={[displayImageModal, hideImageModal]}>
+          <m.div className='z-10 fixed left-0 top-0 w-screen h-screen bg-teal-400 flex flex-col gap-8 justify-center items-center content-center'
+            initial="hide"
+            animate={loadingState}
+            variants={{
+              hide: {
+                opacity: 0,
+                pointerEvents: 'none'
+              },
+              show: {
+                opacity: 1,
+                pointerEvents: 'all',
+                transition: {
+                  delay: 0.5,
+                }
+              },
+            }}
+          >
+            <h1 className='text-center text-black text-5xl xs:text-7xl font-bold' >
+              {loadingTitle}
+            </h1>
+            <div>
+              <Waveform 
+                size={40}
+                lineWeight={3.5}
+                speed={1} 
+                color="black" 
+              />
+            </div>
+            <h2 className={`text-center text-black text-xl xs:text-3xl font-bold transition-opacity ${showWaitTitle?'opacity-100':'opacity-0'}`} >
+              Looks like it&apos;s taking quite long...
+            </h2>
+          </m.div>
+          <div className="bg-black text-base text-white font-normal">
+            <SideInfo show={showSideInfo} setShow={setShowSideInfo} contentId={sideInfo.contentId} >
+              {sideInfo.content}
+            </SideInfo>
+            <ImageModal show={showImageModal} setShow={setShowImageModal} {...imageModalInfo} />
+            <Navbar currentPage={router.pathname} />
+            <div className="min-h-screen flex flex-col justify-center items-center content-center" >
+              <NavbarSpace />
+              <AnimatePresence exitBeforeEnter>
+                <m.main
+                  className='grow w-full flex flex-col justify-start items-center content-center'
+                  key={router.route.concat(animation.name)}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={animation.variants}
+                  transition={animation.transition}
+                >
+                  <Component {...pageProps} />
+                </m.main>
+              </AnimatePresence>
+              <PageFooter />
+            </div>
           </div>
-          <h2 className={`text-center text-black text-xl xs:text-3xl font-bold transition-opacity ${showWaitTitle?'opacity-100':'opacity-0'}`} >
-            Looks like it&apos;s taking quite long...
-          </h2>
-        </m.div>
-        <div className="bg-black text-base text-white font-normal">
-          <SideInfo show={showSideInfo} setShow={setShowSideInfo} contentId={sideInfo.contentId} >
-            {sideInfo.content}
-          </SideInfo>
-          <Navbar currentPage={router.pathname} />
-          <div className="min-h-screen flex flex-col justify-center items-center content-center" >
-            <NavbarSpace />
-            <AnimatePresence exitBeforeEnter>
-              <m.main
-                className='grow w-full flex flex-col justify-start items-center content-center'
-                key={router.route.concat(animation.name)}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                variants={animation.variants}
-                transition={animation.transition}
-              >
-                <Component {...pageProps} />
-              </m.main>
-            </AnimatePresence>
-            <PageFooter />
-          </div>
-        </div>
+        </ImageModalContext.Provider>
       </SideInfoContext.Provider>
     </LazyMotion>
   )

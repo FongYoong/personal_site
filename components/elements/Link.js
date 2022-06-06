@@ -9,7 +9,7 @@ export const Link = forwardRef(({newTab=true, children, ...props}, ref) => {
     )
 })
 
-export const ClientLink = forwardRef(({href, scroll=false, newTab=false, children, ...props}, ref) => {
+export const ClientLink = forwardRef(({href, scroll=true, newTab=false, children, ...props}, ref) => {
 
     return (
         <NextLink href={href} passHref scroll={scroll} >

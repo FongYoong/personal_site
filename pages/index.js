@@ -18,7 +18,6 @@ import HobbiesMusic from '../components/home/HobbiesMusic'
 import animStyles from '../styles/anim.module.css'
 import { FaChevronCircleRight } from 'react-icons/fa'
 import { AiOutlineComment } from 'react-icons/ai'
-import { CgFileDocument } from 'react-icons/cg'
 
 export default function Home() {
 
@@ -440,17 +439,24 @@ export default function Home() {
     // min-h-[3000vh]
     <>
       <PageHeader title="Home" />
+      {/* <div className='fixed z-20 right-0 bottom-0' >
+        Scroll Down
+      </div> */}
       <div className='relative pb-8 w-full flex flex-col gap-4 justify-start items-center content-center overflow-hidden' >
         <div className='hey_there flex flex-col justify-start items-center h-screen' >
           <h1 className="text-center text-5xl xs:text-7xl font-bold">
             Hey there! <span className={animStyles.wave}>👋</span>
+          </h1>
+          <br />
+          <h1 className="text-center text-2xl xs:text-4xl font-bold">
+            Keep scrolling down...
           </h1>
           <DownArrow className="h-[4em]" delay={0} />
           <DownArrow className="h-[3em]"  delay={0.3} />
           <DownArrow className="h-[2em]"  delay={0.7} />
           <DownArrow className="h-[1em]"  delay={1} />
         </div>
-        <div className='stumbled px-4'>
+        {/* <div className='stumbled px-4'>
           <h2 className="text-5xl font-bold">
           Looks like you&apos;ve stumbled upon my top-secret site <span className={animStyles.shake} >😲</span>
           </h2>
@@ -459,7 +465,7 @@ export default function Home() {
           <h2 className="text-5xl font-bold">
             But since you&apos;re here anyway...
           </h2>
-        </div>
+        </div> */}
 
         {/* Academics */}
         <div ref={academicsRef} className='' />

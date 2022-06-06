@@ -17,19 +17,19 @@ const InterestLangCard = ({info}) => {
         <m.button
             className="interestsLangCard relative rounded-md flex flex-col justify-center items-center content-center"
             animate={{
-                boxShadow: '0px 0px 0px 1px rgba(255,255,255,0)'
+                boxShadow: '0px 0px 10px 2px rgba(255,255,255,255)'
             }}
             whileHover={{ 
-                boxShadow: '0px 0px 0px 1px rgba(255,255,255,255)',
+                boxShadow: '0px 0px 0px 2px rgba(255,255,255,255)',
             }}
             whileTap={{ 
                 boxShadow: '0px 0px 0px 2px rgba(255,255,255,255)',
             }}
             whileFocus={{
-                boxShadow: '0px 0px 0px 1px rgba(255,255,255,255)',
+                boxShadow: '0px 0px 0px 2px rgba(255,255,255,255)',
             }}
             transition={{
-                duration: 0.5
+                duration: 0.2
             }}
             onClick={() => {
                 displaySideInfo(info.title,

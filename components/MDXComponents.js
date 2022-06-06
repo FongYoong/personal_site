@@ -1,6 +1,8 @@
+import { useContext } from 'react'
 import NextImage from 'next/image'
 import slugify from 'slugify'
 import { Link } from './elements/Link'
+import { ImageModalContext } from './ImageModal';
 
 const normalTextStyle = "text-left font-normal leading-relaxed text-xl";
 
@@ -56,10 +58,19 @@ export const OrderedList = ({children}) => {
 }
 
 export const Image = ({width, height, src, alt, title=""}) => {
+    const [displayImageModal, hideImageModal] = useContext(ImageModalContext);
+
     return (
         <div className="relative my-4 self-center" >
             <div className='rounded-md border-2 border-slate-500'  >
-                <NextImage alt={alt} src={src} width={width} height={height} layout="intrinsic" objectFit="contain" />
+                <NextImage
+                    className='cursor-zoom-in opacity-100 hover:opacity-70'
+                    alt={alt} src={src} width={width} height={height} layout="intrinsic" objectFit="contain" 
+                    placeholder="blur" blurDataURL="/images/placeholder.svg"
+                    onClick={() => {
+                        displayImageModal(src, alt)
+                    }}
+                />
             </div>
             {title && <p className='text-center text-sm xs:text-lg font-light' > ◦ {title}</p>}
         </div>

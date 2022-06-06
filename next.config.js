@@ -22,6 +22,9 @@ module.exports = withBundleAnalyzer(withMDX({
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    scrollRestoration: true,
+  },
   // images: {
   //   domains: []
   // },
