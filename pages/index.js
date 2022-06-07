@@ -326,7 +326,7 @@ export default function Home() {
         onUpdate: (driverValues, domElement) => {
           const scrollY = driverValues.interestsScrollY[0];
           const minScroll = 4500;
-          const maxScroll = 6000;
+          const maxScroll = 6500;
           if (scrollY > minScroll) {
             if (scrollY < maxScroll) {
               setShowInterestLang(true);

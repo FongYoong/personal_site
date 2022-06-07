@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Quicksand', ...defaultTheme.fontFamily.sans]
+        'sans': ['Open Sans', ...defaultTheme.fontFamily.sans]
       },
       screens: {
         'xs': '480px',

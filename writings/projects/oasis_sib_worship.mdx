@@ -6,6 +6,73 @@ github_link: https://github.com/FongYoong/oasis-sib-worship
 demo_link: http://oasis-sib-worship.vercel.app/
 ---
 
-# What is it?
+# The Problem
+Due to the COVID-19 pandemic and country-wide lockdowns, [the church I was serving at](https://www.facebook.com/theoasissibs2/) resorted to [livestreaming](https://www.youtube.com/c/TheOasisSIB) camera feeds to YouTube.
+To enhance the experience, PowerPoint slides were superimposed onto the camera feeds using [chroma keying](https://en.wikipedia.org/wiki/Chroma_key).
+<Image width={500} height={293} src="/projects/oasis_sib_worship/green_screen_example.jpg" title="Green screen example" />
+While sections like sermon points and announcements require reasonable time to prepare,
+worship slides are the most **time-consuming and tedious** because song lyrics must be **manually** split into multiple slides.
+A worship session typically covers 5 songs which, in my experience, are approximately equivalent to **100 slides or more**.
+<Image width={500} height={217} src="/projects/oasis_sib_worship/worship_slides.jpg" title="PowerPoint Worship Slides" />
+
+Another observation of mine was that while worship teams try to alternate between songs to keep the worship fresh, eventually songs are chosen and sung again in different Sundays.
+This means duplicate work is done if the person-in-charge has to create slides for the song again in the future.
+To summarize,
+* Preparing worship slides is a tedious thing to do week in week out
+* Songs get repeated once in a while, leading to duplicate work
+* There's no centralized reference for worship songs in the church
+
+# The Solution
+The idea of using a website to address these issues appealed to me as a website is accessible to anyone with modern web browser and requires minimal setup.
+Given that the target users possess tech literacy ranging from bare-minimum to competent, the website's [UX](https://www.interaction-design.org/literature/topics/ux-design) must be sufficiently intuitive to use.
+This was an especially difficult challenge to tackle as I did not have much experience in UX design.
+<br />
+<ParagraphIndent />After 2 months of prototyping with [Next.js](https://nextjs.org/) and [Typescript](https://www.typescriptlang.org/),
+the [website](http://oasis-sib-worship.vercel.app/) was viable enough in achieving its objectives.
+The data was hosted on [PlanetScale](https://planetscale.com/) which offers a generous free tier for serverless [MYSQL](https://www.mysql.com/) databases.
+Additionally, [Prisma](https://www.prisma.io/) was used to interact with the database in a type-safe manner without cooking up raw SQL.
+
+# Sessions
+A session refers to a worship session for each Sunday. The **home page** displays all the sessions created in the past.
+<Video src="/projects/oasis_sib_worship/home.mp4" />
+
+Each session contains info on the worship team roles, the order of songs, and additional info.
+<Video src="/projects/oasis_sib_worship/add_session.mp4" />
+
+# Songs
+Songs can be easily added by specifying their title, artist and most importantly, the lyrics.
+By integrating [Quill](https://quilljs.com/) with some customizations of my own, adding song lyrics is quite straightforward similar to using Microsoft Word.
+[Genius](https://genius.com/) is a company which specializes in song lyrics and provides an [API](https://docs.genius.com/) to search and fetch song lyrics.
+Integrating this API enabled users to easily add song lyrics via Genius instead of copy-pasting manually.
+It works perfectly for most songs with the exception of a few relatively unknown ones.
+Another minor feature is automatically searching the song on YouTube and **embedding** the most relevant video in the song's page.
+<Video src="/projects/oasis_sib_worship/add_song.mp4" />
+
+# Chord Annotations
+I also built a chord annotator whereby users can specify chords for different parts of the lyrics. It was quite challenging to formulate an algorithm that played nicely with [Quill's Delta format](https://quilljs.com/docs/delta/).
+<Video src="/projects/oasis_sib_worship/chords.mp4" />
+
+# PowerPoint Generation
+The icing on the cake was the website's ability to **convert song lyrics to PowerPoint files**.
+This was achieved by traversing the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) of the lyrics and dividing it according to [heading elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements).
+Once the sections have been identified, the website translates them into a format suitable for [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) which is a Javascript library for creating PowerPoint files. 
+The code can be found at [/lib/powerpoint.tsx](https://github.com/FongYoong/oasis-sib-worship/blob/master/lib/powerpoint.tsx).
+<br />
+<ParagraphIndent />Additional settings are provided for users to tweak the **style** of the generated PowerPoint (font size, character spacing etc).
+To simplify this process, I added a **preview section** which I found to be both cool and useful when customizing.
+<Video src="/projects/oasis_sib_worship/powerpoint_preview.mp4" />
+
+Other export types include **Microsoft Word**, **PDF** and **HTML**.
+<Image width={500} height={217} src="/projects/oasis_sib_worship/export_types.jpg" title="Export types" />
+
+
+
+# Statistics
+Based on feedback from church members, the [Stats](https://oasis-sib-worship.vercel.app/stats) page displays a ranking of songs ordered by the number of times they have been sung the past month or all time.
+This helps worship leaders to determine which songs are often/rarely sung.
+<Image width={500} height={318} src="/projects/oasis_sib_worship/stats.jpg" title="Songs which have been recently sung" />
 
 # Conclusions
+* The website proved to be a fruitful endeavour which saved plenty of time.
+* Handling database transactions were a breeze due to Prisma's straightforward ORM methods.
+* Most of the effort was geared towards exporting lyrics to multiple formats and building a user-friendly interface.

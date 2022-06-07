@@ -10,7 +10,7 @@ export const Heading1 = ({children}) => {
     const id = slugify(children)
     return (
         <a href={`#${id}`} className="mt-8 mb-4 hover:underline" >
-            <h1 id={id} className="text-xl xs:text-3xl font-extrabold">
+            <h1 id={id} className="text-3xl font-extrabold">
                 {children}
             </h1>
         </a>
@@ -57,22 +57,22 @@ export const OrderedList = ({children}) => {
     )
 }
 
-export const Image = ({width, height, src, alt, title=""}) => {
+export const Image = ({width, height, src, alt="", title=""}) => {
     const [displayImageModal, hideImageModal] = useContext(ImageModalContext);
-
     return (
         <div className="relative my-4 self-center" >
             <div className='rounded-md border-2 border-slate-500'  >
                 <NextImage
                     className='cursor-zoom-in opacity-100 hover:opacity-70'
-                    alt={alt} src={src} width={width} height={height} layout="intrinsic" objectFit="contain" 
+                    alt={alt ? alt : (title ? title : alt)}
+                    src={src} width={width} height={height} layout="intrinsic" objectFit="contain" 
                     placeholder="blur" blurDataURL="/images/placeholder.svg"
                     onClick={() => {
                         displayImageModal(src, alt)
                     }}
                 />
             </div>
-            {title && <p className='text-center text-sm xs:text-lg font-light' > ◦ {title}</p>}
+            {title && <p className='mt-2 text-center text-md xs:text-lg font-light' > ◦ {title}</p>}
         </div>
     )
 }
