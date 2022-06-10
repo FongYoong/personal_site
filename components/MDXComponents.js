@@ -43,7 +43,7 @@ export const ParagraphIndent = ({href, children}) => {
 
 export const UnorderedList = ({children}) => {
     return (
-        <ul className={`list-disc list-inside ${normalTextStyle}`}>
+        <ul className={`pl-8 list-disc list-outside ${normalTextStyle}`}>
             {children}
         </ul>
     )
@@ -51,9 +51,17 @@ export const UnorderedList = ({children}) => {
 
 export const OrderedList = ({children}) => {
     return (
-        <ol className={`list-decimal list-inside ${normalTextStyle}`}>
+        <ol className={`pl-8 list-decimal list-outside ${normalTextStyle}`}>
             {children}
         </ol>
+    )
+}
+
+export const ListElement = ({children}) => {
+    return (
+        <li className="" >
+            {children}
+        </li>
     )
 }
 
@@ -121,6 +129,7 @@ export const components = {
     ParagraphIndent,
     ul: UnorderedList,
     ol: OrderedList,
+    li: ListElement,
     Image,
     Video,
     a: Anchor,

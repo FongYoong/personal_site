@@ -46,7 +46,7 @@ const ProjectCard = ({info}) => {
 
             </div>
             <Divider className='bg-black' />
-            <p className={`font-bold text-sm xs:text-lg text-start`}>
+            <p className={`font-bold text-sm xs:text-md text-start`}>
                 {info.description}
             </p>
             <div className='w-full flex flex-wrap gap-2 justify-end items-center content-center' >

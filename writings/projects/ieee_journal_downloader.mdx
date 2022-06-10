@@ -5,6 +5,37 @@ date: 23 July 2021
 github_link: https://github.com/FongYoong/ieee_journal_downloader
 ---
 
-# What is it?
+# Background
+As an electrical/electronics engineering undergrad, I often refer to [IEEE Xplore](https://ieeexplore.ieee.org/Xplore/home.jsp) for research.
+Although my university provides legal access to most of the research material,
+I sometimes utilize shadier sources via [LibGen](https://libgen.is/scimag/) and [SciHub](https://sci-hub.se/) due to avoid the hassle of signing into my student account.
+However, these two sources only allow access to one paper at a time and does not compile journals as a whole.
+Out of curiousity, I decided to explore if it was possible to extract the metadata of a journal issue from the official IEEE site and acquire all the individual papers of the journal automatically, which led to this project.
 
-# Conclusions
+# Website Reverse-Engineering
+IEEE provides a [developer-friendly API](https://developer.ieee.org/Allowed_API_Uses) that is only available to organizations or anyone with an active subscription.
+Obviously, anyone without a subscription cannot access the official API, which is a letdown.
+I wanted to find a solution which sidesteps this limitation, so I monitored [network requests](https://github.com/FongYoong/ieee_journal_downloader/blob/master/misc/requests_tracking_data.txt) made by the IEEE website and found calls to publicly-exposed APIs which provided relevant information.
+I also inspected the website's [unminified Angular code](https://github.com/FongYoong/ieee_journal_downloader/blob/master/misc/angular_main.js) and found even more interesting URLs.
+As far as I'm aware, these APIs were undocumented and not meant for public use.
+
+The repo contains additional info: [Link](https://github.com/FongYoong/ieee_journal_downloader#background-info)
+
+# Terminal Program
+Using [Rust](https://www.rust-lang.org/), I developed a cross-platform (tested on Windows and Linux only) terminal program which helps to download IEEE journal issues.
+
+1) It uses these undocumented IEEE APIs to obtain metadata such as all the papers in a journal issue, their publication numbers and their corresponding [DOI](https://www.doi.org/).
+2) The program sends the DOI to SciHub or LibGen and receives a HTML webpage containing the download link.
+3) Using [scraper](https://crates.io/crates/scraper), a Rust library for scraping HTML documents, the program searches for the download link element and downloads the associated PDF document.
+4) Given that each journal issue has a couple of papers, the Rust PDF library, [lopdf](https://github.com/J-F-Liu/lopdf), is used to merge the downloaded PDF documents into one final PDF.
+<br />
+The repo's **Usage** section describes the steps: [Link](https://github.com/FongYoong/ieee_journal_downloader#usage)
+<br />
+The **video** below is demonstrates the steps:
+<br />
+<iframe 
+    width='100%' height='300'
+    src="https://www.youtube.com/embed/5HWfE48WohY" title="YouTube video player"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+/>

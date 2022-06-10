@@ -37,9 +37,16 @@ const TitleBottom = ({meta, readingTime}) => {
       </div>
       <Divider className='bg-white' orientation='vertical' />
       <div className='flex gap-4 justify-center items-center content-center'>
-        <Link href={meta.github_link} className="hover:opacity-60 border-black border-2 rounded-full" >
+        {/* <Link href={meta.github_link} className="hover:opacity-60 border-black border-2" >
             <AiFillGithub size='2em' /> GitHub
-        </Link>
+        </Link> */}
+        {meta.github_link &&
+            <Link href={meta.github_link} >
+                <Button className="text-sm xs:text-md bg-purple-700" >
+                  <AiFillGithub size='2em' className='inline-block' /> GitHub
+                </Button>
+            </Link>
+        }
         {meta.demo_link &&
             <Link href={meta.demo_link} >
                 <Button className="text-sm xs:text-md bg-purple-700" >
