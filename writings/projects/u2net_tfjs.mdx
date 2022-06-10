@@ -6,6 +6,37 @@ github_link: https://github.com/FongYoong/u2net-tfjs
 demo_link: https://fongyoong.github.io/u2net-tfjs/
 ---
 
-# What is it?
+# Background
+[U²Net](https://github.com/xuebinqin/U-2-Net) is a fascinating neural network architecture for salient object detection, which is basically the detection and [segmentation of images](https://en.wikipedia.org/wiki/Image_segmentation).
+In other words, the network tries to extract interesting regions from images which leads to applications like background removal and replacement effects.
+<br />
+<ParagraphIndent/>However, a downside to models like U²Net is that they usually require a computing environment equipped with large dependencies like Pytorch or Tensorflow.
+In the case of websites, these models are typically run server-side with the output sent back to the front-end.
+So the thought occured to me: Was there a way to run them **fully browser-side** without any server dependencies?
 
-# Conclusions
+# Machine Learning in the Browser
+The answer was yes: [Tensorflow.js](https://www.tensorflow.org/js) is a mature library that can run Tensorflow-based ML models in the browser.
+However, the U²Net model was implemented in [Pytorch](https://pytorch.org/) and so the available pre-trained weights were also in Pytorch format (.pth).
+Thus, I searched for ways to bridge this gap and came to a holy grail: [ONNX](https://onnx.ai/) which, according to its homepage, is **"an open format built to represent machine learning models"**.
+At last, I came up with the following procedures:
+1) Convert Pytorch weights (.pth) to ONNX weights (.onnx)
+2) Convert ONNX weights (.onnx) to Tensorflow's SavedModel format
+3) Convert Tensorflow's SavedModel to Tensorflow.js weights
+
+# Demo
+With some experimentation, the above procedures bore fruit and I had a working Tensorflow.js model that could be loaded on the browser.
+I built a demo which pre-processes input images, feeds them to the model and displays the result.
+<Image width={500} height={1142} src="/projects/u2net_tfjs/steps.jpg" />
+<br />
+<ParagraphIndent/>[OpenCV.js](https://docs.opencv.org/3.4/d5/d10/tutorial_js_root.html) was used to **resize** the image to a suitable input dimension for the model.
+The model's output was a gray scale mask with different opacity values so I used OpenCV.js to round the opacity to either solid black or white, also known as the **trimmed mask**.
+Finally, the trimmed mask is then multiplied with the original image such that only the white regions are retained.
+<br />
+<ParagraphIndent/>To avoid stalling the main thread, I ran the model in a [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers).
+The model's segmentation abilities are quite rough on the edges compared to the original, but it was a satisfying attempt running this entirely on the browser.
+<br />
+Here's a **video** of the demo:
+<Video src="/projects/u2net_tfjs/demo.mp4" />
+
+And finally a meme:
+<Image width={500} height={453} src="/projects/u2net_tfjs/meme.jpg" />

@@ -1,11 +1,41 @@
 ---
 title: Oasis SIB Atem Guide
-description: A Next.js website which simulates the Atem Mini's basic functionalities
+description: A React website which simulates the Atem Mini's basic functionalities
 date: 17 September 2021
 github_link: https://github.com/FongYoong/oasis-sib-atem-guide
 demo_link: http://oasis-sib-atem-guide.vercel.app/
 ---
 
 # What is it?
+The COVID-19 pandemic pushed [the church I was serving at](https://www.facebook.com/theoasissibs2/) to [livestream](https://www.youtube.com/c/TheOasisSIB) Sunday services to YouTube.
+The media setup involved:
+* 2 cameras with HDMI outputs
+* An [Atem Mini](https://www.blackmagicdesign.com/products/atemmini) to apply video effects and control the final output
+* A personal laptop to display PowerPoint slides or videos
+* A church laptop to stream the output to YouTube using [OBS Studio](https://obsproject.com/)
+
+<br />
+<ParagraphIndent />The most sophisticated component is the Atem Mini which has tons of video effects and settings.
+Throughout the church service, the media personnel has to switch between green screen mode, picture-in-picture mode, or just plain normal mode, depending on the situation.
+The switching process must follow a couple of steps to ensure smooth transitioning between modes.
+Otherwise, the personnel may accidentally show the laptop's home screen or everything becomes green due to failure to activate green screen mode.
+<br />
+<ParagraphIndent />All these can be daunting for new media personnel, which was why I developed this [website](https://oasis-sib-atem-guide.vercel.app/) as a guide and refresher for media personnel in my team.
+The website is a combination of [React](https://reactjs.org/), [Chakra UI](https://chakra-ui.com/) and the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
+
+# Picture-in-Picture
+[Picture-in-Picture (PiP)](https://en.wikipedia.org/wiki/Picture-in-picture) is a presentation method of superimposing a visual source upon another larger video source.
+By manipulating the canvas, I managed to simulate this effect and also provide **smooth transitions**.
+<Video src="/projects/oasis_sib_atem_guide/pip.mp4" />
+
+# Green Screen
+In church services, PowerPoint slides with green background are superimposed onto the camera feeds using [chroma keying](https://en.wikipedia.org/wiki/Chroma_key) to create visual overlays which are useful especially for [song lyrics](http://localhost:3000/projects/oasis_sib_worship).
+By again manipulating the canvas, I managed to achieve chroma keying without any issues:
+<Video src="/projects/oasis_sib_atem_guide/green_screen.mp4" />
+
+# Interactive Guides
+Using [React Joyride](https://github.com/gilbarbara/react-joyride), interactive steps are presented for all kinds of workflows:
+<Video src="/projects/oasis_sib_atem_guide/tour.mp4" />
 
 # Conclusions
+It was a fun experience fiddling around with the Canvas API and making the website visually-appealing.
