@@ -10,6 +10,7 @@ html {
 }
 
 body {
+    background-color:  black;
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBg) var(--scrollbarBg);
 }
