@@ -80,7 +80,7 @@ export const Image = ({width, height, src, alt="", title=""}) => {
                     }}
                 />
             </div>
-            {title && <p className='mt-2 text-center text-md xs:text-lg font-light' > ◦ {title}</p>}
+            {title && <p className='mt-2 text-center text-sm xs:text-md font-light' > ◦ {title}</p>}
         </div>
     )
 }

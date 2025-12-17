@@ -1,0 +1,21 @@
+---
+title: YouTube Desktop Downloader
+description: Rust desktop GUI to download YouTube videos
+date: 22 October 2022
+github_link: https://github.com/FongYoong/youtube_desktop_downloader
+---
+
+# What is it?
+
+Desktop GUIs built with [Electron.js](https://www.electronjs.org/) seemed heavy on RAM and CPU so I wanted to try a lightweight alternative that had web standards built-in.
+[Tauri](https://github.com/tauri-apps/tauri) offered a lighter WebView-based implementation so I decided to try it out by building a downloader for YouTube video/audio/playlists from YouTube and other supported sites.
+* The frontend is plain React with [Mantine UI](https://ui.mantine.dev/) for the base component styles.
+* The backend process makes use of [yt-dlp](https://github.com/yt-dlp/yt-dlp) to do the heavy-lifting of downloading from YouTube.
+    Using subprocesses, it forks multiple instances of yt-dlp to support concurrent downloads.
+* It saves download history, provides selection of format and resolution, and supports download cancellation.
+* There's also a system tray icon for fun.
+* One big flaw currently is that there is not auto-update mechanism for the yt-dlp binary so it stops working after a while if not updated.
+
+<Image width={500} height={217} src="/projects/youtube_desktop_downloader/main.png" title="Main view" />
+<Image width={500} height={217} src="/projects/youtube_desktop_downloader/playlist_info.png" title="Playlist info" />
+<Image width={500} height={217} src="/projects/youtube_desktop_downloader/video_info.png" title="Video info" />

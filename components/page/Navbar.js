@@ -158,6 +158,6 @@ export const Navbar = ({currentPage}) => {
 
 export const NavbarSpace = () => {
     return (
-        <div className='relative pt-[15vh]' />
+        <div className='relative pt-[10vh]' />
     )
 }
