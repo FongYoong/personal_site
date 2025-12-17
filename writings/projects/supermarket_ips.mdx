@@ -1,0 +1,25 @@
+---
+title: VLC-based Indoor Positioning System for Supermarkets
+description: A realtime solution using visible light communication
+date: 29 September 2022
+github_link: https://github.com/FongYoong/supermarket_ips_app
+demo_link: https://youtu.be/irgtomYejGQ
+---
+
+# What is it?
+Here's a YouTube demo of the system:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/irgtomYejGQ?si=z5wU5HHlpWcTSPNs" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+
+<br />
+This university group project demonstrated the practical use of visible light communication for indoor navigation.
+It consisted of:
+* An ESP32-based trolley which ran a combination of trilateration and Kalman filter algorithms to best estimate the trolley's location from light signals received from surrounding light transmitters.
+* At least four light transmitters were required, each transmitter transmitting light at different toggling frequencies.
+* A React Native modile app which paired with the trolley via Bluetooth and displayed the live positions in a 3D simulated view of the supermarket, rendered with Three.js
+* A React web dashboard accessible to "admins" also utilized Three.js to display the live positions of all trolleys. The data were logged/stored in Firebase.
+
+# Code
+* [React Native Android app](https://github.com/FongYoong/supermarket_ips_app)
+* [React Web dashboard](https://github.com/FongYoong/supermarket_ips_admin)
+* [ESP32 C++ code](https://github.com/FongYoong/supermarket_ips_esp32)
+

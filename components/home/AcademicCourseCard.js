@@ -5,7 +5,7 @@ import { m } from "framer-motion";
 
 const AcademicCourseCard = ({info}) => {
 
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(true)
 
     return (
         <div className={`academicCourseCard cursor-pointer relative w-[100px] xs:w-[150px] hover:bg-slate-700 rounded-md flex flex-col justify-center items-center content-center`}

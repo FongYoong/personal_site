@@ -37,14 +37,14 @@ const ProjectsCard = ({info}) => {
                         </h2>
                     </div>
                 </div> */}
-                <h1 className={`font-bold text-lg xs:text-2xl text-center break-words`}>
+                <h1 className={`font-bold text-lg xs:text-2xl text-left break-words`}>
                     {info.title} 
                 </h1>
                 <div className='flex flex-wrap gap-2 justify-start items-center content-center'>
-                    <div className="flex gap-2 justify-center items-center content-center" >
+                    {/* <div className="flex gap-2 justify-center items-center content-center" >
                         <BiCalendar />
                         <p className="text-sm xs:text-md"> {info.date} </p>
-                    </div>
+                    </div> */}
                     <div className="flex gap-2 justify-center items-center content-center" >
                         <BiTime />
                         <p className="text-sm xs:text-md"> {info.readingTime} </p>

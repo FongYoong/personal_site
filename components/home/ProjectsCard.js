@@ -39,9 +39,9 @@ const ProjectCard = ({info}) => {
                     <h1 className={`font-bold text-lg xs:text-2xl text-center break-words`}>
                         {info.title}
                     </h1>
-                    <h2 className='font-bold text-sm xs:text-md text-start'>
+                    {/* <h2 className='font-bold text-sm xs:text-md text-start'>
                         ({info.year})
-                    </h2>
+                    </h2> */}
                 </div>
 
             </div>

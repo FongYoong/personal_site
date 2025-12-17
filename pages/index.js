@@ -22,6 +22,7 @@ import { AiOutlineComment } from 'react-icons/ai'
 export default function Home() {
 
   const academicsRef = useRef();
+  const workRef = useRef();
   const interestsRef = useRef();
   const skillsRef = useRef();
 
@@ -44,6 +45,12 @@ export default function Home() {
     lax.addDriver("academicsScrollY", function () {
       if(academicsRef.current) {
         const rect = academicsRef.current.getBoundingClientRect();
+        return -rect.top;
+      }
+    });
+    lax.addDriver("workScrollY", function () {
+      if(workRef.current) {
+        const rect = workRef.current.getBoundingClientRect();
         return -rect.top;
       }
     });
@@ -113,8 +120,8 @@ export default function Home() {
       ".academicsUni", {
         academicsScrollY: {
           scale: [
-            [-400, 100],
-            [0, 1],
+            [-800, -300, 100],
+            [0, 1, 1.1],
           ],
           translateX: [
             [100, 500],
@@ -183,6 +190,39 @@ export default function Home() {
           scale: [
             [100, 500, 1500],
             [1, 1.1, 1.5],
+          ],
+        }
+      },
+      []
+    );
+
+    lax.addElements(
+      ".workContainer", {
+        workScrollY: {
+          opacity: [
+            [100, 500, 1600, 1800],
+            [0, 1, 1, 0],
+          ],
+        }
+      },
+    );
+    lax.addElements(
+      ".workTitle", {
+        workScrollY: {
+          scale: [
+            [0, 400, 1800],
+            [0, 1, 1.1],
+          ],
+        }
+      },
+      []
+    );
+    lax.addElements(
+      ".workCard", {
+        workScrollY: {
+          scale: [
+            ["200 + index*200", "600 + index*200"],
+            [0, 1],
           ],
         }
       },
@@ -474,11 +514,11 @@ export default function Home() {
             placeholder="blur" blurDataURL="/images/placeholder.svg"
           />
           <p className="text-2xl text-center font-normal">
-            I&apos;m a 4th year&nbsp;
+            I&apos;m an&nbsp;
             <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-violet-300 to-pink-400" >
               Electrical & Electronics
             </span>
-            &nbsp;undergraduate student at <Link href="https://study.utar.edu.my/utar-at-a-glance.php" className='underline' >UTAR</Link> (2019-2023)
+            &nbsp;graduate from <Link href="https://study.utar.edu.my/utar-at-a-glance.php" className='underline' >UTAR</Link> (Jan 2019- Dec 2022)
           </p>
         </div>
 
@@ -494,8 +534,35 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Work */}
+        <div ref={workRef} className='mt-[1500px]' />
+        <div className={`workContainer fixed left-0 top-0 w-screen h-screen p-4 flex flex-col gap-8 justify-center items-center content-center`}>
+          <div className="workTitle flex gap-2 sm:gap-4 justify-center items-center pt-12 sm:pt-0" >
+            <h2 className="text-lg sm:text-2xl font-bold text-center">
+              What I currently do at
+            </h2>
+            <Link href="https://en.wikipedia.org/wiki/Intel" className='border-2 border-transparent transition-all duration-300 hover:border-blue-500 p-2 rounded-md' >
+              <Image alt='Intel logo' className='rounded-md' src='/images/intel_logo.svg' width={120} height={0.38 * 120}
+                placeholder="blur" blurDataURL="/images/placeholder.svg"
+              />
+            </Link>
+          </div>
+          <ul className="list-disc list-inside p-4 space-y-4 rounded-lg">
+            {[
+              <span key="" >Pre-silicon validation of <b>Debug</b> features in client SoCs, particularly <b>trace, trigger and run control</b>.</span>,
+              <span key="" >Maintaining <b>SystemVerilog/UVM simulation</b> tests and Python-based <b>emulation</b> test content, with some Perspec along the way for core stuff.</span>,
+              <span key="" >Working with <b>TAP</b> and functional protocols/fabrics for register configurations and debug use cases in post-silicon.</span>,
+              "Developing mostly Python scripts for post-processing checks and various innovation initiatives to improve pre-silicon design quality",
+            ].map((el, index) => 
+              <li key={index} className="workCard text-md sm:text-lg" >
+                {el}
+              </li>
+            )}
+          </ul>
+        </div>
+
         {/* Interests */}
-        <div ref={interestsRef} className='mt-[1500px]' />
+        <div ref={interestsRef} className='mt-[1800px]' />
         <div className='interestsContainer fixed left-0 top-0 w-screen h-screen pt-[10vh] flex flex-col gap-8 justify-center items-center content-start'>
           <div className='relative w-full h-[15%]'>
             <h2 className="interestsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
