@@ -59,7 +59,7 @@ const HobbiesMusic = ({className}) => {
     return (
         <div className={`mt-8 bg-emerald-900 flex flex-col gap-8 justify-center items-center content-center ${className}`} >
             <h2 className="mt-4 text-center text-3xl xs:text-5xl font-bold">
-                And music too...
+                I like older songs...
             </h2>
             <div className={`flex flex-wrap gap-4 justify-center items-center content-center`} >
                 {

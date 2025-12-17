@@ -4,13 +4,13 @@ import slugify from 'slugify'
 import { Link } from './elements/Link'
 import { ImageModalContext } from './ImageModal';
 
-const normalTextStyle = "text-left font-normal leading-relaxed text-xl";
+const normalTextStyle = "text-left font-normal leading-relaxed text-sm sm:text-md";
 
 export const Heading1 = ({children}) => {
     const id = slugify(children)
     return (
         <a href={`#${id}`} className="mt-8 mb-4 hover:underline" >
-            <h1 id={id} className="text-3xl font-extrabold">
+            <h1 id={id} className="text-xl font-extrabold">
                 {children}
             </h1>
         </a>
@@ -73,7 +73,7 @@ export const Image = ({width, height, src, alt="", title=""}) => {
                 <NextImage
                     className='cursor-zoom-in opacity-100 hover:opacity-70'
                     alt={alt ? alt : (title ? title : alt)}
-                    src={src} width={width} height={height} layout="intrinsic" objectFit="contain" 
+                    src={src} width={width} height={height} style={{objectFit: "contain"}}
                     placeholder="blur" blurDataURL="/images/placeholder.svg"
                     onClick={() => {
                         displayImageModal(src, alt)
@@ -87,7 +87,7 @@ export const Image = ({width, height, src, alt="", title=""}) => {
 
 export const Video = ({src, type="video/mp4"}) => {
     return (
-        <div className='my-8 mx-2 overflow-hidden self-center rounded-xl w-[100%]' >
+        <div className='my-2 mx-2 overflow-hidden self-center rounded-xl w-[100%]' >
             <video className='object-cover' controls muted playsInline>
                 <source src={src} type={type} />
             </video>

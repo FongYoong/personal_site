@@ -27,11 +27,11 @@ const AcademicCourseCard = ({info}) => {
             // }}
         >
             <div className='relative w-[100px] xs:w-[150px] h-[56.25px] xs:h-[85px] rounded-md overflow-hidden'>
-                <Image alt={info.title} className='academicCoursesImage' src={info.imageUrl} layout='fill' objectFit='cover'
+                <Image alt={info.title} className='academicCoursesImage' src={info.imageUrl} fill style={{objectFit: "cover"}}
                     placeholder="blur" blurDataURL="/images/placeholder.svg"
                 />
             </div>
-            <h1 className={`text-lg xs:text-2xl text-center font-normal break-words`}>
+            <h1 className={`text-sm xs:text-2xl text-center font-normal break-words`}>
                 {info.title}
             </h1>
             <m.div
@@ -67,7 +67,7 @@ const AcademicCourseCard = ({info}) => {
                     duration: 0.3,
                 }}
             >
-                <p className="text-md text-center font-normal break-words">
+                <p className="text-xs text-center font-normal break-words">
                     {info.description}
                 </p>
             </m.div>

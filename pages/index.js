@@ -121,7 +121,7 @@ export default function Home() {
         academicsScrollY: {
           scale: [
             [-800, -300, 100],
-            [0, 1, 1.1],
+            [0, 0.9, 1],
           ],
           translateX: [
             [100, 500],
@@ -522,7 +522,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className={`academicCoursesContainer ${showAcademics?'':'pointer-events-none'} fixed left-0 top-0 w-screen h-screen p-4 flex flex-wrap gap-8 justify-center items-center content-center`}>
+        <div className={`academicCoursesContainer ${showAcademics?'':'pointer-events-none'} fixed left-0 top-0 w-screen h-screen p-4 flex flex-wrap gap-4 xs:gap-8 justify-center items-center content-center`}>
           <h2 className="academicCoursesTitle text-3xl xs:text-5xl font-bold">
             With courses like:
           </h2>
@@ -542,7 +542,7 @@ export default function Home() {
               What I currently do at
             </h2>
             <Link href="https://en.wikipedia.org/wiki/Intel" className='border-2 border-transparent transition-all duration-300 hover:border-blue-500 p-2 rounded-md' >
-              <Image alt='Intel logo' className='rounded-md' src='/images/intel_logo.svg' width={120} height={0.38 * 120}
+              <Image alt='Intel logo' className='rounded-sm' src='/images/intel_logo.svg' width={120} height={0.38 * 120}
                 placeholder="blur" blurDataURL="/images/placeholder.svg"
               />
             </Link>
@@ -607,7 +607,7 @@ export default function Home() {
         <div className={`skillsContainer ${showSkills? '':'pointer-events-none'} fixed left-0 top-0 w-screen h-screen pt-[10vh] flex flex-col gap-8 justify-center items-center content-start`}>
           <div className='relative w-full h-[10%]'>
             <h2 className="skillsTitle absolute bottom-0 w-full text-center text-3xl xs:text-5xl font-bold">
-              My skills include...
+              My other skills include...
             </h2>
           </div>
           <div className='relative w-full grow' >
@@ -618,7 +618,7 @@ export default function Home() {
         {/* Projects */}
         <div className='mt-[1500px]' />
         <h2 className="text-center text-3xl xs:text-5xl font-bold">
-            I like side projects...
+          Some past projects...
         </h2>
         <div className={`relative w-full flex flex-wrap gap-4 p-2 justify-center items-center content-start`}>
           {notableProjects.map((projectInfo, index) => {

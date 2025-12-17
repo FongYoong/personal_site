@@ -12,7 +12,7 @@ const SkillTool = ({info}) => {
         <Link href={info.titleUrl} >
             <Button padding={false} className="hover:underline text-sm xs:text-md flex flex-col justify-center items-center content-center" >
                 <Image alt={info.title} className=''
-                    src={info.imageUrl} objectFit='contain'
+                    src={info.imageUrl} style={{objectFit: "contain"}}
                     width={breakpoint === 'mobile' ? 50 : 100} height={breakpoint === 'mobile' ? 50 : 100}
                     placeholder="blur" blurDataURL="/images/placeholder.svg"
                     onClick={(e) => { 
@@ -25,7 +25,7 @@ const SkillTool = ({info}) => {
             </Button>
             {/* <div className='hover:opacity-60 hover:underline rounded-md flex flex-col justify-center items-center content-center'>
                 <Image alt={info.title} className=''
-                    src={info.imageUrl} objectFit='contain'
+                    src={info.imageUrl} style={{objectFit: "contain"}}
                     width={breakpoint === 'mobile' ? 50 : 100} height={breakpoint === 'mobile' ? 50 : 100}
                     onClick={(e) => { 
                         e.stopPropagation()

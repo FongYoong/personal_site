@@ -26,10 +26,10 @@ const TitleBottom = ({meta, readingTime}) => {
   return (
     <div className='flex flex-wrap gap-4 justify-start items-center content-center'>
       <div className='flex flex-col gap-2 justify-center items-start content-center'>
-        <div className='flex gap-2 justify-center items-center content-center'>
+        {/* <div className='flex gap-2 justify-center items-center content-center'>
           <BiCalendar />
           <p>{meta.date}</p>
-        </div>
+        </div> */}
         <div className='flex gap-2 justify-center items-center content-center'>
           <BiTime />
           <p>{readingTime}</p>

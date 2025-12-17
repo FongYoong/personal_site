@@ -1,0 +1,41 @@
+---
+title: Family Feud Web Game
+description: A cool web rendition of the popular game
+date: 2 April 2023
+github_link: https://github.com/FongYoong/new_year_answer_battle_web
+demo_link: https://new-year-answer-battle-web.netlify.app/
+---
+
+# The Game
+This is a React-based web app that implements a variation of the Family Feud game, which I developed for a group event.
+What's great is it runs well as an offline standalone HTML file and comes with a preset of rounds. The images and sounds are all bundled inside the HTML file as encoded binary blobs.
+<br />
+As shown below, the rounds are editable/deleted/added etc. They are saved in the browser's local storage and can be also exported/reloaded as JSON files.
+<Video src="/projects/family_feud/editor.mp4" />
+
+Below is how the gameplay would look like. Basically, it expects a presenter or host to control the progress, reveal the answer and allocate the points accordingly to the winning team.
+There's also a lightning round with a timer where teams have to quickly guess the answer within the time limit.
+<Video src="/projects/family_feud/play.mp4" />
+
+To aid the host, the **Presenter** button spawns a separate window which can be hidden from the audience.
+This presenter window shows the answers and points for normal rounds.
+For lightning rounds, it shows the answers for each question (since presenter needs to decide whether the participant's answer is correct).
+And to me, the coolest thing here is the previous/next buttons which control the rounds. It was exciting making this work using React Context.
+<Video src="/projects/family_feud/editor.mp4" />
+
+Navigation was also made simple, with a popup modal that can jump around. There's also a FAQ and interactive tour that's not shown in the video.
+<Video src="/projects/family_feud/moving_around.mp4" />
+
+# A Generator
+[Generator Github repo](https://github.com/FongYoong/answer-battle-generator)
+
+Given that the final game HTML file has a preset of rounds, it would be convenient to regenerate it with different preset rounds for better distribution to other game hosts.
+So, I developed an Electron-based desktop GUI which enables hosts to specify metadata like webpage title, logo, theme sounds and most crucially, the rounds data.
+The rounds data had to follow a certain text format, in order to determine info like normal/lightning round type, timer duration, points, description etc.
+Using the [Monaco editor library](https://www.npmjs.com/package/@monaco-editor/react) (which powers VSCode as well), I was able to integrate linting capabilities so that users know whether the rounds data format is malformed.
+Below is how it looks like:
+<Video src="/projects/family_feud/generator_editor_linting.mp4" />
+
+When **Generate** is clicked, the program actually copies over these metadata to the React game project and builds the final HTML file with NPM.
+And even more surreal to me at first, I managed to bundle NPM and Node itself into the Electron binary release so that users can generate the final HTML out of the box without manually installing NPM/Node (only tested on Windows).
+

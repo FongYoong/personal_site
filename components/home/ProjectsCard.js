@@ -70,7 +70,7 @@ const ProjectCard = ({info}) => {
             
 
             {/* <Image alt={info.title} className={`rounded-md ${info.className}`}
-                src={info.imageUrl} objectFit='contain'
+                src={info.imageUrl} style={{objectFit: "contain"}}
                 width={breakpoint === 'mobile' ? 100 : 150} height={breakpoint === 'mobile' ? 56.25 : 85}
             />
             {(breakpoint !== 'mobile') &&

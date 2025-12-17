@@ -65,7 +65,7 @@ const TableOfContents = ({headers}) => {
         >
             <div className='flex gap-1 justify-center items-center content-center' >
                 {show ? <MdExpandLess /> : <MdExpandMore /> }
-                <h1 className={`${show?'font-bold':'font-normal'} text-lg xs:text-2xl text-center break-words`}>
+                <h1 className={`${show?'font-bold':'font-normal'} text-md xs:text-lg text-center break-words`}>
                     Table of Contents
                 </h1>
             </div>
@@ -88,7 +88,7 @@ const TableOfContents = ({headers}) => {
                 }}
             >
                 {headers.map((header, index) => 
-                    <p key={index} className="text-lg xs:text-2xl hover:underline"
+                    <p key={index} className="text-md xs:text-lg hover:underline"
                         onClick={(e) => {
                             e.stopPropagation();
                             const scrollElement = document.querySelector(`#${header.id}`);

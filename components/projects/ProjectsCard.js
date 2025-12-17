@@ -7,9 +7,9 @@ import { BiTime, BiCalendar } from 'react-icons/bi'
 
 const ProjectsCard = ({info}) => {
     return (
-        <ClientLink className="w-full m-4" href={`/projects/${info.project_id}`} >
+        <ClientLink className="w-full m-1" href={`/projects/${info.project_id}`} >
             <m.div
-                className={`relative p-4 cursor-pointer bg-slate-700 rounded-lg w-full flex flex-col gap-2 justify-center items-start content-center opacity-100 hover:opacity-80`}
+                className={`relative p-4 cursor-pointer bg-[#1c2533] rounded-lg w-full flex flex-col gap-2 justify-center items-start content-center opacity-100 hover:opacity-80`}
                 initial="normal"
                 style={{
                     boxShadow: '0px 0px 0px 1px rgba(255,255,255,255)'
@@ -37,7 +37,7 @@ const ProjectsCard = ({info}) => {
                         </h2>
                     </div>
                 </div> */}
-                <h1 className={`font-bold text-lg xs:text-2xl text-left break-words`}>
+                <h1 className={`font-bold text-md xs:text-lg text-left break-words`}>
                     {info.title} 
                 </h1>
                 <div className='flex flex-wrap gap-2 justify-start items-center content-center'>
@@ -51,7 +51,7 @@ const ProjectsCard = ({info}) => {
                     </div>
                 </div>
                 <Divider className="bg-white" />
-                <p className={`font-normal text-sm xs:text-lg text-start`}>
+                <p className={`font-normal text-sm xs:text-md text-start`}>
                     {info.description}
                 </p>
                 {/* <div className='w-full flex flex-wrap gap-2 justify-end items-center content-center' >

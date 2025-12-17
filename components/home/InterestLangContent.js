@@ -13,12 +13,12 @@ const programmingLanguages = [
       titleUrl: 'https://www.rust-lang.org/',
       description: "Challenges me to rethink memory-safety, thread-safety, error handling, and lifetimes."
     },
-    {
-      imageUrl: '/images/programming_languages/javascript.svg',
-      title: 'JavaScript',
-      titleUrl: 'https://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/',
-      description: "Say what you want, it's the lingua franca of the web."
-    },
+    // {
+    //   imageUrl: '/images/programming_languages/javascript.svg',
+    //   title: 'JavaScript',
+    //   titleUrl: 'https://blog.codinghorror.com/javascript-the-lingua-franca-of-the-web/',
+    //   description: "Say what you want, it's the lingua franca of the web."
+    // },
     {
       imageUrl: '/images/programming_languages/typescript.svg',
       title: 'TypeScript',
@@ -31,6 +31,19 @@ const programmingLanguages = [
       titleUrl: 'https://peps.python.org/pep-0020/',
       description: 'My go-to tool for numerical computing and scripting.'
     },
+    {
+      imageUrl: '/images/programming_languages/systemverilog.svg',
+      title: 'SystemVerilog',
+      titleUrl: 'https://en.wikipedia.org/wiki/SystemVerilog',
+      description: 'Feels poorly designed (so many keywords!) but essential for RTL design and verification.'
+    },
+    {
+        imageUrl: '/images/programming_languages/perl.svg',
+        title: 'Perl',
+        className: 'invert',
+        titleUrl: 'https://peps.python.org/pep-0020/',
+        description: 'Wonderful for quick text processing.'
+      },
     {
         imageUrl: '/images/programming_languages/cpp.svg',
         title: 'C++',
@@ -48,19 +61,6 @@ const programmingLanguages = [
       title: 'Java',
       titleUrl: 'https://news.ycombinator.com/item?id=21703463',
       description: "Boilerplate hell and boring but puts food on the table."
-    },
-    {
-        imageUrl: '/images/programming_languages/perl.svg',
-        title: 'Perl',
-        className: 'invert',
-        titleUrl: 'https://peps.python.org/pep-0020/',
-        description: 'Wonderful for quick text processing.'
-      },
-    {
-      imageUrl: '/images/programming_languages/systemverilog.svg',
-      title: 'SystemVerilog',
-      titleUrl: 'https://en.wikipedia.org/wiki/SystemVerilog',
-      description: 'Feels poorly designed (so many keywords!) but essential for RTL design and verification.'
     },
 ];
 

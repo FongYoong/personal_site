@@ -31,7 +31,7 @@ export const ImageModal = ({show, setShow, imageUrl, alt}) => {
         >
             <div className='relative h-[80%] w-[95%] lg:w-[50%]' >
                 {imageUrl && 
-                    <Image alt={alt} src={imageUrl} layout="fill" objectFit="contain" 
+                    <Image alt={alt} src={imageUrl} fill style={{objectFit: "contain"}}
                         placeholder="blur" blurDataURL="/images/placeholder.svg"
                     />
                 }

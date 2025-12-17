@@ -8,7 +8,7 @@ const Page = ({className, showTitleBorder, title, titleTop, titleBottom, childre
         <PageHeader title={title} />
         <div className={`mx-4 mb-4 p-2 flex flex-col gap-4 justify-center items-start content-center ${className} `} >
           {titleTop}
-          <h1 className="text-center text-4xl xs:text-5xl font-bold" >
+          <h1 className="text-center text-xl xs:text-2xl font-bold" >
               {title}
           </h1>
           {titleBottom}
